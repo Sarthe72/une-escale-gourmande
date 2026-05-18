@@ -55,11 +55,11 @@ const mapsURL = "https://www.google.com/maps/search/?api=1&query=1144+route+des+
           <span class="block w-6 h-0.5 bg-stone-700"></span>
         </button>
         <ul id="nav-links" class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
-          <li><a href="/" class="hover:text-[#2d6a4f] transition-colors">Accueil</a></li>
-          <li><a href="/benjamin" class="hover:text-[#2d6a4f] transition-colors">Le Chef</a></li>
-          <li><a href="/chambre" class="hover:text-[#2d6a4f] transition-colors">Chambre</a></li>
-          <li><a href="/traiteur" class="hover:text-[#2d6a4f] transition-colors">Traiteur</a></li>
-          <li><a href="/menu-truffe" class="hover:text-[#2d6a4f] transition-colors">Menu Truffe</a></li>
+          <li><a href="/" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Accueil</a></li>
+          <li><a href="/benjamin" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Le Chef</a></li>
+          <li><a href="/chambre" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Chambre</a></li>
+          <li><a href="/traiteur" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Traiteur</a></li>
+          <li><a href="/menu-truffe" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Menu Truffe</a></li>
           <li>
             <a href="/contact" class="bg-[#2d6a4f] text-white px-4 py-2 rounded-sm hover:bg-[#1b4332] transition-colors">
               Contact
@@ -198,6 +198,47 @@ const mapsURL = "https://www.google.com/maps/search/?api=1&query=1144+route+des+
           if (e.key === 'ArrowRight') showImg(currentIdx + 1);
         }
       });
+
+      // Parallax
+      const parallaxImgs = document.querySelectorAll<HTMLImageElement>('[data-parallax]');
+      function updateParallax() {
+        parallaxImgs.forEach(img => {
+          const section = img.closest('section');
+          if (!section) return;
+          const rect = section.getBoundingClientRect();
+          const progress = -rect.top / (window.innerHeight + rect.height);
+          img.style.transform = `translateY(${progress * 80}px)`;
+        });
+      }
+      if (parallaxImgs.length) {
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        updateParallax();
+      }
+
+      // Compteurs animés
+      const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+      if (counters.length) {
+        const countObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            const target = parseInt(el.dataset.count || '0');
+            const suffix = el.dataset.suffix || '';
+            const duration = 1400;
+            const startTime = performance.now();
+            function animate(now: number) {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.round(eased * target) + suffix;
+              if (progress < 1) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+            countObserver.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        counters.forEach(el => countObserver.observe(el));
+      }
     </script>
   </body>
 </html>

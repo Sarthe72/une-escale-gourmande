@@ -45,6 +45,14 @@ h1, h2, h3 {
 .reveal-delay-2 { transition-delay: 200ms; }
 .reveal-delay-3 { transition-delay: 300ms; }
 
+/* Parallax hero images */
+[data-parallax] {
+  height: calc(100% + 120px) !important;
+  top: -60px !important;
+  bottom: auto !important;
+  will-change: transform;
+}
+
 /* Lightbox */
 #lightbox {
   animation: lb-in 0.2s ease;
