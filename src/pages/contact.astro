@@ -96,16 +96,18 @@ const schema = {
       <!-- FORMULAIRE -->
       <div>
         <h2 class="font-serif text-xl mb-5">Formulaire de contact</h2>
+        <div id="form-success" class="hidden bg-[#d1fae5] border border-[#2d6a4f] text-[#1b4332] px-6 py-8 text-center">
+          <div class="text-3xl mb-3">✓</div>
+          <p class="font-serif text-xl mb-2">Message envoyé !</p>
+          <p class="text-sm">Benjamin reviendra vers vous rapidement.</p>
+        </div>
         <form
-          action="https://api.web3forms.com/submit"
-          method="POST"
           class="space-y-5"
           id="contact-form"
         >
           <input type="hidden" name="access_key" value="eb63057c-fdd6-4ea6-b838-d20017cb1f6b" />
           <input type="hidden" name="subject" value="Nouveau message — Une Escale Gourmande" />
           <input type="hidden" name="from_name" value="Une Escale Gourmande" />
-          <input type="hidden" name="redirect" value="https://une-escale-gourmande.passe-melvin.workers.dev/contact?merci=1" />
           <div>
             <label for="nom" class="block text-sm font-medium text-stone-700 mb-1">Nom *</label>
             <input type="text" id="nom" name="nom" required class="w-full border border-stone-300 px-4 py-2.5 focus:outline-none focus:border-[#2d6a4f] bg-white" />
@@ -132,10 +134,42 @@ const schema = {
             <label for="message" class="block text-sm font-medium text-stone-700 mb-1">Message *</label>
             <textarea id="message" name="message" rows="5" required class="w-full border border-stone-300 px-4 py-2.5 focus:outline-none focus:border-[#2d6a4f] bg-white resize-none"></textarea>
           </div>
-          <button type="submit" class="w-full bg-[#2d6a4f] text-white py-3 font-medium hover:bg-[#1b4332] transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-lg">
+          <button type="submit" id="submit-btn" class="w-full bg-[#2d6a4f] text-white py-3 font-medium hover:bg-[#1b4332] transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-lg">
             Envoyer le message
           </button>
+          <p id="form-error" class="hidden text-red-600 text-sm text-center">Une erreur est survenue. Veuillez réessayer ou nous contacter directement par téléphone.</p>
         </form>
+        <script>
+          const form = document.getElementById('contact-form');
+          const successBox = document.getElementById('form-success');
+          const errorMsg = document.getElementById('form-error');
+          const submitBtn = document.getElementById('submit-btn');
+
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours…';
+            errorMsg.classList.add('hidden');
+
+            try {
+              const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: new FormData(form)
+              });
+              const data = await res.json();
+              if (data.success) {
+                form.classList.add('hidden');
+                successBox.classList.remove('hidden');
+              } else {
+                throw new Error();
+              }
+            } catch {
+              errorMsg.classList.remove('hidden');
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Envoyer le message';
+            }
+          });
+        </script>
       </div>
     </div>
   </section>
