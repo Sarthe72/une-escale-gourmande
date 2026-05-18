@@ -152,6 +152,15 @@ const mapsURL = "https://www.google.com/maps/search/?api=1&query=1144+route+des+
         revealObserver.observe(el);
       });
 
+      // Stagger sur les grilles
+      document.querySelectorAll('main .grid, main .space-y-8').forEach(grid => {
+        grid.classList.add('stagger');
+        Array.from(grid.children).forEach(child => {
+          (child as HTMLElement).classList.add('reveal');
+          revealObserver.observe(child);
+        });
+      });
+
       // Lightbox avec navigation
       const lightbox = document.getElementById('lightbox') as HTMLElement | null;
       const lbImg = document.getElementById('lb-img') as HTMLImageElement | null;
