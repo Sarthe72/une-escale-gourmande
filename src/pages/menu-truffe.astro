@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import photosTruffe from '../data/photos-truffe.json';
 
 const schema = {
   "@context": "https://schema.org",
@@ -102,16 +103,9 @@ const schema = {
   <section class="py-20 max-w-5xl mx-auto px-4">
     <h2 class="font-serif text-2xl text-center mb-10">Quelques créations autour de la truffe</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <img src="/images/truffe-menu-1.webp" alt="Création autour de la truffe noire" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-2.jpg" alt="Plat truffe noire du Périgord" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-3.jpg" alt="Assiette menu truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-4.jpg" alt="Création gastronomique à la truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-5.jpg" alt="Plat principal menu truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-6.jpg" alt="Entrée menu truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-7.jpeg" alt="Truffe noire melanosporum" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-8.jpeg" alt="Dessert à la truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-10.jpeg" alt="Amuse-bouche à la truffe" class="w-full aspect-square object-cover" />
-      <img src="/images/truffe-menu-11.jpeg" alt="Création autour de la truffe" class="w-full aspect-square object-cover" />
+      {photosTruffe.photos.map(photo => (
+        <img src={photo.src} alt={photo.alt} class="w-full aspect-square object-cover" />
+      ))}
     </div>
   </section>
 

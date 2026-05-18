@@ -1,5 +1,8 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import tarifs from '../data/tarifs-chambre.json';
+import photosChambre from '../data/photos-chambre.json';
+import photosDomaine from '../data/photos-domaine.json';
 
 const schema = {
   "@context": "https://schema.org",
@@ -69,15 +72,15 @@ const schema = {
           <div class="space-y-2 text-stone-700">
             <div class="flex justify-between items-center">
               <span>Chambre pour 2 personnes + petit-déjeuner</span>
-              <span class="font-bold text-lg">66 €</span>
+              <span class="font-bold text-lg">{tarifs.prix_base} €</span>
             </div>
             <div class="flex justify-between items-center text-sm text-stone-500">
               <span>Haute saison (Juillet & août)</span>
-              <span class="font-medium">76 €</span>
+              <span class="font-medium">{tarifs.prix_haute_saison} €</span>
             </div>
             <div class="flex justify-between items-center text-sm text-stone-500 mt-4 pt-4 border-t border-stone-200">
               <span>Dîner en option (par personne)</span>
-              <span class="font-medium">+ 19 €</span>
+              <span class="font-medium">+ {tarifs.prix_diner} €</span>
             </div>
           </div>
           <p class="text-xs text-stone-400 mt-4">Tarif par nuit · Petit-déjeuner inclus</p>
@@ -91,14 +94,9 @@ const schema = {
       <!-- PHOTOS -->
       <div class="space-y-3">
         <div class="grid grid-cols-2 gap-3">
-          <img src="/images/chambre-interieur.jpg" alt="Vue sur le jardin depuis la chambre" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-exterieur.jpg" alt="Extérieur de la chambre avec iris" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-nouvelle-2.jpeg" alt="Salon de la chambre" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-nouvelle.jpeg" alt="Chambre avec table et lit" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-5.jpg" alt="Chambre d'hôte" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-6.jpg" alt="Chambre d'hôte" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-7.webp" alt="Chambre d'hôte" class="w-full aspect-square object-cover" />
-          <img src="/images/chambre-8.jpg" alt="Chambre d'hôte" class="w-full aspect-square object-cover" />
+          {photosChambre.photos.map(photo => (
+            <img src={photo.src} alt={photo.alt} class="w-full aspect-square object-cover" />
+          ))}
         </div>
       </div>
     </div>
@@ -131,15 +129,9 @@ const schema = {
   <section class="py-16 max-w-5xl mx-auto px-4">
     <h2 class="font-serif text-2xl text-center mb-10">Le domaine</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-      <img src="/images/domaine-1.jpg" alt="Le domaine" class="w-full aspect-[4/3] object-cover col-span-2 md:col-span-1" />
-      <img src="/images/domaine-2.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-3.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-5.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-6.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover col-span-2 md:col-span-1" />
-      <img src="/images/domaine-7.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-8.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-9.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover" />
-      <img src="/images/domaine-10.jpeg" alt="Le domaine" class="w-full aspect-[4/3] object-cover col-span-2 md:col-span-1" />
+      {photosDomaine.photos.map((photo, i) => (
+        <img src={photo.src} alt={photo.alt} class={`w-full aspect-[4/3] object-cover${i % 4 === 0 ? ' col-span-2 md:col-span-1' : ''}`} />
+      ))}
     </div>
   </section>
 

@@ -1,0 +1,12 @@
+{
+  "photos": [
+    { "src": "/images/chambre-interieur.jpg", "alt": "Vue sur le jardin depuis la chambre" },
+    { "src": "/images/chambre-exterieur.jpg", "alt": "Extérieur de la chambre avec iris" },
+    { "src": "/images/chambre-nouvelle-2.jpeg", "alt": "Salon de la chambre" },
+    { "src": "/images/chambre-nouvelle.jpeg", "alt": "Chambre avec table et lit" },
+    { "src": "/images/chambre-5.jpg", "alt": "Chambre d'hôte" },
+    { "src": "/images/chambre-6.jpg", "alt": "Chambre d'hôte" },
+    { "src": "/images/chambre-7.webp", "alt": "Chambre d'hôte" },
+    { "src": "/images/chambre-8.jpg", "alt": "Chambre d'hôte" }
+  ]
+}

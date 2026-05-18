@@ -1,0 +1,13 @@
+{
+  "photos": [
+    { "src": "/images/domaine-1.jpg", "alt": "Le domaine" },
+    { "src": "/images/domaine-2.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-3.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-5.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-6.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-7.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-8.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-9.jpeg", "alt": "Le domaine" },
+    { "src": "/images/domaine-10.jpeg", "alt": "Le domaine" }
+  ]
+}

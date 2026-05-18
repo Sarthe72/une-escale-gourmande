@@ -1,0 +1,14 @@
+{
+  "photos": [
+    { "src": "/images/truffe-menu-1.webp", "alt": "Création autour de la truffe noire" },
+    { "src": "/images/truffe-menu-2.jpg", "alt": "Plat truffe noire du Périgord" },
+    { "src": "/images/truffe-menu-3.jpg", "alt": "Assiette menu truffe" },
+    { "src": "/images/truffe-menu-4.jpg", "alt": "Création gastronomique à la truffe" },
+    { "src": "/images/truffe-menu-5.jpg", "alt": "Plat principal menu truffe" },
+    { "src": "/images/truffe-menu-6.jpg", "alt": "Entrée menu truffe" },
+    { "src": "/images/truffe-menu-7.jpeg", "alt": "Truffe noire melanosporum" },
+    { "src": "/images/truffe-menu-8.jpeg", "alt": "Dessert à la truffe" },
+    { "src": "/images/truffe-menu-10.jpeg", "alt": "Amuse-bouche à la truffe" },
+    { "src": "/images/truffe-menu-11.jpeg", "alt": "Création autour de la truffe" }
+  ]
+}
