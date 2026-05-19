@@ -21,6 +21,7 @@
           base_url: window.location.origin,
           auth_endpoint: 'api/auth'
         },
+        locale: 'fr',
         media_folder: 'public/images',
         public_folder: '/images',
         collections: [
@@ -33,9 +34,9 @@
                 name: 'tarifs',
                 file: 'src/data/tarifs-chambre.json',
                 fields: [
-                  { label: 'Prix de base (2 pers. + petit-dejeuner) en euros', name: 'prix_base', widget: 'number', value_type: 'int' },
-                  { label: 'Prix haute saison (juillet et aout) en euros', name: 'prix_haute_saison', widget: 'number', value_type: 'int' },
-                  { label: 'Diner en option (par personne) en euros', name: 'prix_diner', widget: 'number', value_type: 'int' }
+                  { label: 'Prix de base (2 pers. + petit-dejeuner) en euros', name: 'prix_base', widget: 'number' },
+                  { label: 'Prix haute saison (juillet et aout) en euros', name: 'prix_haute_saison', widget: 'number' },
+                  { label: 'Diner en option (par personne) en euros', name: 'prix_diner', widget: 'number' }
                 ]
               },
               {
