@@ -96,23 +96,10 @@ const schema = {
   </section>
 
   <!-- OCCASIONS -->
-  <section class="py-16 max-w-5xl mx-auto px-4">
-    <h2 class="font-serif text-2xl text-center mb-10">Pour toutes les occasions</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      {[
-        { icon: "💍", label: "Mariages" },
-        { icon: "👶", label: "Baptêmes" },
-        { icon: "🏢", label: "Repas d'entreprise" },
-        { icon: "👨‍👩‍👧‍👦", label: "Repas de famille" },
-        { icon: "🏰", label: "Domaines & châteaux" },
-        { icon: "☀️", label: "Brunchs" },
-        { icon: "🎉", label: "Anniversaires" },
-        { icon: "🍂", label: "Menu truffe" },
-      ].map(item => (
-        <div class="p-4 bg-[#f5f0e6] hover:bg-[#ede7d8] transition-colors">
-          <div class="text-3xl mb-2">{item.icon}</div>
-          <p class="text-sm font-medium text-stone-700">{item.label}</p>
-        </div>
+  <section class="py-8 max-w-5xl mx-auto px-4">
+    <div class="flex flex-wrap justify-center gap-2">
+      {["Mariages", "Baptêmes", "Repas d'entreprise", "Repas de famille", "Domaines & châteaux", "Brunchs", "Anniversaires", "Menu truffe"].map(label => (
+        <span class="bg-[#f5f0e6] px-4 py-2 text-sm text-stone-700">{label}</span>
       ))}
     </div>
   </section>
