@@ -4,6 +4,10 @@ backend:
   branch: master
   base_url: https://une-escale-gourmande.passe-melvin.workers.dev
 
+site_url: https://une-escale-gourmande.passe-melvin.workers.dev
+display_url: https://une-escale-gourmande.passe-melvin.workers.dev
+logo_url: /images/logo.svg
+
 locale: fr
 media_folder: public/images
 public_folder: /images
@@ -11,14 +15,24 @@ public_folder: /images
 collections:
   - name: chambre
     label: "Chambre d'hote"
+    description: "Tarifs et photos de la chambre d'hote"
     files:
-      - label: Tarifs
+      - label: "Tarifs"
         name: tarifs
         file: src/data/tarifs-chambre.json
         fields:
-          - { label: "Prix de base (2 pers. + petit-dejeuner) en euros", name: prix_base, widget: number }
-          - { label: "Prix haute saison (juillet et aout) en euros", name: prix_haute_saison, widget: number }
-          - { label: "Diner en option (par personne) en euros", name: prix_diner, widget: number }
+          - label: "Prix de base — 2 personnes + petit-dejeuner (euros)"
+            name: prix_base
+            widget: number
+            hint: "Prix hors saison pour 2 personnes avec petit-dejeuner inclus"
+          - label: "Prix haute saison — juillet et aout (euros)"
+            name: prix_haute_saison
+            widget: number
+            hint: "Prix applique en juillet et aout"
+          - label: "Diner en option — par personne (euros)"
+            name: prix_diner
+            widget: number
+            hint: "Prix du diner a la table d'hote, par personne"
       - label: "Photos de la chambre"
         name: photos_chambre
         file: src/data/photos-chambre.json
@@ -28,7 +42,7 @@ collections:
             widget: list
             fields:
               - { label: Photo, name: src, widget: image }
-              - { label: Description, name: alt, widget: string }
+              - { label: "Legende de la photo", name: alt, widget: string }
       - label: "Photos du domaine"
         name: photos_domaine
         file: src/data/photos-domaine.json
@@ -38,10 +52,23 @@ collections:
             widget: list
             fields:
               - { label: Photo, name: src, widget: image }
-              - { label: Description, name: alt, widget: string }
+              - { label: "Legende de la photo", name: alt, widget: string }
+
   - name: truffe
     label: "Menu Truffe"
+    description: "Composition et photos du menu truffe"
     files:
+      - label: "Composition du menu (les 5 temps)"
+        name: menu_plats
+        file: src/data/menu-truffe-plats.json
+        fields:
+          - label: "Les temps du menu"
+            name: plats
+            widget: list
+            hint: "Chaque ligne est un temps du menu. Modifiez l'intitule et la description."
+            fields:
+              - { label: "Intitule (ex : Entree, Plat principal...)", name: label, widget: string }
+              - { label: "Description courte", name: desc, widget: text }
       - label: "Photos du menu truffe"
         name: photos_truffe
         file: src/data/photos-truffe.json
@@ -51,4 +78,31 @@ collections:
             widget: list
             fields:
               - { label: Photo, name: src, widget: image }
-              - { label: Description, name: alt, widget: string }
+              - { label: "Legende de la photo", name: alt, widget: string }
+
+  - name: traiteur
+    label: "Traiteur"
+    description: "Les idees de menu proposees aux clients"
+    files:
+      - label: "Idees de menu"
+        name: menu_traiteur
+        file: src/data/menu-traiteur.json
+        fields:
+          - label: "Entrees"
+            name: entrees
+            widget: list
+            hint: "Ajoutez, modifiez ou supprimez des entrees"
+            fields:
+              - { label: "Description du plat", name: plat, widget: string }
+          - label: "Plats principaux"
+            name: plats
+            widget: list
+            hint: "Ajoutez, modifiez ou supprimez des plats"
+            fields:
+              - { label: "Description du plat", name: plat, widget: string }
+          - label: "Desserts"
+            name: desserts
+            widget: list
+            hint: "Ajoutez, modifiez ou supprimez des desserts"
+            fields:
+              - { label: "Description du plat", name: plat, widget: string }

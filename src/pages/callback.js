@@ -23,28 +23,21 @@ export async function GET({ request }) {
     if (data.error) throw new Error(data.error_description || data.error);
 
     const token = data.access_token;
-    const msg = `authorization:github:success:${JSON.stringify({ token, provider: 'github' })}`;
-    const msgJson = JSON.stringify(msg);
+    const authMsg = JSON.stringify(`authorization:github:success:${JSON.stringify({ token, provider: 'github' })}`);
 
     return html(`
-      <p id="status">Envoi du token...</p>
-      <p id="info"></p>
+      <p>Authentification en cours...</p>
       <script>
-        var msg = ${msgJson};
-        var info = document.getElementById('info');
-        var status = document.getElementById('status');
-        info.textContent = 'opener: ' + (window.opener ? 'OUI' : 'NULL');
-        if (window.opener) {
-          try {
+        (function() {
+          var msg = ${authMsg};
+          function receiveMessage(e) {
             window.opener.postMessage(msg, '*');
-            status.textContent = 'Token envoyé !';
-          } catch(e) {
-            status.textContent = 'Erreur postMessage: ' + e.message;
+            window.removeEventListener('message', receiveMessage, false);
+            window.close();
           }
-        } else {
-          status.textContent = 'window.opener est NULL — impossible d\\'envoyer le token';
-        }
-        setTimeout(function(){ window.close(); }, 4000);
+          window.addEventListener('message', receiveMessage, false);
+          window.opener.postMessage('authorizing:github', '*');
+        }());
       </script>
     `);
   } catch (err) {

@@ -1,0 +1,9 @@
+{
+  "plats": [
+    { "label": "Amuse-bouche", "desc": "Mise en bouche autour de la truffe — première approche du produit" },
+    { "label": "Entrée", "desc": "Associations végétales et produits du terroir périgourdin rehaussés de truffe" },
+    { "label": "Plat principal", "desc": "Le cœur du menu — la truffe en vedette, avec les produits locaux de saison" },
+    { "label": "Fromage truffé", "desc": "Sélection de fromages sublimés par la truffe noire melanosporum" },
+    { "label": "Dessert", "desc": "Une création sucrée où la truffe révèle sa dimension la plus inattendue" }
+  ]
+}

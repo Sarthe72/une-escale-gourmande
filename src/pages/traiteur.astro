@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import menuTraiteur from '../data/menu-traiteur.json';
 
 const schema = {
   "@context": "https://schema.org",
@@ -145,28 +146,21 @@ const schema = {
         <div>
           <h3 class="font-serif text-xl text-[#52b788] mb-6 pb-3 border-b border-white/10">Entrées</h3>
           <ul class="space-y-5 text-stone-300 text-sm leading-relaxed">
-            <li>Asperges blanches, truite de Borèze en gravlax, pesto d'ail des ours et noix du Périgord</li>
-            <li>Œuf mollet, crémeux de piperade, magret séché et copeaux d'Ossau-Iraty</li>
-            <li>Tartare de tomates anciennes, crémeux de chèvre frais, coulis d'herbe du potager et crumble à la noisette</li>
+            {menuTraiteur.entrees.map(item => <li>{item.plat}</li>)}
           </ul>
         </div>
 
         <div>
           <h3 class="font-serif text-xl text-[#52b788] mb-6 pb-3 border-b border-white/10">Plats</h3>
           <ul class="space-y-5 text-stone-300 text-sm leading-relaxed">
-            <li>Risotto d'épeautre au citron confit, pleurotes, chorizo et légumes du potager</li>
-            <li>Pintade farcie façon basquaise, polenta snackée aux piquillos, caviar de courgettes et jus tomaté</li>
-            <li>Merlu de ligne, crémeux d'aubergine au basilic, pommes de terre primeur et tapenade</li>
-            <li>Paleron confit puis rôti, pressé de pommes de terre aux champignons, pulpe de carottes à la fève de tonka et jus réduit</li>
+            {menuTraiteur.plats.map(item => <li>{item.plat}</li>)}
           </ul>
         </div>
 
         <div>
           <h3 class="font-serif text-xl text-[#52b788] mb-6 pb-3 border-b border-white/10">Desserts</h3>
           <ul class="space-y-5 text-stone-300 text-sm leading-relaxed">
-            <li>Riz au lait de la ferme, fraises, noix caramélisée et sirop de rhubarbe</li>
-            <li>Cheesecake citron, cœur fondant à la myrtille et sablé noisette</li>
-            <li>Entremets chocolat, cœur caramel et sablé breton</li>
+            {menuTraiteur.desserts.map(item => <li>{item.plat}</li>)}
           </ul>
         </div>
 

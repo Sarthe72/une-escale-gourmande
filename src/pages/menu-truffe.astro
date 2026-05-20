@@ -1,6 +1,7 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
 import photosTruffe from '../data/photos-truffe.json';
+import menuTruffePlats from '../data/menu-truffe-plats.json';
 
 const schema = {
   "@context": "https://schema.org",
@@ -79,15 +80,9 @@ const schema = {
       <p class="text-sm uppercase tracking-widest text-stone-400 mb-3">L'expérience</p>
       <h2 class="font-serif text-3xl md:text-4xl mb-12">Menu en 5 temps</h2>
       <div class="space-y-8 text-left">
-        {[
-          { num: "01", label: "Amuse-bouche", desc: "Mise en bouche autour de la truffe — première approche du produit" },
-          { num: "02", label: "Entrée", desc: "Associations végétales et produits du terroir périgourdin rehaussés de truffe" },
-          { num: "03", label: "Plat principal", desc: "Le cœur du menu — la truffe en vedette, avec les produits locaux de saison" },
-          { num: "04", label: "Fromage truffé", desc: "Sélection de fromages sublimés par la truffe noire melanosporum" },
-          { num: "05", label: "Dessert", desc: "Une création sucrée où la truffe révèle sa dimension la plus inattendue" },
-        ].map(item => (
+        {menuTruffePlats.plats.map((item, i) => (
           <div class="flex gap-6 items-start border-b border-white/10 pb-8 last:border-0">
-            <span class="font-serif text-5xl text-white/20 leading-none flex-shrink-0">{item.num}</span>
+            <span class="font-serif text-5xl text-white/20 leading-none flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h3 class="font-serif text-xl mb-1">{item.label}</h3>
               <p class="text-stone-400 text-sm leading-relaxed">{item.desc}</p>

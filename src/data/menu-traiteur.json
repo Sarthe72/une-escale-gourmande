@@ -1,0 +1,18 @@
+{
+  "entrees": [
+    { "plat": "Asperges blanches, truite de Borèze en gravlax, pesto d'ail des ours et noix du Périgord" },
+    { "plat": "Œuf mollet, crémeux de piperade, magret séché et copeaux d'Ossau-Iraty" },
+    { "plat": "Tartare de tomates anciennes, crémeux de chèvre frais, coulis d'herbe du potager et crumble à la noisette" }
+  ],
+  "plats": [
+    { "plat": "Risotto d'épeautre au citron confit, pleurotes, chorizo et légumes du potager" },
+    { "plat": "Pintade farcie façon basquaise, polenta snackée aux piquillos, caviar de courgettes et jus tomaté" },
+    { "plat": "Merlu de ligne, crémeux d'aubergine au basilic, pommes de terre primeur et tapenade" },
+    { "plat": "Paleron confit puis rôti, pressé de pommes de terre aux champignons, pulpe de carottes à la fève de tonka et jus réduit" }
+  ],
+  "desserts": [
+    { "plat": "Riz au lait de la ferme, fraises, noix caramélisée et sirop de rhubarbe" },
+    { "plat": "Cheesecake citron, cœur fondant à la myrtille et sablé noisette" },
+    { "plat": "Entremets chocolat, cœur caramel et sablé breton" }
+  ]
+}
