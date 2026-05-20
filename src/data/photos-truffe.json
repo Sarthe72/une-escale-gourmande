@@ -1,14 +1,14 @@
 {
   "photos": [
-    { "src": "/images/truffe-menu-1.webp", "alt": "Création autour de la truffe noire" },
-    { "src": "/images/truffe-menu-2.jpg", "alt": "Plat truffe noire du Périgord" },
-    { "src": "/images/truffe-menu-3.jpg", "alt": "Assiette menu truffe" },
-    { "src": "/images/truffe-menu-4.jpg", "alt": "Création gastronomique à la truffe" },
-    { "src": "/images/truffe-menu-5.jpg", "alt": "Plat principal menu truffe" },
-    { "src": "/images/truffe-menu-6.jpg", "alt": "Entrée menu truffe" },
-    { "src": "/images/truffe-menu-7.jpeg", "alt": "Truffe noire melanosporum" },
-    { "src": "/images/truffe-menu-8.jpeg", "alt": "Dessert à la truffe" },
-    { "src": "/images/truffe-menu-10.jpeg", "alt": "Amuse-bouche à la truffe" },
-    { "src": "/images/truffe-menu-11.jpeg", "alt": "Création autour de la truffe" }
+    { "src": "/images/plat-menu-truffe-melanosporum-perigord-1.webp", "alt": "Création gastronomique autour de la truffe noire melanosporum du Périgord" },
+    { "src": "/images/plat-menu-truffe-noire-perigord-2.jpg", "alt": "Plat menu truffe noire du Périgord par Benjamin Jardin" },
+    { "src": "/images/plat-menu-truffe-benjamin-jardin-perigord-3.jpg", "alt": "Assiette menu truffe chef Benjamin Jardin Eyzerac" },
+    { "src": "/images/plat-menu-truffe-gastronomique-perigord-4.jpg", "alt": "Création gastronomique à la truffe noire melanosporum Périgord" },
+    { "src": "/images/dessert-menu-truffe-noire-perigord-5.jpg", "alt": "Dessert à la truffe noire — menu truffe Périgord Eyzerac" },
+    { "src": "/images/entree-menu-truffe-perigord-saison-6.jpg", "alt": "Entrée menu truffe de saison — table d'hôte Eyzerac Périgord" },
+    { "src": "/images/plat-truffe-melanosporum-chef-perigord-7.jpeg", "alt": "Plat à la truffe noire melanosporum — chef à domicile Périgord" },
+    { "src": "/images/table-hotes-menu-truffe-eyzerac-8.jpeg", "alt": "Table dressée pour le menu truffe — table d'hôte Une Escale Gourmande Eyzerac" },
+    { "src": "/images/amuse-bouche-truffe-noire-perigord-10.jpeg", "alt": "Amuse-bouche à la truffe noire — menu truffe Périgord Benjamin Jardin" },
+    { "src": "/images/creation-chef-truffe-melanosporum-perigord-11.jpeg", "alt": "Création du chef autour de la truffe melanosporum — Périgord Eyzerac" }
   ]
 }

@@ -1,12 +1,12 @@
 {
   "photos": [
-    { "src": "/images/chambre-interieur.jpg", "alt": "Vue sur le jardin depuis la chambre" },
-    { "src": "/images/chambre-exterieur.jpg", "alt": "Extérieur de la chambre avec iris" },
-    { "src": "/images/chambre-nouvelle-2.jpeg", "alt": "Salon de la chambre" },
-    { "src": "/images/chambre-nouvelle.jpeg", "alt": "Chambre avec table et lit" },
-    { "src": "/images/chambre-5.jpg", "alt": "Chambre d'hôte" },
-    { "src": "/images/chambre-6.jpg", "alt": "Chambre d'hôte" },
-    { "src": "/images/chambre-7.webp", "alt": "Chambre d'hôte" },
-    { "src": "/images/chambre-8.jpg", "alt": "Chambre d'hôte" }
+    { "src": "/images/chambre-hotes-eyzerac-interieur-vue-jardin.jpg", "alt": "Chambre d'hôte Eyzerac — intérieur avec vue sur le jardin" },
+    { "src": "/images/chambre-hotes-eyzerac-exterieur-iris.jpg", "alt": "Extérieur de la suite Une Escale Gourmande avec iris en fleurs" },
+    { "src": "/images/chambre-hotes-eyzerac-salon.jpeg", "alt": "Salon de la suite indépendante — chambre d'hôte Périgord Vert Eyzerac" },
+    { "src": "/images/chambre-hotes-eyzerac-lit-confort.jpeg", "alt": "Lit douillet de la chambre d'hôte Une Escale Gourmande à Eyzerac" },
+    { "src": "/images/chambre-hotes-perigord-vert-detail-1.jpg", "alt": "Décoration intérieure de la suite chambre d'hôte Périgord Vert" },
+    { "src": "/images/chambre-hotes-perigord-vert-detail-2.jpg", "alt": "Ambiance chaleureuse de la chambre d'hôte Une Escale Gourmande" },
+    { "src": "/images/chambre-hotes-perigord-vert-detail-3.webp", "alt": "Détail de la suite chambre d'hôte en Périgord Vert" },
+    { "src": "/images/chambre-hotes-perigord-vert-detail-4.jpg", "alt": "Confort et authenticité — chambre d'hôte Eyzerac Dordogne" }
   ]
 }

@@ -41,8 +41,14 @@ collections:
             name: photos
             widget: list
             fields:
-              - { label: Photo, name: src, widget: image }
-              - { label: "Legende de la photo", name: alt, widget: string }
+              - label: Photo
+                name: src
+                widget: image
+                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+              - label: "Legende de la photo (texte alternatif)"
+                name: alt
+                widget: string
+                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
       - label: "Photos du domaine"
         name: photos_domaine
         file: src/data/photos-domaine.json
@@ -51,8 +57,14 @@ collections:
             name: photos
             widget: list
             fields:
-              - { label: Photo, name: src, widget: image }
-              - { label: "Legende de la photo", name: alt, widget: string }
+              - label: Photo
+                name: src
+                widget: image
+                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+              - label: "Legende de la photo (texte alternatif)"
+                name: alt
+                widget: string
+                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
 
   - name: truffe
     label: "Menu Truffe"
@@ -77,8 +89,14 @@ collections:
             name: photos
             widget: list
             fields:
-              - { label: Photo, name: src, widget: image }
-              - { label: "Legende de la photo", name: alt, widget: string }
+              - label: Photo
+                name: src
+                widget: image
+                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+              - label: "Legende de la photo (texte alternatif)"
+                name: alt
+                widget: string
+                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
 
   - name: traiteur
     label: "Traiteur"

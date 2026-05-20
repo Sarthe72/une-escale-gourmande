@@ -1,13 +1,13 @@
 {
   "photos": [
-    { "src": "/images/domaine-1.jpg", "alt": "Le domaine" },
-    { "src": "/images/domaine-2.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-3.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-5.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-6.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-7.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-8.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-9.jpeg", "alt": "Le domaine" },
-    { "src": "/images/domaine-10.jpeg", "alt": "Le domaine" }
+    { "src": "/images/domaine-escale-gourmande-eyzerac-1.jpg", "alt": "Domaine Une Escale Gourmande à Eyzerac en Périgord Vert" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-2.jpeg", "alt": "Parc et jardins du domaine Une Escale Gourmande Eyzerac" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-3.jpeg", "alt": "Verdure et nature autour du domaine Une Escale Gourmande Périgord" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-5.jpeg", "alt": "Extérieur du domaine chambre d'hôte Eyzerac Dordogne" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-6.jpeg", "alt": "Domaine Une Escale Gourmande — cadre de verdure Périgord Vert" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-7.jpeg", "alt": "Propriété Une Escale Gourmande en Périgord Vert" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-8.jpeg", "alt": "Vue du domaine Une Escale Gourmande à Eyzerac" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-9.jpeg", "alt": "Paysage Périgord Vert autour du domaine Une Escale Gourmande" },
+    { "src": "/images/domaine-escale-gourmande-eyzerac-10.jpeg", "alt": "Environnement naturel du domaine chambre d'hôte Eyzerac" }
   ]
 }
