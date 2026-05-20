@@ -28,13 +28,8 @@ export async function GET({ request, locals }) {
     return html(`
       (function(){
         var msg=${msg};
-        function onMsg(e){
-          window.removeEventListener('message',onMsg);
-          window.opener.postMessage(msg,e.origin);
-          window.close();
-        }
-        window.addEventListener('message',onMsg);
-        window.opener.postMessage('authorizing:github','*');
+        if(window.opener){window.opener.postMessage(msg,'*');}
+        setTimeout(function(){window.close();},500);
       })();
     `);
   } catch (err) {
