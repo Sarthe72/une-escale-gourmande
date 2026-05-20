@@ -7,6 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Administration — Une Escale Gourmande</title>
+  <style>
+    body {
+      background-color: #f5f0e6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('/images/logo.svg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 380px auto;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
 </head>
 <body>
   <script is:inline src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
