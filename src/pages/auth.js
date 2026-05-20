@@ -5,7 +5,7 @@ export async function GET({ request, locals }) {
 
   const params = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: `${url.origin}/callback`,
+    redirect_uri: 'https://une-escale-gourmande.passe-melvin.workers.dev/callback',
     scope: 'repo,user',
     state,
   });
