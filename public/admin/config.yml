@@ -1,57 +1,55 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: passemelvin/une-escale-gourmande
+  branch: master
+  auth_type: pkce
+  app_id: Ov23lijkbcPjPqGylzVm
 
 locale: fr
 media_folder: public/images
 public_folder: /images
 
 collections:
-  - name: "pages"
-    label: "Pages du site"
+  - name: chambre
+    label: "Chambre d'hote"
     files:
-
-      - name: "accueil"
-        label: "Page Accueil"
-        file: "src/data/accueil.json"
+      - label: Tarifs
+        name: tarifs
+        file: src/data/tarifs-chambre.json
         fields:
-          - { label: "Titre hero", name: "hero_titre", widget: "string" }
-          - { label: "Sous-titre hero", name: "hero_sous_titre", widget: "string" }
-          - { label: "Texte introduction", name: "intro_texte", widget: "text" }
-
-      - name: "chambre"
-        label: "Page Chambre d'hôte"
-        file: "src/data/chambre.json"
+          - { label: "Prix de base (2 pers. + petit-dejeuner) en euros", name: prix_base, widget: number }
+          - { label: "Prix haute saison (juillet et aout) en euros", name: prix_haute_saison, widget: number }
+          - { label: "Diner en option (par personne) en euros", name: prix_diner, widget: number }
+      - label: "Photos de la chambre"
+        name: photos_chambre
+        file: src/data/photos-chambre.json
         fields:
-          - { label: "Titre", name: "titre", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Tarif nuit (2 personnes)", name: "tarif_nuit", widget: "number", default: 66 }
-          - { label: "Tarif dîner (par personne)", name: "tarif_diner", widget: "number", default: 19 }
-          - { label: "Photo principale", name: "photo", widget: "image" }
-
-      - name: "traiteur"
-        label: "Page Traiteur"
-        file: "src/data/traiteur.json"
+          - label: Photos
+            name: photos
+            widget: list
+            fields:
+              - { label: Photo, name: src, widget: image }
+              - { label: Description, name: alt, widget: string }
+      - label: "Photos du domaine"
+        name: photos_domaine
+        file: src/data/photos-domaine.json
         fields:
-          - { label: "Titre", name: "titre", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Capacité maximum", name: "capacite", widget: "number", default: 120 }
-          - { label: "Zone d'intervention", name: "zone", widget: "string" }
-
-      - name: "truffe"
-        label: "Page Menu Truffe"
-        file: "src/data/truffe.json"
+          - label: Photos
+            name: photos
+            widget: list
+            fields:
+              - { label: Photo, name: src, widget: image }
+              - { label: Description, name: alt, widget: string }
+  - name: truffe
+    label: "Menu Truffe"
+    files:
+      - label: "Photos du menu truffe"
+        name: photos_truffe
+        file: src/data/photos-truffe.json
         fields:
-          - { label: "Titre", name: "titre", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Saison", name: "saison", widget: "string", default: "Décembre à fin février" }
-          - { label: "Photo principale", name: "photo", widget: "image" }
-
-      - name: "contact"
-        label: "Informations de contact"
-        file: "src/data/contact.json"
-        fields:
-          - { label: "Téléphone", name: "telephone", widget: "string", default: "06 25 14 26 08" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Adresse", name: "adresse", widget: "string" }
-          - { label: "Ville", name: "ville", widget: "string" }
+          - label: Photos
+            name: photos
+            widget: list
+            fields:
+              - { label: Photo, name: src, widget: image }
+              - { label: Description, name: alt, widget: string }
