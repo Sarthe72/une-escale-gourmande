@@ -6,8 +6,8 @@ backend:
   name: github
   repo: passemelvin/une-escale-gourmande
   branch: master
-  base_url: ${origin}
-  auth_endpoint: api/auth
+  auth_type: pkce
+  app_id: Ov23lijkbcPjPqGylzVm
 
 locale: fr
 media_folder: public/images
