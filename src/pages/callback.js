@@ -1,6 +1,8 @@
+import { env } from 'cloudflare:workers';
+
 export const prerender = false;
 
-export async function GET({ request, locals }) {
+export async function GET({ request }) {
   const html = (script) =>
     new Response(`<!doctype html><html><body><script>${script}<\/script></body></html>`, {
       headers: { 'Content-Type': 'text/html' },
@@ -10,7 +12,7 @@ export async function GET({ request, locals }) {
     const url = new URL(request.url);
     const code = url.searchParams.get('code');
     const clientId = 'Ov23lijkbcPjPqGylzVm';
-    const clientSecret = locals?.runtime?.env?.GITHUB_CLIENT_SECRET ?? '';
+    const clientSecret = env.GITHUB_CLIENT_SECRET ?? '';
 
     const resp = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
