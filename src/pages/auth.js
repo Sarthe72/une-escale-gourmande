@@ -1,3 +1,5 @@
+export const prerender = false;
+
 export async function GET({ request, locals }) {
   const url = new URL(request.url);
   const state = url.searchParams.get('state') || '';
