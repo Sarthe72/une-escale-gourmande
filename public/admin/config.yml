@@ -6,7 +6,7 @@ backend:
 
 site_url: https://une-escale-gourmande.passe-melvin.workers.dev
 display_url: https://une-escale-gourmande.passe-melvin.workers.dev
-logo_url: /images/logo.svg
+logo_url: /images/logo-blanc.svg
 
 locale: fr
 media_folder: public/images
