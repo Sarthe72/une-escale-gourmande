@@ -3,39 +3,51 @@ import { env } from 'cloudflare:workers';
 export const prerender = false;
 
 export async function GET({ request }) {
-  const html = (script) =>
-    new Response(`<!doctype html><html><body><script>${script}<\/script></body></html>`, {
+  const html = (body) =>
+    new Response(`<!doctype html><html><body style="font-family:sans-serif;padding:20px">${body}</body></html>`, {
       headers: { 'Content-Type': 'text/html' },
     });
 
   try {
     const url = new URL(request.url);
     const code = url.searchParams.get('code');
-    const clientId = 'Ov23lijkbcPjPqGylzVm';
     const clientSecret = env.GITHUB_CLIENT_SECRET ?? '';
 
     const resp = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code }),
+      body: JSON.stringify({ client_id: 'Ov23lijkbcPjPqGylzVm', client_secret: clientSecret, code }),
     });
 
     const data = await resp.json();
     if (data.error) throw new Error(data.error_description || data.error);
 
-    const msg = JSON.stringify(
-      `authorization:github:success:${JSON.stringify({ token: data.access_token, provider: 'github' })}`
-    );
+    const token = data.access_token;
+    const msg = `authorization:github:success:${JSON.stringify({ token, provider: 'github' })}`;
+    const msgJson = JSON.stringify(msg);
 
     return html(`
-      (function(){
-        var msg=${msg};
-        if(window.opener){window.opener.postMessage(msg,'*');}
-        setTimeout(function(){window.close();},500);
-      })();
+      <p id="status">Envoi du token...</p>
+      <p id="info"></p>
+      <script>
+        var msg = ${msgJson};
+        var info = document.getElementById('info');
+        var status = document.getElementById('status');
+        info.textContent = 'opener: ' + (window.opener ? 'OUI' : 'NULL');
+        if (window.opener) {
+          try {
+            window.opener.postMessage(msg, '*');
+            status.textContent = 'Token envoyé !';
+          } catch(e) {
+            status.textContent = 'Erreur postMessage: ' + e.message;
+          }
+        } else {
+          status.textContent = 'window.opener est NULL — impossible d\\'envoyer le token';
+        }
+        setTimeout(function(){ window.close(); }, 4000);
+      </script>
     `);
   } catch (err) {
-    const errMsg = JSON.stringify(`authorization:github:error:${String(err.message)}`);
-    return html(`window.opener.postMessage(${errMsg},'*');window.close();`);
+    return html(`<p style="color:red">Erreur: ${err.message}</p>`);
   }
 }
