@@ -169,16 +169,16 @@ const schema = {
           <div
             class="border border-stone-100 rounded-lg p-6 hover:border-[#2d6a4f]/30 hover:shadow-sm transition-colors relative overflow-hidden cursor-pointer"
             style={logo ? `background-image: url('/images/${logo}'); background-size: 55%; background-repeat: no-repeat; background-position: center;` : undefined}
+            onclick={href ? `window.open(${JSON.stringify(href)}, '_blank')` : undefined}
           >
-            {logo && <div class="absolute inset-0 bg-white/85 rounded-lg" />}
-            {href && <a href={href} target="_blank" rel="noopener" class="absolute inset-0 z-10" aria-label={nom} />}
-            <div class="relative z-20">
+            {logo && <div class="absolute inset-0 bg-white/85 rounded-lg pointer-events-none" />}
+            <div class="relative z-10">
               <p class="text-xs uppercase tracking-widest text-[#2d6a4f] mb-2">{produit}</p>
               <p class="font-serif text-lg text-[#1a1a1a] mb-1">{nom}</p>
               <p class="text-stone-400 text-xs mb-4">{lieu}</p>
               {!href && <span class="text-xs text-stone-300 italic">Production familiale</span>}
               {href2 && (
-                <a href={href2} target="_blank" rel="noopener" class="relative z-30 text-xs text-stone-500 hover:text-[#2d6a4f] transition-colors inline-flex items-center gap-1">
+                <a href={href2} target="_blank" rel="noopener" onclick="event.stopPropagation()" class="text-xs text-stone-500 hover:text-[#2d6a4f] transition-colors inline-flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                   {label2}
                 </a>
@@ -193,10 +193,10 @@ const schema = {
         <div
           class="border border-stone-100 rounded-lg p-6 hover:border-[#2d6a4f]/30 hover:shadow-sm transition-colors relative overflow-hidden cursor-pointer w-full sm:max-w-xs text-center"
           style="background-image: url('/images/logo-partenaire-appartement-le-mans.webp'); background-size: 55%; background-repeat: no-repeat; background-position: center;"
+          onclick="window.open('https://sarthe72.github.io/locationlemansgare/', '_blank')"
         >
-          <div class="absolute inset-0 bg-white/85 rounded-lg" />
-          <a href="https://lemansgare.github.io/locationlemansgare/" target="_blank" rel="noopener" class="absolute inset-0 z-10" aria-label="Location appartement Le Mans" />
-          <div class="relative z-20">
+          <div class="absolute inset-0 bg-white/85 rounded-lg pointer-events-none" />
+          <div class="relative z-10">
             <p class="text-xs uppercase tracking-widest text-[#2d6a4f] mb-2">Location saisonnière</p>
             <p class="font-serif text-lg text-[#1a1a1a] mb-1">Appartement Le Mans</p>
             <p class="text-stone-400 text-xs">Circuit des 24h du Mans · Sarthe</p>
