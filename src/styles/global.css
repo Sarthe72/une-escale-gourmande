@@ -60,6 +60,16 @@ h1, h2, h3 {
   will-change: transform;
 }
 
+/* Arrondi subtil sur les images de contenu */
+img:not([aria-hidden="true"]):not([data-parallax]):not([src*="logo"]) {
+  border-radius: 8px;
+}
+
+/* Arrondi sur les cartes image (group + overflow-hidden) */
+.group.overflow-hidden {
+  border-radius: 8px;
+}
+
 /* Lightbox */
 #lightbox {
   animation: lb-in 0.2s ease;

@@ -23,14 +23,14 @@ const schema = {
 ---
 
 <Layout
-  title="Traiteur & Chef à domicile Dordogne — Périgord | Une Escale Gourmande"
-  description="Benjamin Jardin, chef traiteur et chef à domicile. Mariages, baptêmes, repas d'entreprise en Dordogne, Corrèze et Haute-Vienne. Cuisine gourmande et locale jusqu'à 120 personnes."
+  title="Traiteur Mariage & Chef à domicile en Dordogne | Une Escale Gourmande"
+  description="Traiteur mariage et événements en Dordogne. Benjamin Jardin intervient dans votre lieu de réception : cocktail, dîner assis, jusqu'à 120 personnes. Périgord Vert, Corrèze, Haute-Vienne."
   image="/images/traiteur-assiettes.jpg"
   schema={schema}
 >
   <!-- HERO -->
   <section class="relative h-[65vh] min-h-[450px] flex items-end overflow-hidden">
-    <img data-parallax src="/images/traiteur-chef-domicile-dordogne-assiettes.jpg" alt="Service traiteur gastronomique" class="absolute inset-0 w-full h-full object-cover object-top" />
+    <img data-parallax src="/images/traiteur-chef-domicile-dordogne-assiettes.webp" alt="Service traiteur gastronomique" class="absolute inset-0 w-full h-full object-cover object-top" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 pb-12 w-full">
       <p class="text-white/70 text-sm uppercase tracking-widest mb-2">Événements</p>
@@ -117,6 +117,52 @@ const schema = {
     </div>
   </section>
 
+  <!-- MARIAGE -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-[#2d6a4f] mb-3">Votre grand jour</p>
+          <h2 class="font-serif text-3xl md:text-4xl mb-6">Traiteur mariage en Dordogne</h2>
+          <p class="text-stone-600 leading-relaxed mb-4">
+            Benjamin intervient dans la salle ou le domaine de votre choix pour faire de votre mariage un moment gastronomique inoubliable. Du cocktail d'accueil au dîner de réception, chaque détail est pensé pour sublimer votre journée.
+          </p>
+          <p class="text-stone-600 leading-relaxed mb-8">
+            Menu entièrement sur-mesure, produits locaux et de saison, service jusqu'à <strong>120 personnes</strong>. Benjamin s'adapte à votre vision et à votre budget.
+          </p>
+          <ul class="space-y-3 text-stone-700 text-sm mb-8">
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] font-bold mt-0.5">✓</span> Cocktail d'accueil & amuse-bouches</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] font-bold mt-0.5">✓</span> Dîner assis avec service à table</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] font-bold mt-0.5">✓</span> Menu entièrement sur-mesure</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] font-bold mt-0.5">✓</span> Produits locaux & circuits courts</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] font-bold mt-0.5">✓</span> Intervention dans votre lieu de réception</li>
+          </ul>
+          <a href="/contact" class="inline-block bg-[#2d6a4f] text-white px-8 py-3 hover:bg-[#1b4332] transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-lg">
+            Demander un devis gratuit
+          </a>
+        </div>
+        <div class="bg-[#f5f0e6] p-8 border-l-4 border-[#2d6a4f]">
+          <p class="font-serif text-xl mb-2 text-[#1a1a1a]">Autres événements</p>
+          <p class="text-stone-500 text-sm mb-6">Benjamin intervient pour toutes vos réceptions :</p>
+          <ul class="space-y-3 text-stone-700 text-sm">
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] mt-0.5">✓</span> Baptêmes & communions</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] mt-0.5">✓</span> Anniversaires & repas de famille</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] mt-0.5">✓</span> Repas d'entreprise & séminaires</li>
+            <li class="flex items-start gap-3"><span class="text-[#2d6a4f] mt-0.5">✓</span> Repas en domaines & châteaux</li>
+          </ul>
+          <div class="mt-8 pt-6 border-t border-stone-200">
+            <p class="text-xs text-stone-500 uppercase tracking-widest mb-1">Zone d'intervention</p>
+            <p class="text-stone-700 text-sm font-medium">40 km autour de Thiviers</p>
+            <p class="text-stone-500 text-sm mt-1">Dordogne · Corrèze · Haute-Vienne</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-stone-200">
+            <p class="text-xs text-stone-400">Devis gratuit · Réponse rapide.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ZONE + CAPACITÉ -->
   <section class="bg-[#ede7d8] py-16">
     <div class="max-w-4xl mx-auto px-4">
@@ -172,18 +218,24 @@ const schema = {
   <!-- GALERIE -->
   <section class="py-16 max-w-5xl mx-auto px-4">
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <img src="/images/entree-gastronomique-traiteur-chef-domicile-dordogne.jpg" alt="Entrée gastronomique — traiteur chef à domicile Dordogne" class="w-full aspect-square object-cover" />
-      <img src="/images/amuse-bouches-traiteur-mariage-dordogne.jpg" alt="Amuse-bouches traiteur mariage Dordogne — Benjamin Jardin" class="w-full aspect-square object-cover" />
-      <img src="/images/risotto-champignons-plat-traiteur-dordogne.webp" alt="Risotto champignons — plat traiteur chef domicile Dordogne" class="w-full aspect-square object-cover" />
-      <img src="/images/dessert-tarte-fruits-traiteur-dordogne.jpg" alt="Dessert tarte fruits de saison — traiteur Dordogne Périgord" class="w-full aspect-square object-cover" />
-      <img src="/images/verrine-chocolat-dessert-traiteur-dordogne.webp" alt="Verrine au chocolat — dessert traiteur gastronomique Dordogne" class="w-full aspect-square object-cover" />
-      <img src="/images/dessert-fraise-traiteur-mariage-perigord.jpg" alt="Dessert aux fraises — traiteur mariage Périgord Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/verrine-oeuf-mollet-entree-traiteur-perigord.webp" alt="Verrine oeuf mollet petits pois — entrée traiteur Périgord" class="w-full aspect-square object-cover" />
+      <img src="/images/amuse-bouches-cocktail-traiteur-benjamin-jardin.webp" alt="Amuse-bouches cocktail dînatoire — traiteur Benjamin Jardin Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/risotto-champignons-plat-traiteur-perigord-vert.webp" alt="Risotto aux champignons — plat traiteur Périgord Vert" class="w-full aspect-square object-cover" />
+      <img src="/images/chef-benjamin-dressage-entree-saumon-traiteur.webp" alt="Benjamin Jardin dressage entrée saumon — chef traiteur Eyzerac" class="w-full aspect-square object-cover object-top" />
+      <img src="/images/dressage-assiettes-saumon-service-traiteur-dordogne.webp" alt="Dressage assiettes saumon en cuisine — service traiteur Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/chef-benjamin-dressage-plat-champignons-traiteur.webp" alt="Benjamin Jardin dressage plat champignons — chef traiteur Périgord" class="w-full aspect-square object-cover object-top" />
+      <img src="/images/tarte-fruits-rouges-traiteur-perigord.webp" alt="Tarte aux fruits rouges — dessert traiteur Périgord Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/pavlova-fraises-dessert-traiteur-perigord.webp" alt="Pavlova aux fraises — dessert traiteur gastronomique Périgord" class="w-full aspect-square object-cover" />
+      <img src="/images/duo-desserts-chocolat-mousse-fraise-traiteur.webp" alt="Duo desserts fondant chocolat et mousse fraise — traiteur Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/gateau-anniversaire-fraises-traiteur-sur-mesure.webp" alt="Gâteau anniversaire fraises sur-mesure — traiteur Benjamin Jardin" class="w-full aspect-square object-cover" />
+      <img src="/images/entremet-myrtille-dessert-traiteur-dordogne.webp" alt="Entremet mousse myrtille — dessert traiteur gastronomique Dordogne" class="w-full aspect-square object-cover" />
+      <img src="/images/chef-benjamin-dressage-fromages-service-traiteur.webp" alt="Benjamin Jardin dressage plateaux fromages — service traiteur événementiel" class="w-full aspect-square object-cover object-top" />
     </div>
   </section>
 
   <!-- CTA -->
   <section class="relative overflow-hidden py-24 text-center px-4">
-    <img src="/images/traiteur-chef-domicile-dordogne-assiettes.jpg" class="absolute inset-0 w-full h-full object-cover object-top" alt="" aria-hidden="true" />
+    <img src="/images/traiteur-chef-domicile-dordogne-assiettes.webp" class="absolute inset-0 w-full h-full object-cover object-top" alt="" aria-hidden="true" />
     <div class="absolute inset-0 bg-black/60"></div>
     <div class="relative z-10 max-w-2xl mx-auto">
       <p class="text-[#52b788] text-sm uppercase tracking-widest mb-4">Devis gratuit</p>
@@ -198,7 +250,7 @@ const schema = {
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
         <a href="/contact" class="inline-block border border-white/50 text-white px-8 py-3 hover:bg-white/10 transition-all hover:-translate-y-0.5 active:scale-95">
-          Formulaire de contact
+          Contactez-nous
         </a>
       </div>
     </div>

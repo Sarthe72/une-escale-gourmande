@@ -27,12 +27,12 @@ const schema = {
 <Layout
   title="Menu Truffe Périgord — Truffes noires melanosporum | Une Escale Gourmande Eyzerac"
   description="Menu truffe en 5 temps à Eyzerac, Périgord Vert. Truffes noires melanosporum récoltées dans notre propre truffière. Table d'hôte et chef à domicile, de décembre à fin février."
-  image="/images/table-menu-truffe-perigord-eyzerac.jpg"
+  image="/images/table-menu-truffe-perigord-eyzerac.webp"
   schema={schema}
 >
   <!-- HERO -->
   <section class="relative h-[75vh] min-h-[500px] flex items-end overflow-hidden">
-    <img data-parallax src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.jpg" alt="Truffes noires melanosporum du Périgord" class="absolute inset-0 w-full h-full object-cover object-center" />
+    <img data-parallax src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.webp" alt="Truffes noires melanosporum du Périgord" class="absolute inset-0 w-full h-full object-cover object-center" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 w-full">
       <p class="text-white/70 text-sm uppercase tracking-widest mb-2">Décembre · Janvier · Février</p>
@@ -41,12 +41,48 @@ const schema = {
     </div>
   </section>
 
+  <!-- ACCROCHE -->
+  <section class="bg-white py-12 text-center px-4">
+    <p class="text-sm uppercase tracking-widest text-[#2d6a4f] mb-3">Tuber melanosporum</p>
+    <p class="font-serif text-2xl md:text-3xl text-[#1a1a1a] max-w-2xl mx-auto leading-snug">
+      Une expérience gourmande autour des truffes noires du Périgord, récoltées dans notre propre truffière.
+    </p>
+  </section>
+
+  <!-- MENU 5 TEMPS -->
+  <section class="relative overflow-hidden bg-[#f5f0e6] py-24">
+    <img src="/images/logo.svg" aria-hidden="true" class="absolute inset-0 m-auto w-[600px] opacity-[0.04] pointer-events-none select-none" />
+    <div class="relative z-10 max-w-3xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <p class="text-xs uppercase tracking-[0.3em] text-[#2d6a4f] mb-4">Décembre — Février</p>
+        <h2 class="font-serif text-4xl md:text-5xl text-[#1a1a1a] mb-3">Menu en 5 temps</h2>
+        <div class="w-12 h-px bg-[#2d6a4f] mx-auto mt-6"></div>
+      </div>
+      <div>
+        {menuTruffePlats.plats.map((item, i) => (
+          <div class="flex gap-6 items-start py-10 border-b border-stone-300/60 last:border-0">
+            <span class="font-serif text-8xl md:text-9xl text-stone-200 leading-none flex-shrink-0 select-none" style="line-height:0.8;margin-top:-8px">{String(i + 1)}</span>
+            <div>
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-4 h-px bg-[#2d6a4f] inline-block flex-shrink-0"></span>
+                <h3 class="font-serif text-2xl text-[#1a1a1a]">{item.label}</h3>
+              </div>
+              <p class="text-stone-500 leading-relaxed">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-stone-400 text-xs uppercase tracking-widest mt-12">Menu sur réservation · Composition variable selon la récolte</p>
+    </div>
+  </section>
+
   <!-- INTRO -->
   <section class="max-w-3xl mx-auto px-4 py-20 text-center">
     <p class="text-sm uppercase tracking-widest text-[#2d6a4f] mb-4">Tuber melanosporum</p>
     <h2 class="font-serif text-3xl md:text-4xl mb-6">Notre propre truffière</h2>
     <p class="text-lg text-stone-600 leading-relaxed">
-      Découvrez notre menu truffe en 5 temps — une expérience gourmande imaginée autour des truffes noires du Périgord récoltées dans <strong>notre propre truffière</strong>. À travers des associations originales et une cuisine généreuse, chaque assiette révèle toute la finesse et le caractère de la truffe noire melanosporum.
+      Découvrez notre menu truffe en 5 temps.<br /><br />
+      Une expérience gourmande imaginée autour des truffes noires du Périgord récoltées dans <strong>notre propre truffière</strong>. À travers des associations originales et une cuisine généreuse, chaque assiette révèle toute la finesse et le caractère de la truffe noire melanosporum.
     </p>
   </section>
 
@@ -54,7 +90,7 @@ const schema = {
   <section class="max-w-5xl mx-auto px-4 pb-16">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div>
-        <img src="/images/truffe-noire-melanosporum-perigord-recolte.jpeg" alt="Truffe noire melanosporum fraîchement récoltée dans la truffière de Benjamin Jardin Périgord" class="w-full aspect-[4/3] object-cover" />
+        <img src="/images/truffe-noire-melanosporum-perigord-recolte.webp" alt="Truffe noire melanosporum fraîchement récoltée dans la truffière de Benjamin Jardin Périgord" class="w-full aspect-[4/3] object-cover" />
         <p class="text-xs text-stone-400 mt-2 text-center">Truffe noire melanosporum fraîchement récoltée</p>
       </div>
       <div class="space-y-5 text-stone-700 leading-relaxed">
@@ -73,34 +109,59 @@ const schema = {
     </div>
   </section>
 
-  <!-- MENU 5 TEMPS -->
-  <section class="relative overflow-hidden bg-[#1a1a1a] text-white py-20">
-    <img src="/images/logo-blanc.svg" aria-hidden="true" class="absolute inset-0 m-auto w-[500px] opacity-[0.05] pointer-events-none select-none" />
-    <div class="relative z-10 max-w-2xl mx-auto px-4 text-center">
-      <p class="text-sm uppercase tracking-widest text-stone-400 mb-3">L'expérience</p>
-      <h2 class="font-serif text-3xl md:text-4xl mb-12">Menu en 5 temps</h2>
-      <div class="space-y-8 text-left">
-        {menuTruffePlats.plats.map((item, i) => (
-          <div class="flex gap-6 items-start border-b border-white/10 pb-8 last:border-0">
-            <span class="font-serif text-5xl text-white/20 leading-none flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3 class="font-serif text-xl mb-1">{item.label}</h3>
-              <p class="text-stone-400 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          </div>
-        ))}
+  <!-- LA TRUFFIÈRE -->
+  <section class="bg-[#1a1a1a] py-20 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-sm uppercase tracking-widest text-[#52b788] mb-3">Eyzerac · Périgord Vert</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">La truffière de Benjamin</h2>
+        <p class="text-stone-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          C'est ici que naissent les truffes noires melanosporum qui garnissent les assiettes du menu, de décembre à fin février.
+        </p>
       </div>
-      <p class="text-stone-500 text-sm mt-10">Menu sur réservation · Le menu change selon la récolte et la saison</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <img
+          src="/images/truffiere-personnelle-benjamin-jardin-eyzerac-perigord.webp"
+          alt="Truffière personnelle de Benjamin Jardin à Eyzerac, Périgord Vert"
+          class="w-full aspect-[4/3] object-cover"
+        />
+        <img
+          src="/images/chene-truffier-brulee-melanosporum-perigord-vert.webp"
+          alt="Chêne truffier avec son brûlé — signe de présence de truffes melanosporum en Périgord"
+          class="w-full aspect-[4/3] object-cover"
+        />
+        <img
+          src="/images/truffiere-chenes-truffiers-eyzerac-dordogne.webp"
+          alt="Chênes truffiers de la truffière d'Eyzerac, Dordogne — truffes noires melanosporum"
+          class="w-full aspect-[4/3] object-cover"
+        />
+      </div>
+      <p class="text-center text-stone-600 text-sm mt-5">La truffière d'Une Escale Gourmande. Entretenue avec soin par Benjamin.</p>
     </div>
   </section>
 
-  <!-- GALERIE PLATS TRUFFE -->
+  <!-- GALERIE CRÉATIONS -->
   <section class="py-20 max-w-5xl mx-auto px-4">
     <h2 class="font-serif text-2xl text-center mb-10">Quelques créations autour de la truffe</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {photosTruffe.photos.map(photo => (
-        <img src={photo.src} alt={photo.alt} class="w-full aspect-square object-cover" />
-      ))}
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="/images/plat-menu-truffe-melanosporum-perigord-1.webp" alt="Risotto à la truffe noire melanosporum — menu truffe Périgord" class="w-full aspect-square object-cover" />
+      <img src="/images/entree-menu-truffe-perigord-saison-6.webp" alt="Plat de viande à la truffe noire — menu truffe table d'hôte Eyzerac" class="w-full aspect-square object-cover" />
+      <img src="/images/creation-chef-truffe-melanosporum-perigord-11.webp" alt="Création du chef — poisson à la truffe melanosporum Périgord" class="w-full aspect-square object-cover" />
+      <img src="/images/amuse-bouche-truffe-noire-perigord-10.webp" alt="Velouté truffe noire — amuse-bouche menu truffe Benjamin Jardin" class="w-full aspect-square object-cover" />
+      <img src="/images/dessert-menu-truffe-noire-perigord-5.webp" alt="Poisson à la truffe noire et jambon — menu truffe Périgord Vert" class="w-full aspect-square object-cover" />
+      <img src="/images/table-hotes-menu-truffe-eyzerac-8.webp" alt="Dessert chocolat truffe noire — menu truffe Une Escale Gourmande Eyzerac" class="w-full aspect-square object-cover" />
+    </div>
+  </section>
+
+  <!-- GALERIE TRUFFE & TABLE -->
+  <section class="bg-[#f5f0e6] py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-serif text-2xl text-center mb-10">La truffe & la table</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <img src="/images/plat-menu-truffe-gastronomique-perigord-4.webp" alt="Truffes noires melanosporum coupées — intérieur de la truffe du Périgord" class="w-full aspect-[4/3] object-cover" />
+        <img src="/images/plat-menu-truffe-benjamin-jardin-perigord-3.webp" alt="Table dressée pour le menu truffe — dîner à la table d'hôte Eyzerac" class="w-full aspect-[4/3] object-cover" />
+        <img src="/images/truffe-noire-melanosporum-fraiche-perigord.webp" alt="Truffe noire melanosporum fraîchement récoltée dans la truffière d'Eyzerac" class="w-full aspect-[4/3] object-cover" />
+      </div>
     </div>
   </section>
 
@@ -111,7 +172,7 @@ const schema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <a href="/chambre" class="group bg-white overflow-hidden hover:shadow-lg transition-shadow">
           <div class="overflow-hidden">
-            <img src="/images/plateau-fromage-truffe-noire-perigord.jpg" alt="Plateau de fromages à la truffe noire melanosporum — menu truffe Périgord" class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img src="/images/plateau-fromage-truffe-noire-perigord.webp" alt="Plateau de fromages à la truffe noire melanosporum — menu truffe Périgord" class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" />
           </div>
           <div class="p-8">
             <h3 class="font-serif text-xl mb-3">Table d'hôte à Eyzerac</h3>
@@ -141,7 +202,7 @@ const schema = {
 
   <!-- CTA -->
   <section class="relative overflow-hidden py-20 text-center px-4">
-    <img src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.jpg" class="absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" />
+    <img src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.webp" class="absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" />
     <div class="absolute inset-0 bg-black/65"></div>
     <div class="relative z-10 max-w-2xl mx-auto">
       <h2 class="font-serif text-3xl mb-4 text-white">Réserver le menu truffe</h2>
@@ -153,7 +214,7 @@ const schema = {
           class="inline-flex items-center justify-center bg-[#25D366] text-white px-5 py-3 hover:bg-[#1fba59] transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-lg">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
-        <a href="/contact" class="inline-block border border-white/50 text-white px-8 py-3 hover:bg-white/10 transition-all hover:-translate-y-0.5 active:scale-95">Formulaire de contact</a>
+        <a href="/contact" class="inline-block border border-white/50 text-white px-8 py-3 hover:bg-white/10 transition-all hover:-translate-y-0.5 active:scale-95">Contactez-nous</a>
       </div>
     </div>
   </section>
