@@ -4,9 +4,10 @@ export async function GET({ request }) {
   const yaml = `
 backend:
   name: github
-  repo: passemelvin/une-escale-gourmande
+  repo: Sarthe72/une-escale-gourmande
   branch: master
-  base_url: https://une-escale-gourmande.passe-melvin.workers.dev
+  base_url: https://uneescalegourmande.fr
+  auth_endpoint: auth
 
 locale: fr
 media_folder: public/images

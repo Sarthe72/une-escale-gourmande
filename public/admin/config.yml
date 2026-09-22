@@ -1,38 +1,45 @@
 backend:
   name: github
-  repo: passemelvin/une-escale-gourmande
+  # Le CMS enregistre les changements dans le dépôt qui alimente le site.
+  repo: Sarthe72/une-escale-gourmande
   branch: master
-  base_url: https://une-escale-gourmande.passe-melvin.workers.dev
+  # Service d'authentification GitHub, hébergé sur le domaine officiel.
+  base_url: https://uneescalegourmande.fr
+  auth_endpoint: auth
 
-site_url: https://une-escale-gourmande.passe-melvin.workers.dev
-display_url: https://une-escale-gourmande.passe-melvin.workers.dev
+site_url: https://uneescalegourmande.fr
+display_url: https://uneescalegourmande.fr
 logo_url: /images/logo-blanc.svg
 
 locale: fr
 media_folder: public/images
 public_folder: /images
 
+commit_messages:
+  update: "Mise à jour depuis l'espace Benjamin : {{path}}"
+  uploadMedia: "Ajout d'une photo depuis l'espace Benjamin : {{path}}"
+
 collections:
   - name: chambre
-    label: "Chambre d'hote"
-    description: "Tarifs et photos de la chambre d'hote"
+    label: "Chambre d'hôtes"
+    description: "Modifier les tarifs, les photos de la chambre et celles du domaine. Pensez à enregistrer à la fin."
     files:
       - label: "Tarifs"
         name: tarifs
         file: src/data/tarifs-chambre.json
         fields:
-          - label: "Prix de base — 2 personnes + petit-dejeuner (euros)"
+          - label: "Prix de base — 2 personnes + petit-déjeuner (€)"
             name: prix_base
             widget: number
-            hint: "Prix hors saison pour 2 personnes avec petit-dejeuner inclus"
-          - label: "Prix haute saison — juillet et aout (euros)"
+            hint: "Prix hors saison pour 2 personnes, petit-déjeuner inclus."
+          - label: "Prix haute saison — juillet et août (€)"
             name: prix_haute_saison
             widget: number
-            hint: "Prix applique en juillet et aout"
-          - label: "Diner en option — par personne (euros)"
+            hint: "Prix appliqué en juillet et août."
+          - label: "Dîner en option — par personne (€)"
             name: prix_diner
             widget: number
-            hint: "Prix du diner a la table d'hote, par personne"
+            hint: "Prix du dîner à la table d'hôtes, par personne."
       - label: "Photos de la chambre"
         name: photos_chambre
         file: src/data/photos-chambre.json
@@ -44,11 +51,11 @@ collections:
               - label: Photo
                 name: src
                 widget: image
-                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+                hint: "Choisissez une photo nette. Nom conseillé : chambre-hotes-eyzerac-vue-terrasse.jpg (sans espace ni accent)."
               - label: "Legende de la photo (texte alternatif)"
                 name: alt
                 widget: string
-                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
+                hint: "Décrivez simplement la photo : ex. « Suite avec terrasse privée à Eyzerac, Périgord Vert »."
       - label: "Photos du domaine"
         name: photos_domaine
         file: src/data/photos-domaine.json
@@ -60,15 +67,15 @@ collections:
               - label: Photo
                 name: src
                 widget: image
-                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+                hint: "Choisissez une photo nette. Nom conseillé : domaine-escale-gourmande-eyzerac-jardin.jpg (sans espace ni accent)."
               - label: "Legende de la photo (texte alternatif)"
                 name: alt
                 widget: string
-                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
+                hint: "Décrivez simplement la photo et son lieu."
 
   - name: truffe
     label: "Menu Truffe"
-    description: "Composition et photos du menu truffe"
+    description: "Mettre à jour la composition et les photos du menu truffe."
     files:
       - label: "Composition du menu (les 5 temps)"
         name: menu_plats
@@ -77,9 +84,9 @@ collections:
           - label: "Les temps du menu"
             name: plats
             widget: list
-            hint: "Chaque ligne est un temps du menu. Modifiez l'intitule et la description."
+            hint: "Chaque ligne correspond à un temps du menu. Gardez des descriptions courtes et gourmandes."
             fields:
-              - { label: "Intitule (ex : Entree, Plat principal...)", name: label, widget: string }
+              - { label: "Intitulé (ex. Entrée, Plat principal…)", name: label, widget: string }
               - { label: "Description courte", name: desc, widget: text }
       - label: "Photos du menu truffe"
         name: photos_truffe
@@ -92,15 +99,15 @@ collections:
               - label: Photo
                 name: src
                 widget: image
-                hint: "IMPORTANT SEO — Renommez votre fichier avant d'uploader. Exemple : chambre-hotes-eyzerac-vue-terrasse.jpg (pas IMG_001.jpg). Pas d'accents, pas d'espaces, mots separes par des tirets."
+                hint: "Choisissez une photo nette. Nom conseillé : menu-truffe-eyzerac-plat.jpg (sans espace ni accent)."
               - label: "Legende de la photo (texte alternatif)"
                 name: alt
                 widget: string
-                hint: "Decrivez la photo en 1 phrase naturelle avec les mots-cles : ex. 'Suite chambre d'hote avec terrasse privee a Eyzerac Perigord Vert'"
+                hint: "Décrivez le plat en une phrase simple et appétissante."
 
   - name: traiteur
     label: "Traiteur"
-    description: "Les idees de menu proposees aux clients"
+    description: "Mettre à jour les idées de menus proposées aux clients."
     files:
       - label: "Idees de menu"
         name: menu_traiteur
@@ -109,18 +116,18 @@ collections:
           - label: "Entrees"
             name: entrees
             widget: list
-            hint: "Ajoutez, modifiez ou supprimez des entrees"
+            hint: "Ajoutez, modifiez ou supprimez des entrées."
             fields:
               - { label: "Description du plat", name: plat, widget: string }
           - label: "Plats principaux"
             name: plats
             widget: list
-            hint: "Ajoutez, modifiez ou supprimez des plats"
+            hint: "Ajoutez, modifiez ou supprimez des plats."
             fields:
               - { label: "Description du plat", name: plat, widget: string }
           - label: "Desserts"
             name: desserts
             widget: list
-            hint: "Ajoutez, modifiez ou supprimez des desserts"
+            hint: "Ajoutez, modifiez ou supprimez des desserts."
             fields:
               - { label: "Description du plat", name: plat, widget: string }
