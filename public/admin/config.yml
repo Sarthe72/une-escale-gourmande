@@ -5,7 +5,7 @@ backend:
   branch: master
   # Service d'authentification GitHub, hébergé sur le domaine officiel.
   base_url: https://uneescalegourmande.fr
-  auth_endpoint: auth
+  auth_endpoint: api/auth
 
 site_url: https://uneescalegourmande.fr
 display_url: https://uneescalegourmande.fr

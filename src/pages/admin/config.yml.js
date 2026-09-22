@@ -7,7 +7,7 @@ backend:
   repo: Sarthe72/une-escale-gourmande
   branch: master
   base_url: https://uneescalegourmande.fr
-  auth_endpoint: auth
+  auth_endpoint: api/auth
 
 locale: fr
 media_folder: public/images
