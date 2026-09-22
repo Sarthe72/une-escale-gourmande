@@ -3,7 +3,7 @@ import { env } from 'cloudflare:workers';
 export async function GET({ request, locals }) {
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
-  const clientId = env.GITHUB_CLIENT_ID ?? 'Ov23lijkbcPjPqGylzVm';
+  const clientId = 'Ov23lijkbcPjPqGylzVm';
   const clientSecret = env.GITHUB_CLIENT_SECRET ?? '';
 
   const html = (script) =>

@@ -3,7 +3,7 @@ import { env } from 'cloudflare:workers';
 export async function GET({ request, locals }) {
   const url = new URL(request.url);
   const state = url.searchParams.get('state') || '';
-  const clientId = env.GITHUB_CLIENT_ID ?? 'Ov23lijkbcPjPqGylzVm';
+  const clientId = 'Ov23lijkbcPjPqGylzVm';
 
   const params = new URLSearchParams({
     client_id: clientId,
