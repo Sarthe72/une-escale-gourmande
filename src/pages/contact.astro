@@ -120,17 +120,17 @@ const schema = {
           </ul>
         </div>
 
-        <!-- Google Maps -->
-        <div class="aspect-video w-full overflow-hidden shadow-md border border-stone-200">
-          <iframe
-            title="Localisation Une Escale Gourmande Eyzerac"
-            src="https://maps.google.com/maps?q=Une+Escale+Gourmande+1144+Rte+des+Calvaires+24800+Eyzerac&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            width="100%"
-            height="100%"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-          ></iframe>
+        <!-- Carte chargée uniquement à la demande pour préserver la confidentialité -->
+        <div class="aspect-video w-full overflow-hidden shadow-md border border-stone-200 bg-[#e8e1d3] flex flex-col items-center justify-center text-center p-8">
+          <span class="text-4xl mb-4" aria-hidden="true">📍</span>
+          <p class="font-serif text-xl text-[#1a1a1a] mb-2">Une Escale Gourmande</p>
+          <p class="text-sm text-stone-600 mb-5">1144 route des Calvaires · 24800 Eyzerac</p>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Une+Escale+Gourmande+1144+route+des+Calvaires+24800+Eyzerac"
+            target="_blank"
+            rel="noopener"
+            class="inline-block bg-[#2d6a4f] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1b4332] transition-colors"
+          >Ouvrir dans Google Maps</a>
         </div>
 
       </div>
@@ -180,6 +180,10 @@ const schema = {
           <button type="submit" id="submit-btn" class="w-full bg-[#2d6a4f] text-white py-3.5 font-medium tracking-wide hover:bg-[#1b4332] transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-lg text-sm uppercase">
             Envoyer le message
           </button>
+          <p class="text-xs leading-relaxed text-stone-500">
+            Les informations saisies sont utilisées uniquement pour répondre à votre demande. Consultez notre
+            <a href="/confidentialite" class="text-[#2d6a4f] underline hover:no-underline">politique de confidentialité</a>.
+          </p>
           <p id="form-error" class="hidden text-red-600 text-sm text-center">Une erreur est survenue. Veuillez réessayer ou nous contacter directement par téléphone.</p>
         </form>
 
