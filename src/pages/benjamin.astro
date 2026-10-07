@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import GoogleReviewStats from '../components/GoogleReviewStats.astro';
+import FeaturedGoogleReview from '../components/FeaturedGoogleReview.astro';
 
 const schema = {
   "@context": "https://schema.org",
@@ -85,13 +87,15 @@ const schema = {
           <div>
             <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">Avis · Google</p>
             <p class="text-yellow-400 text-lg">★★★★★</p>
-            <p class="text-stone-600 text-sm mt-1">5,0 · 15 avis</p>
+            <p class="text-stone-600 text-sm mt-1"><GoogleReviewStats /></p>
           </div>
           <span class="mt-auto text-[#2d6a4f] text-sm font-medium group-hover:underline">Voir tous les avis →</span>
         </a>
       </div>
     </div>
   </section>
+
+  <FeaturedGoogleReview />
 
   <!-- VALEURS -->
   <section class="relative overflow-hidden bg-white py-20">

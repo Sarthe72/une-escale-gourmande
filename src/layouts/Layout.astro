@@ -280,6 +280,47 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
         }, { threshold: 0.5 });
         counters.forEach(el => countObserver.observe(el));
       }
+
+      // Note, nombre d'avis et avis mis en avant, rafraîchis côté serveur une fois par semaine.
+      if (document.querySelector('[data-google-review-count], [data-google-featured-review]')) {
+        fetch('/api/google-reviews')
+          .then(response => response.ok ? response.json() : Promise.reject(new Error('Google reviews unavailable')))
+          .then(data => {
+            if (Number.isFinite(data.rating)) {
+              const rating = Number(data.rating).toLocaleString('fr-FR', {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1,
+              });
+              document.querySelectorAll<HTMLElement>('[data-google-rating]').forEach(el => { el.textContent = rating; });
+            }
+            if (Number.isInteger(data.reviewCount) && data.reviewCount > 0) {
+              document.querySelectorAll<HTMLElement>('[data-google-review-count]').forEach(el => {
+                el.textContent = String(data.reviewCount);
+              });
+            }
+
+            const review = data.featuredReview;
+            const featured = document.querySelector<HTMLElement>('[data-google-featured-review]');
+            if (featured && review?.text) {
+              const text = featured.querySelector<HTMLElement>('[data-google-review-text]');
+              const author = featured.querySelector<HTMLElement>('[data-google-review-author]');
+              const date = featured.querySelector<HTMLElement>('[data-google-review-date]');
+              if (text) text.textContent = review.text;
+              if (author) author.textContent = review.author || 'Client Google';
+              if (date && review.createdAt) {
+                const formattedDate = new Date(review.createdAt).toLocaleDateString('fr-FR', {
+                  month: 'long',
+                  year: 'numeric',
+                });
+                date.textContent = ` · ${formattedDate}`;
+              }
+              featured.hidden = false;
+            }
+          })
+          .catch(() => {
+            // Les valeurs présentes dans la page restent affichées si Google est indisponible.
+          });
+      }
     </script>
   </body>
 </html>

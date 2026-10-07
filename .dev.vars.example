@@ -1,0 +1,6 @@
+# Autorisation Google Business Profile (à conserver uniquement dans les secrets Cloudflare)
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REFRESH_TOKEN=
+GOOGLE_BUSINESS_ACCOUNT_ID=
+GOOGLE_BUSINESS_LOCATION_ID=
