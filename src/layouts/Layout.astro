@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SeasonalAwareness from '../components/SeasonalAwareness.astro';
+import ChristmasDecor from '../components/ChristmasDecor.astro';
 
 interface Props {
   title: string;
@@ -47,8 +48,10 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
     <!-- Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#f5f0e6]/95 backdrop-blur-sm border-b border-stone-200">
       <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <ChristmasDecor placement="header" />
         <div class="flex items-center gap-2 sm:gap-3">
-        <a href="/" class="flex items-center gap-3">
+        <a href="/" class="relative flex items-center gap-3">
+          <ChristmasDecor placement="logo" />
           <img src="/images/logo.svg" alt="Une Escale Gourmande" class="h-12 w-auto" />
           <span class="font-serif text-lg text-[#1a1a1a] hidden sm:block">Une Escale Gourmande</span>
         </a>
@@ -90,6 +93,7 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
     </main>
 
     <footer class="bg-[#1a1a1a] text-stone-300 mt-20 relative overflow-hidden">
+      <ChristmasDecor placement="footer" />
       <img src="/images/logo-blanc.svg" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain opacity-[0.07] pointer-events-none select-none" />
       <div class="relative z-10 max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row justify-center gap-16 text-center md:text-left">
         <div class="flex flex-col items-center md:items-start">
