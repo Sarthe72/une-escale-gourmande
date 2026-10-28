@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SeasonalAwareness from '../components/SeasonalAwareness.astro';
 
 interface Props {
   title: string;
@@ -46,10 +47,13 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
     <!-- Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#f5f0e6]/95 backdrop-blur-sm border-b border-stone-200">
       <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2 sm:gap-3">
         <a href="/" class="flex items-center gap-3">
           <img src="/images/logo.svg" alt="Une Escale Gourmande" class="h-12 w-auto" />
           <span class="font-serif text-lg text-[#1a1a1a] hidden sm:block">Une Escale Gourmande</span>
         </a>
+        <SeasonalAwareness />
+        </div>
         <button id="menu-btn" class="lg:hidden p-2" aria-label="Menu">
           <span class="block w-6 h-0.5 bg-stone-700 mb-1.5"></span>
           <span class="block w-6 h-0.5 bg-stone-700 mb-1.5"></span>

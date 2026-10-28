@@ -1,0 +1,29 @@
+---
+const donationURL = 'https://don.ligue-cancer.net/Agnes/~mon-don?ns_ira_cr_arg=IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyNZ69BhnhXfF5mPvGsOBXGUxIKIBkjHssG6gb5r7uVjeET0LNrO3xHIbmA2g45eTADdupcYnIgoiTs1WiRgZ3Bh3xyk4hNWZII499NXdKgLICxV_DDpyU-pGwZVK4Y6dZ_4HO4wAc3jFI6hdJBxQaNTI6ELWbQPCuWpfw7jsgAB6AqtK9gcoYRo6XwZrHPUwuElNpqN8qnKbQ63RR9bSYN5IgB3UFoWmnw2N9AtOeWDsTXHrppkWi2_pYcpIn_DijTIKgT6A4P9mVopADemqeqWcDszPW4YW-RCfTBm4jX10-VUea66-94ElLoL88lAzlkulZxvYUuPYdxAX9FOpsuTZAIk145YXu6cRJLkWB9YqRjW_1s1iyXbD6IANH4YQe8&utm_source=Google+Ads&utm_medium=Texte&utm_campaign=FR26&utm_content=SEA&utm_term=SEA_Don&gad_source=1&gad_campaignid=1658766644&gclid=CjwKCAjwuobXBhBXEiwAYUaIlalOB6kmlO45GNYzKdE78XXebLZ9mMTAWX_VwbJHlfk3rhFbz3YEYRoCT8cQAvD_BwE&_cv=1';
+---
+<a data-awareness-link hidden href={donationURL} target="_blank" rel="noopener noreferrer" class="awareness-link">
+  <img data-awareness-image="octobre-rose" hidden src="/images/octobre-rose.png" width="26" height="34" alt="Octobre rose — Faire un don à la Ligue contre le cancer (nouvel onglet)" />
+  <img data-awareness-image="movember" hidden src="/images/movember.png" width="76" height="43" alt="Movember — Faire un don à la Ligue contre le cancer (nouvel onglet)" />
+</a>
+<style>
+  .awareness-link { flex: none; border-radius: 3px; }
+  .awareness-link[hidden], img[hidden] { display: none !important; }
+  .awareness-link:focus-visible { outline: 2px solid #2d6a4f; outline-offset: 4px; }
+  img { object-fit: contain; mix-blend-mode: multiply; }
+</style>
+<script>
+  import { awarenessCampaign } from '../lib/seasonalAwareness.js';
+  function updateAwareness() {
+    const campaign = awarenessCampaign();
+    document.querySelectorAll<HTMLAnchorElement>('[data-awareness-link]').forEach(link => {
+      link.hidden = !campaign;
+      link.querySelectorAll<HTMLImageElement>('[data-awareness-image]').forEach(image => {
+        image.hidden = image.dataset.awarenessImage !== campaign;
+      });
+    });
+  }
+  updateAwareness();
+  // Also switch at midnight if the page stays open across a month boundary.
+  setInterval(updateAwareness, 60_000);
+  document.addEventListener('visibilitychange', updateAwareness);
+</script>
