@@ -13,7 +13,7 @@ const sections = [...new Set(questions.map(q => q.section))];
 <html lang="fr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><meta name="referrer" content="no-referrer"/><title>Préparons les fêtes — Benjamin</title></head>
 <body>
 {!allowed ? <main><h1>Ce lien n’est pas disponible</h1><p>Utilise le lien complet du questionnaire qui t’a été transmis.</p></main> : <main>
-  <header><p class="eyebrow">Une Escale Gourmande · Fêtes 2026</p><h1>Benjamin,<br/>préparons les fêtes.</h1><p class="intro">Ton menu est prêt. Il reste à choisir une organisation simple pour toi et pour tes clients.</p><p class="notice">Tu peux répondre « À décider ». Rien ici ne publie le menu ni n’ouvre les commandes.</p></header>
+  <header><p class="eyebrow">Une Escale Gourmande · Fêtes 2026</p><h1>Benjamin,<br/>préparons les fêtes.</h1><p class="intro">Ton menu est prêt. Il reste à choisir une organisation simple pour toi et pour tes clients.</p><p class="notice">Merci de répondre à chaque question pour finaliser l’organisation. Seules les remarques complémentaires sont facultatives. Rien ici ne publie le menu ni n’ouvre les commandes.</p></header>
   <details class="menu"><summary>Menu et prix définitifs · Voir le récapitulatif</summary>
     <h3>Entrées</h3><p>Tartelette périgourdine, compotée d’oignons doux et cèpes, magret séché, copeaux de foie gras, trappe d’Échourgnac et noix torréfiées <strong>10 €/pers.</strong></p><p>Truite de Borrèze en gravlax, crémeux de betterave rôtie, vinaigrette mangue citron vert et granny smith <strong>9 €/pers.</strong></p>
     <h3>Plats</h3><p>Suprême de volaille farcie, pressé de pommes de terre coppa et cèpes, pulpe de potimarron et sauce blanquette <strong>14 €/pers.</strong></p><p>Lotte à l’américaine, risotto d’épeautre au safran et légumes glacés <strong>15 €/pers.</strong></p>
@@ -21,7 +21,7 @@ const sections = [...new Set(questions.map(q => q.section))];
   </details>
   <div class="fixed-info"><strong>Déjà retenu</strong><p>Paiements : chèque, espèces ou virement immédiat.<br/>Période envisagée : du 23 décembre au 2 janvier, retraits précis à définir.</p></div>
   <form id="questionnaire">
-    {sections.map((section, index) => <fieldset><legend><span>0{index + 1}</span> {section}</legend>{questions.filter(q => q.section === section).map(q => <div class="question"><label for={q.id}>{q.label}</label>{q.hint && <p id={`${q.id}-hint`} class="hint">{q.hint}</p>}<textarea id={q.id} name={q.id} rows="3" maxlength="2000" placeholder="Ta réponse, ou À décider" aria-describedby={q.hint ? `${q.id}-hint` : undefined}></textarea><button type="button" class="undecided" data-undecided={q.id}>À décider</button></div>)}</fieldset>)}
+    {sections.map((section, index) => <fieldset><legend><span>0{index + 1}</span> {section}</legend>{questions.filter(q => q.section === section).map(q => <div class="question"><label for={q.id}>{q.label}{q.id === 'notes' && ' (facultatif)'}</label>{q.hint && <p id={`${q.id}-hint`} class="hint">{q.hint}</p>}<textarea id={q.id} name={q.id} rows="3" maxlength="2000" required={q.id !== 'notes'} placeholder="Ta réponse" aria-describedby={q.hint ? `${q.id}-hint` : undefined}></textarea></div>)}</fieldset>)}
     <p class="privacy">Les brouillons restent sur cet appareil si le navigateur le permet. À l’envoi, les réponses sont enregistrées dans l’espace technique du site, sans page publique de consultation, pour 6 mois maximum. Ne renseigne pas de coordonnées bancaires ou de données clients. Garde ce lien pour toi.</p>
     <button type="submit" id="submit">Enregistrer mes réponses</button><p id="status" role="status" aria-live="polite"></p><p id="draft-status" class="hint"></p>
   </form>
@@ -30,6 +30,7 @@ const sections = [...new Set(questions.map(q => q.section))];
   *{box-sizing:border-box}body{margin:0;background:#f5f0e6;color:#243d31;font:16px/1.6 system-ui,sans-serif}main{max-width:760px;margin:auto;padding:48px 20px 80px}header{margin-bottom:30px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.15em}h1{font:normal clamp(36px,7vw,56px)/1.12 Georgia,serif;margin:20px 0}.intro{font-size:19px;max-width:560px}.notice,.hint,.privacy{color:#5e675f;font-size:14px}.menu,.fixed-info,fieldset{background:#fffdf8;border:1px solid #dfdfd3;border-radius:14px;padding:24px;margin:20px 0}.menu summary{cursor:pointer;font-weight:650}.menu p{font-size:14px}.menu strong{white-space:nowrap}.fixed-info{background:#e6eee5}.fixed-info p{margin-bottom:0}fieldset{min-width:0}legend{font:25px Georgia,serif;padding:0 8px}legend span{font:12px system-ui;color:#8a6d3c;margin-right:8px}.question{margin:8px 0 30px}.question:last-child{margin-bottom:0}label{display:block;font-weight:650}.hint{margin:5px 0 10px}textarea{font:inherit;width:100%;margin-top:8px;border:1px solid #b9c4b9;border-radius:8px;background:white;padding:12px;resize:vertical;min-height:95px}textarea:focus{outline:2px solid #2d6a4f;outline-offset:2px}button{font:inherit;cursor:pointer}.undecided{background:transparent;border:0;color:#2d6a4f;text-decoration:underline;font-size:13px;padding:7px 0}#submit{border:0;border-radius:8px;padding:15px 24px;background:#2d6a4f;color:white;font-weight:650;width:100%}#submit:disabled{opacity:.6;cursor:wait}#status{font-weight:600;overflow-wrap:anywhere}.privacy{font-size:13px} @media(max-width:480px){main{padding-top:25px}fieldset,.menu,.fixed-info{padding:18px}}
 </style>
 <script>
+  import { isAnswered } from '../lib/holidayQuestionnaire.js';
   const form = document.querySelector<HTMLFormElement>('#questionnaire');
   if (form) {
     const key = 'escale-holiday-questionnaire-2026';
@@ -38,8 +39,9 @@ const sections = [...new Set(questions.map(q => q.section))];
     const read = () => Object.fromEntries(fields.map(field => [field.name, field.value]));
     try { const draft = JSON.parse(localStorage.getItem(key) || '{}'); fields.forEach(field => { if (typeof draft[field.name] === 'string') field.value = draft[field.name]; }); } catch { draftStatus.textContent = 'Brouillon automatique indisponible dans ce navigateur. Garde la page ouverte jusqu’à l’envoi.'; }
     const save = () => { try { localStorage.setItem(key, JSON.stringify(read())); draftStatus.textContent = 'Brouillon sauvegardé sur cet appareil.'; } catch { draftStatus.textContent = 'Brouillon non sauvegardé. Enregistre les réponses avant de fermer la page.'; } };
-    form.addEventListener('input', save);
-    form.querySelectorAll<HTMLButtonElement>('[data-undecided]').forEach(button => button.addEventListener('click', () => { const field = fields.find(f => f.name === button.dataset.undecided); if (field) { field.value = 'À décider'; save(); } }));
+    const validate = () => fields.forEach(field => field.setCustomValidity(field.required && !isAnswered(field.value) ? 'Merci de préciser ta réponse pour finaliser ce point.' : ''));
+    validate();
+    form.addEventListener('input', () => { validate(); save(); });
     form.addEventListener('submit', async event => {
       event.preventDefault();
       const button = document.querySelector<HTMLButtonElement>('#submit')!;

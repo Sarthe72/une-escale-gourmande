@@ -19,12 +19,18 @@ export const questions = [
   { id: 'notes', section: 'Organisation', label: 'Autres précisions ou besoins pour ton outil ?', hint: 'Par exemple : récapitulatif par retrait, quantités de chaque plat, liste des règlements.' },
 ];
 
+export function isAnswered(value) {
+  const normalized = value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[.!?]+$/g, '').trim();
+  return normalized.length > 0 && normalized !== 'a decider';
+}
+
 export function validateAnswers(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
   const answers = {};
   for (const { id } of questions) {
     if (typeof input[id] !== 'string' || input[id].length > 2000) return null;
-    answers[id] = input[id].trim() || 'À décider';
+    if (id !== 'notes' && !isAnswered(input[id])) return null;
+    answers[id] = input[id].trim();
   }
   return answers;
 }

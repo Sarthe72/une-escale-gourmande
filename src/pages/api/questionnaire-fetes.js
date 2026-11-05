@@ -12,7 +12,7 @@ export async function POST({ request }) {
     const body = await request.text();
     if (body.length > 45000) return json({ error: 'Réponses trop longues.' }, 413);
     const answers = validateAnswers(JSON.parse(body).answers);
-    if (!answers) return json({ error: 'Vérifie les réponses (2 000 caractères maximum par question).' }, 400);
+    if (!answers) return json({ error: 'Réponds à toutes les questions obligatoires (2 000 caractères maximum par réponse). Les remarques complémentaires sont facultatives.' }, 400);
     if (!env.SESSION) return json({ error: 'Enregistrement indisponible. Tes réponses restent sur cet appareil.' }, 503);
     const id = crypto.randomUUID();
     await env.SESSION.put(`holiday-questionnaire:2026:${id}`, JSON.stringify({ id, submittedAt: new Date().toISOString(), answers }), { expirationTtl: 60 * 60 * 24 * 180 });
