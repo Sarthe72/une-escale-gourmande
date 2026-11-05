@@ -14,7 +14,6 @@ export const questions = [
   { id: 'consignes', section: 'En cuisine', label: 'Quelles consignes de conservation et de réchauffage fournir ?' },
   { id: 'allergenes', section: 'En cuisine', label: 'Quels allergènes et quelles adaptations pour chaque plat ?', hint: 'La composition ne suffit pas à garantir la liste des allergènes : précise aussi les ingrédients des sauces et préparations.' },
   { id: 'emballages', section: 'En cuisine', label: 'Les emballages sont-ils inclus ? Y a-t-il une consigne ?' },
-  { id: 'notifications', section: 'Organisation', label: 'Comment veux-tu être averti des nouvelles commandes ?', hint: 'Par mail, dans Escale Pro, ou autre ?' },
   { id: 'publication', section: 'Organisation', label: 'Quand souhaites-tu publier le menu et ouvrir les commandes ?' },
   { id: 'notes', section: 'Organisation', label: 'Autres précisions ou besoins pour ton outil ?', hint: 'Par exemple : récapitulatif par retrait, quantités de chaque plat, liste des règlements.' },
 ];
