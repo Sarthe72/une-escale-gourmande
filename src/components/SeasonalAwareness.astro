@@ -15,7 +15,8 @@ const donationURL = 'https://don.ligue-cancer.net/Agnes/~mon-don?ns_ira_cr_arg=I
   import { awarenessCampaign } from '../lib/seasonalAwareness.js';
   function updateAwareness() {
     document.dispatchEvent(new Event('seasonal-date-change'));
-    const campaign = awarenessCampaign();
+    const christmasPreview=import.meta.env.DEV&&new URLSearchParams(location.search).get('preview')==='christmas';
+    const campaign = christmasPreview?null:awarenessCampaign();
     document.querySelectorAll<HTMLAnchorElement>('[data-awareness-link]').forEach(link => {
       link.hidden = !campaign;
       link.querySelectorAll<HTMLImageElement>('[data-awareness-image]').forEach(image => {

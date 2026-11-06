@@ -17,6 +17,22 @@
 
 Les devis, factures manuelles et anciens clients du CRM restent dans leur stockage local actuel. Cette livraison partage les commandes et les factures qui en découlent ; elle ne migre pas silencieusement les anciens documents.
 
+## Décors Noël — ivoire, sapin givré et champagne
+
+- Accueil : guirlande sur la photo existante, invitation aux menus intégrée dans un bandeau ivoire/champagne et composition de bougies avant le contact.
+- Le Chef : branches légères au-dessus du portrait et séparation végétale avant les valeurs.
+- Chambre : guirlande givrée sur la photo, composition de bougies avant la réservation.
+- Traiteur : feuillage et lumières sur le visuel d’ouverture, séparation végétale avant le contact.
+- Menu Truffe : guirlande champagne sur la photo, bougies avant la réservation.
+- Contact : coins végétaux discrets, sans superposition sur les champs du formulaire.
+- Logo, navigation et pied de page : touches coordonnées ; les pages légales gardent uniquement cet habillage léger. La page Menu des fêtes approuvée conserve son décor propre.
+
+Affichage automatique du 1er décembre au 5 janvier inclus, dans le fuseau Europe/Paris, indépendamment de l’ouverture des commandes. Les images décoratives sont sans attribut src hors saison ; elles ne sont chargées qu’à l’activation, avec variantes responsives et chargement différé pour les éléments plus bas. Les vrais visuels du lieu sont conservés. Les compositions décoratives sont des créations d’ambiance, pas des photos du domaine. Aucun script d’animation de particules ni bibliothèque supplémentaire.
+
+Les nouveaux fichiers WebP pèsent environ 196 Ko pour la guirlande 1440 px (57 Ko en 720 px), et 56 Ko pour les bougies 640 px (19 Ko en 320 px). Ils sont réutilisés entre pages. Les décors sont non interactifs et masqués aux technologies d’assistance. La présence de la saison est définie avant le premier affichage pour réserver les espaces des séparateurs.
+
+Recette locale : `npm run dev -- --host 127.0.0.1 --port 8793`, puis `/?preview=christmas`. Ce paramètre d’aperçu fonctionne uniquement en développement. La navigation conserve l’aperçu d’une page à l’autre. En production, le calendrier réel s’applique toujours.
+
 ## Paramètres à valider avant activation
 
 1. Nom définitif du poisson, formulation coppa/jambon et informations d’allergènes.

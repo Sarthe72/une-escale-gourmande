@@ -1,5 +1,4 @@
 <div id="holiday-menu-invitation" hidden>
- <div class="holiday-menu-frame" aria-hidden="true"></div>
  <a class="holiday-menu-banner" href="/menu-fetes/">
   <div><p>Noël &amp; Nouvel An · Le menu de Benjamin</p><h2>Un peu de magie,<br/><em>beaucoup de gourmandise.</em></h2></div>
   <span>Découvrir le menu des fêtes →</span>
@@ -7,16 +6,23 @@
 </div>
 <style>
  #holiday-menu-invitation[hidden]{display:none}
- .holiday-menu-frame{position:absolute;inset:0 0 auto;height:230px;background:var(--holiday-image) center top/100% auto no-repeat;pointer-events:none;mask-image:linear-gradient(#000,transparent)}
- .holiday-menu-banner{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);z-index:15;display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1000px,calc(100% - 48px));padding:24px 30px;background:linear-gradient(110deg,#672532ed,#3d1923ed);border:1px solid #d6b370a6;color:#fff1d6;box-shadow:0 10px 35px #0003;text-decoration:none}
- .holiday-menu-banner p{font:10px system-ui;letter-spacing:.14em;text-transform:uppercase;color:#e3c487;margin-bottom:8px}
- .holiday-menu-banner h2{font:30px/1.15 Georgia,serif}.holiday-menu-banner em{color:#e5c07d}
- .holiday-menu-banner span{padding:15px 20px;background:linear-gradient(110deg,#ebcd94,#b68a45);color:#342a19;font:11px system-ui;text-transform:uppercase;white-space:nowrap}
+ .holiday-menu-banner{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);z-index:15;display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1000px,calc(100% - 48px));padding:24px 30px;background:linear-gradient(110deg,#fff9edfa,#eee3cefa);border:1px solid #d6b370a6;color:#234333;box-shadow:0 10px 35px #0003;text-decoration:none}
+ .holiday-menu-banner p{font:10px system-ui;letter-spacing:.14em;text-transform:uppercase;color:#96743f;margin-bottom:8px}
+ .holiday-menu-banner h2{font:30px/1.15 Georgia,serif}.holiday-menu-banner em{color:#95713b}
+ .holiday-menu-banner span{padding:15px 20px;background:#2d5c45;color:#fff5df;font:11px system-ui;text-transform:uppercase;white-space:nowrap}
  :global(.holiday-home-hero.has-holiday-menu){min-height:780px;padding-bottom:170px}
- @media(max-width:620px){.holiday-menu-banner{display:block;text-align:center;padding:20px;width:calc(100% - 32px)}.holiday-menu-banner h2{font-size:26px;margin-bottom:20px}.holiday-menu-banner span{display:inline-block;font-size:10px}.holiday-menu-frame{background-size:180% auto;height:180px}:global(.holiday-home-hero.has-holiday-menu){min-height:940px;padding-bottom:245px}}
+ @media(max-width:620px){.holiday-menu-banner{display:block;text-align:center;padding:20px;width:calc(100% - 32px)}.holiday-menu-banner h2{font-size:26px;margin-bottom:20px}.holiday-menu-banner span{display:inline-block;font-size:10px}:global(.holiday-home-hero.has-holiday-menu){min-height:790px;padding-bottom:245px}:global(.holiday-home-hero.has-holiday-menu .holiday-home-copy>img){height:140px;margin-bottom:18px}}
 </style>
 <script>
  import {isChristmasSeason} from '../lib/christmasSeason';
  import {holidayCatalog} from '../lib/holidayCatalogClient';
- if(isChristmasSeason())holidayCatalog().then(catalog=>{if(catalog.campaignVisible){const invitation=document.getElementById('holiday-menu-invitation');invitation?.style.setProperty('--holiday-image','url("/fetes/christmas-hero.webp")');if(invitation)invitation.hidden=false;invitation?.closest('section')?.classList.add('has-holiday-menu');}}).catch(()=>{});
+ const preview=import.meta.env.DEV&&new URLSearchParams(location.search).get('preview')==='christmas';
+ function updateHolidayMenuPromo(){
+  const invitation=document.getElementById('holiday-menu-invitation');
+  const hero=invitation?.closest('section');
+  if(!preview&&!isChristmasSeason()){if(invitation)invitation.hidden=true;hero?.classList.remove('has-holiday-menu');return;}
+  holidayCatalog().then(catalog=>{const visible=catalog.campaignVisible||preview;if(invitation)invitation.hidden=!visible;hero?.classList.toggle('has-holiday-menu',visible);}).catch(()=>{});
+ }
+ updateHolidayMenuPromo();
+ document.addEventListener('seasonal-date-change',updateHolidayMenuPromo);
 </script>

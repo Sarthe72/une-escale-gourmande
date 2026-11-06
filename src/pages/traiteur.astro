@@ -1,5 +1,6 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
+import ChristmasPageDecor from '../components/ChristmasPageDecor.astro';
 import menuTraiteur from '../data/menu-traiteur.json';
 
 const schema = {
@@ -30,6 +31,7 @@ const schema = {
 >
   <!-- HERO -->
   <section class="relative h-[65vh] min-h-[450px] flex items-end overflow-hidden">
+    <ChristmasPageDecor page="traiteur" />
     <img data-parallax src="/images/traiteur-chef-domicile-dordogne-assiettes.webp" alt="Service traiteur gastronomique" class="absolute inset-0 w-full h-full object-cover object-top" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 pb-12 w-full">
@@ -233,6 +235,7 @@ const schema = {
     </div>
   </section>
 
+  <ChristmasPageDecor placement="interlude" page="traiteur" motif="fir" />
   <!-- CTA -->
   <section class="relative overflow-hidden py-24 text-center px-4">
     <img src="/images/traiteur-chef-domicile-dordogne-assiettes.webp" class="absolute inset-0 w-full h-full object-cover object-top" alt="" aria-hidden="true" />

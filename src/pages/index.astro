@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ChristmasPageDecor from '../components/ChristmasPageDecor.astro';
 import GoogleReviewStats from '../components/GoogleReviewStats.astro';
 import HolidayMenuPromo from '../components/HolidayMenuPromo.astro';
 
@@ -32,6 +33,7 @@ const schema = {
 >
   <!-- HERO -->
   <section class="holiday-home-hero relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <ChristmasPageDecor page="home" />
     <img
       data-parallax
       src="/images/terrasse-petit-dejeuner-escale-gourmande-eyzerac.webp"
@@ -41,7 +43,7 @@ const schema = {
     <div class="absolute inset-0 bg-black/55"></div>
     <HolidayMenuPromo/>
     <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
-    <div class="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
+    <div class="holiday-home-copy relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
       <img src="/images/logo.svg" alt="Une Escale Gourmande" class="h-52 md:h-72 w-auto mx-auto mb-6 invert drop-shadow-xl" />
       <h1 class="font-serif text-4xl md:text-6xl font-bold mb-4 leading-tight" style="text-shadow: 0 2px 12px rgba(0,0,0,0.7)">
         Une Escale Gourmande
@@ -210,6 +212,7 @@ const schema = {
   </section>
   </div><!-- fin bloc logo unique -->
 
+  <ChristmasPageDecor placement="interlude" page="home" motif="candles" />
   <!-- CTA -->
   <section class="relative overflow-hidden py-24 text-center px-4">
     <img src="/images/terrasse-petit-dejeuner-escale-gourmande-eyzerac.webp" class="absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" />

@@ -4,19 +4,14 @@ const { placement } = Astro.props;
 ---
 <div data-christmas-decor hidden aria-hidden="true" class:list={['christmas-decor', placement]}>
   {placement === 'logo' ? (
-    <svg viewBox="0 0 60 40" width="36" height="24"><path fill="#a93939" d="M8 30Q14 2 34 5Q47 7 51 24L43 24Q36 14 33 16L30 30Z"/><path fill="#fff9ee" d="M6 28Q18 24 34 28L35 35Q20 31 6 35Z"/><circle cx="51" cy="25" r="6" fill="#fff9ee"/></svg>
+    <svg viewBox="0 0 60 40" width="36" height="24"><path fill="#c0a678" d="M8 30Q14 2 34 5Q47 7 51 24L43 24Q36 14 33 16L30 30Z"/><path fill="#fff9ee" d="M6 28Q18 24 34 28L35 35Q20 31 6 35Z"/><circle cx="51" cy="25" r="6" fill="#fff9ee"/></svg>
   ) : placement === 'header' ? (
     <svg viewBox="0 0 1200 22" preserveAspectRatio="none" width="1200" height="22">
       <path d="M0 2Q150 28 300 2Q450 28 600 2Q750 28 900 2Q1050 28 1200 2" fill="none" stroke="#365c45" stroke-width="2"/>
-      {[75,225,375,525,675,825,975,1125].map((x, i) => <circle cx={x} cy="12" r="3" fill={i % 2 ? '#be984e' : '#a93939'} />)}
+      {[75,225,375,525,675,825,975,1125].map((x, i) => <circle cx={x} cy="12" r="3" fill={i % 2 ? '#d6bf8e' : '#fff2c6'} />)}
     </svg>
   ) : (
-    <svg viewBox="0 0 180 85" width="150" height="71">
-      <path d="M32 4L13 32H23L7 53H22L2 74H62L43 53H57L41 32H51Z" fill="#365c45"/><path d="M28 74H36V84H28Z" fill="#a98a53"/>
-      <path d="M83 70V24C83 5 111 5 111 24V31" fill="none" stroke="#fff3dc" stroke-width="12" stroke-linecap="round"/>
-      <path d="M83 58V48M83 35V25M89 13L98 12M108 20L111 28" stroke="#a93939" stroke-width="7"/>
-      <path d="M136 25V8" stroke="#be984e"/><circle cx="136" cy="40" r="16" fill="#a93939"/><path d="M122 34Q136 44 150 34" fill="none" stroke="#be984e" stroke-width="2"/>
-    </svg>
+    <img data-christmas-src="/fetes/noel-ivoire/bougies-320.webp" data-christmas-srcset="/fetes/noel-ivoire/bougies-320.webp 320w, /fetes/noel-ivoire/bougies-640.webp 640w" sizes="(max-width:767px) 130px, 190px" width="320" height="213" loading="lazy" decoding="async" alt=""/>
   )}
 </div>
 <style>
@@ -25,8 +20,10 @@ const { placement } = Astro.props;
   .logo { position: absolute; top: -7px; left: 9px; transform: rotate(-15deg); }
   .header { position: absolute; inset: 0 0 auto; height: 14px; overflow: hidden; }
   .header svg { width: 100%; height: 14px; display: block; }
-  .footer { position: absolute; right: 24px; bottom: 14px; opacity: .65; }
-  @media (max-width: 767px) { .footer { right: 8px; bottom: 8px; } .footer svg { width: 80px; height: 38px; } }
+  .footer { position: absolute; right: 24px; bottom: 14px; width:190px;opacity:.95; }
+  .footer img{width:100%;height:auto}
+  :global(html[data-christmas-season="on"] [data-christmas-decor][hidden]){display:block!important}
+  @media (max-width: 767px) { .footer { right:auto;left:50%;transform:translateX(-50%);bottom:8px;width:130px } :global(html[data-christmas-season="on"] .site-footer){padding-bottom:105px} }
 </style>
 <script>
   import { isChristmasSeason } from '../lib/christmasSeason.js';
@@ -34,7 +31,12 @@ const { placement } = Astro.props;
     // Preview is available locally only; production always follows the calendar.
     const preview = import.meta.env.DEV && new URLSearchParams(location.search).get('preview') === 'christmas';
     const active = preview || isChristmasSeason();
+    document.documentElement.dataset.christmasSeason=active?'on':'off';
     document.querySelectorAll<HTMLElement>('[data-christmas-decor]').forEach(el => { el.hidden = !active; });
+    if(active)document.querySelectorAll<HTMLImageElement>('img[data-christmas-src]').forEach(image=>{
+      if(!image.getAttribute('src')){if(image.dataset.christmasSrcset)image.srcset=image.dataset.christmasSrcset;image.src=image.dataset.christmasSrc||'';}
+    });
+    if(preview)document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(link=>{const url=new URL(link.href,location.href);if(url.origin===location.origin&&!url.pathname.startsWith('/api/')&&!link.getAttribute('href')?.startsWith('#')){url.searchParams.set('preview','christmas');link.href=url.href;}});
   }
   updateChristmasDecor();
   document.addEventListener('visibilitychange', updateChristmasDecor);

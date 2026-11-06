@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ChristmasPageDecor from '../components/ChristmasPageDecor.astro';
 import GoogleReviewStats from '../components/GoogleReviewStats.astro';
 import FeaturedGoogleReview from '../components/FeaturedGoogleReview.astro';
 
@@ -25,7 +26,8 @@ const schema = {
   schema={schema}
 >
   <!-- PARCOURS -->
-  <section class="max-w-5xl mx-auto px-4 py-20">
+  <section class="relative overflow-hidden max-w-5xl mx-auto px-4 py-20">
+    <ChristmasPageDecor page="chef" />
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
       <div>
         <img src="/images/benjamin-jardin-chef-cuisinier-perigord-dordogne.webp" alt="Benjamin Jardin, chef cuisinier traiteur Périgord Dordogne" class="w-full object-cover shadow-lg" />
@@ -97,6 +99,7 @@ const schema = {
 
   <FeaturedGoogleReview />
 
+  <ChristmasPageDecor placement="interlude" page="chef" motif="fir" />
   <!-- VALEURS -->
   <section class="relative overflow-hidden bg-white py-20">
     <img src="/images/logo.svg" aria-hidden="true" class="absolute inset-0 m-auto w-[450px] opacity-[0.04] pointer-events-none select-none" />

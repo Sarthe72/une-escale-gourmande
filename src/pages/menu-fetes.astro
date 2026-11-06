@@ -2,6 +2,8 @@
 import {env} from 'cloudflare:workers';
 import page from '../templates/menu-fetes.html?raw';
 export const prerender=false;
-if(env.HOLIDAY_CAMPAIGN_VISIBLE!=='true')return new Response('Page indisponible',{status:404,headers:{'X-Robots-Tag':'noindex'}});
+const preview=import.meta.env.DEV&&Astro.url.searchParams.get('preview')==='christmas';
+if(env.HOLIDAY_CAMPAIGN_VISIBLE!=='true'&&!preview)return new Response('Page indisponible',{status:404,headers:{'X-Robots-Tag':'noindex'}});
+const output=preview?page.replace(/(<a\b[^>]*\bhref=")(\/[^"#?]*)"/g,(_match,lead,path)=>`${lead}${path}?preview=christmas"`):page;
 ---
-<Fragment set:html={page}/>
+<Fragment set:html={output}/>

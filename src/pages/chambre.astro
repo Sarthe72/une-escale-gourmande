@@ -1,5 +1,6 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
+import ChristmasPageDecor from '../components/ChristmasPageDecor.astro';
 import tarifs from '../data/tarifs-chambre.json';
 import photosChambre from '../data/photos-chambre.json';
 import photosDomaine from '../data/photos-domaine.json';
@@ -38,6 +39,7 @@ const schema = {
 >
   <!-- HERO -->
   <section class="relative h-[65vh] min-h-[450px] flex items-end overflow-hidden">
+    <ChristmasPageDecor page="chambre" />
     <img data-parallax src="/images/chambre-hotes-eyzerac-perigord-vert-suite.webp" alt="Chambre d'hôte Périgord Vert — suite indépendante Une Escale Gourmande Eyzerac" class="absolute inset-0 w-full h-full object-cover object-center" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 pb-12 w-full">
@@ -195,6 +197,7 @@ const schema = {
     </div>
   </section>
 
+  <ChristmasPageDecor placement="interlude" page="chambre" motif="candles" />
   <!-- CTA -->
   <section class="relative overflow-hidden py-24 text-center px-4">
     <img src="/images/jardin-domaine-escale-gourmande-eyzerac.webp" class="absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" />

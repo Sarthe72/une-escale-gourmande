@@ -1,5 +1,6 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
+import ChristmasPageDecor from '../components/ChristmasPageDecor.astro';
 import photosTruffe from '../data/photos-truffe.json';
 import menuTruffePlats from '../data/menu-truffe-plats.json';
 
@@ -32,6 +33,7 @@ const schema = {
 >
   <!-- HERO -->
   <section class="relative h-[75vh] min-h-[500px] flex items-end overflow-hidden">
+    <ChristmasPageDecor page="truffe" />
     <img data-parallax src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.webp" alt="Truffes noires melanosporum du Périgord" class="absolute inset-0 w-full h-full object-cover object-center" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 w-full">
@@ -200,6 +202,7 @@ const schema = {
     </div>
   </section>
 
+  <ChristmasPageDecor placement="interlude" page="truffe" motif="candles" />
   <!-- CTA -->
   <section class="relative overflow-hidden py-20 text-center px-4">
     <img src="/images/chef-benjamin-jardin-cuisson-truffe-noire-perigord.webp" class="absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" />
