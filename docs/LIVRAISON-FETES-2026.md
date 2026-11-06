@@ -51,4 +51,6 @@ Conserver une sauvegarde des exports locaux de Benjamin et de la version déploy
 
 Tests locaux : validation des coordonnées/prix/dates, accès anonyme refusé, origines refusées, anti-doublon, saisie manuelle authentifiée, session révoquée, facture unique et persistante, correction/revalidation sans nouveau numéro, bilan Noël sans double comptage. Un parcours navigateur a confirmé la commande depuis la page festive jusque dans sa facture partagée après rechargement complet.
 
-Retour arrière : fermer `HOLIDAY_ORDERS_OPEN` puis masquer la campagne, conserver la base et son historique, restaurer les fichiers de la version précédente. Ne pas supprimer la base ni les factures émises. Les alertes de dépendances CRM ont été corrigées par mises à jour compatibles ; l’audit du 6 novembre 2026 ne signale plus de vulnérabilité.
+Retour arrière : fermer `HOLIDAY_ORDERS_OPEN` puis masquer la campagne, conserver la base et son historique, restaurer les fichiers de la version précédente. Ne pas supprimer la base ni les factures émises.
+
+Le site a été mis à jour vers Astro 7.4.7 avec l’adaptateur Cloudflare 14.4.6, Wrangler 4.158.0 et Vite 8.3.6. Les compilations et les 64 tests du site passent après cette mise à jour, ainsi que les 4 tests CRM et le test HTTP complet. Les audits npm du site et du CRM du 6 novembre 2026 ne signalent plus de vulnérabilité. Le parcours navigateur a été testé avec des coordonnées fictives uniquement.

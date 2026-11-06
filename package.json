@@ -15,16 +15,16 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.5.1",
+    "@astrojs/cloudflare": "^14.4.6",
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.3",
+    "astro": "^7.4.7",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "wrangler": "^4.92.0"
+    "wrangler": "^4.158.0"
   },
   "overrides": {
-    "vite": "^7"
+    "vite": "^8.3.6"
   }
 }

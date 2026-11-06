@@ -1,3 +1,4 @@
+const businessDate=value=>value?new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value)):'';
 export function invoiceFromRow(row) {
  const order=JSON.parse(row.snapshot);
  return {
@@ -5,8 +6,8 @@ export function invoiceFromRow(row) {
   clientCivilite:'',clientNom:[order.firstName,order.name].filter(Boolean).join(' '),
   clientAdresse:'',clientTel:order.phone,clientEmail:order.email,
   prestationType:'commandes_noel',datePrestation:order.pickup,
-  dateEnvoi:row.issued_at.slice(0,10),createdAt:row.issued_at,
-  datePaiement:row.paid_at?.slice(0,10)||'',statut:row.paid?'payee':'attente',
+  dateEnvoi:businessDate(row.issued_at),createdAt:row.issued_at,
+  datePaiement:businessDate(row.paid_at),statut:row.paid?'payee':'attente',
   description:`Commande Noël ${row.order_id}`,paymentMode:order.payment,
   lignes:order.items.map(item=>({description:item.name,quantite:item.quantity,prixUnitaire:item.price/100})),
   tva:'0',vatMode:'exempt_293b',acompte:0,
