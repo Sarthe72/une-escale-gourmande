@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SeasonalAwareness from '../components/SeasonalAwareness.astro';
 import ChristmasDecor from '../components/ChristmasDecor.astro';
+import HolidayNavigation from '../components/HolidayNavigation.astro';
 
 interface Props {
   title: string;
@@ -68,6 +69,7 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
           <li><a href="/chambre" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Chambre</a></li>
           <li><a href="/traiteur" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Traiteur</a></li>
           <li><a href="/menu-truffe" class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200">Menu Truffe</a></li>
+          <HolidayNavigation class="pb-0.5 border-b-2 border-transparent hover:border-[#2d6a4f] hover:text-[#2d6a4f] transition-all duration-200"/>
           <li>
             <a href="/contact" class="bg-[#2d6a4f] text-white px-4 py-2 rounded-sm hover:bg-[#1b4332] transition-colors">
               Contactez-nous
@@ -83,6 +85,7 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
           <li><a href="/chambre" class="block hover:text-[#2d6a4f]">Chambre</a></li>
           <li><a href="/traiteur" class="block hover:text-[#2d6a4f]">Traiteur</a></li>
           <li><a href="/menu-truffe" class="block hover:text-[#2d6a4f]">Menu Truffe</a></li>
+          <HolidayNavigation class="block hover:text-[#2d6a4f]"/>
           <li><a href="/contact" class="block hover:text-[#2d6a4f]">Contact</a></li>
         </ul>
       </div>

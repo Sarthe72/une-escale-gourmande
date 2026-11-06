@@ -1,0 +1,7 @@
+---
+import {env} from 'cloudflare:workers';
+import page from '../templates/menu-fetes.html?raw';
+export const prerender=false;
+if(env.HOLIDAY_CAMPAIGN_VISIBLE!=='true')return new Response('Page indisponible',{status:404,headers:{'X-Robots-Tag':'noindex'}});
+---
+<Fragment set:html={page}/>

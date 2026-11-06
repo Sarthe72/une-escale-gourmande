@@ -1,0 +1,8 @@
+---
+const {class:linkClass=''}=Astro.props;
+---
+<li data-holiday-navigation hidden><a href="/menu-fetes/" class={linkClass}>Menu des fêtes</a></li>
+<script>
+ import {holidayCatalog} from '../lib/holidayCatalogClient';
+ holidayCatalog().then(catalog=>{if(catalog.campaignVisible)document.querySelectorAll<HTMLElement>('[data-holiday-navigation]').forEach(link=>{link.hidden=false;});}).catch(()=>{});
+</script>

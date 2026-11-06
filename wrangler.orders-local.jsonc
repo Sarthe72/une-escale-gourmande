@@ -1,0 +1,8 @@
+{
+ "name": "escale-orders-local",
+ "main": "./dist/server/entry.mjs",
+ "compatibility_date": "2026-05-15",
+ "assets": { "directory": "./dist/client", "binding": "ASSETS" },
+ "d1_databases": [{ "binding": "HOLIDAY_DB", "database_name": "holiday-orders-local", "database_id": "00000000-0000-0000-0000-000000000001", "migrations_dir": "migrations" }],
+ "vars": { "HOLIDAY_CAMPAIGN_VISIBLE": "true", "HOLIDAY_VAT_MODE": "exempt_293b", "HOLIDAY_ORDERS_OPEN": "true", "HOLIDAY_DEADLINE_CHRISTMAS": "2026-12-21T22:59:00Z", "HOLIDAY_DEADLINE_NEWYEAR": "2026-12-28T22:59:00Z", "HOLIDAY_ALLOWED_ORIGINS": "http://localhost:5174,http://127.0.0.1:5174,http://127.0.0.1:8790" }
+}

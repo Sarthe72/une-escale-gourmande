@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import GoogleReviewStats from '../components/GoogleReviewStats.astro';
+import HolidayMenuPromo from '../components/HolidayMenuPromo.astro';
 
 const schema = {
   "@context": "https://schema.org",
@@ -30,7 +31,7 @@ const schema = {
   schema={schema}
 >
   <!-- HERO -->
-  <section class="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+  <section class="holiday-home-hero relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
     <img
       data-parallax
       src="/images/terrasse-petit-dejeuner-escale-gourmande-eyzerac.webp"
@@ -38,6 +39,7 @@ const schema = {
       class="absolute inset-0 w-full h-full object-cover"
     />
     <div class="absolute inset-0 bg-black/55"></div>
+    <HolidayMenuPromo/>
     <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
     <div class="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
       <img src="/images/logo.svg" alt="Une Escale Gourmande" class="h-52 md:h-72 w-auto mx-auto mb-6 invert drop-shadow-xl" />

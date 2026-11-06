@@ -7,7 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://uneescalegourmande.fr',
-  integrations: [sitemap({ filter: page => !new URL(page).pathname.startsWith('/questionnaire-fetes') })],
+  integrations: [sitemap({ filter: page => !['/questionnaire-fetes', '/commande-fetes'].some(path => new URL(page).pathname.startsWith(path)) })],
 
   vite: {
     plugins: [tailwindcss()],

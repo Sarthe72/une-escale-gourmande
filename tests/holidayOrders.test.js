@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { validateOrder } from '../src/lib/holidayOrders.js';
+const config = { HOLIDAY_ORDERS_OPEN:'true', HOLIDAY_DEADLINE_CHRISTMAS:'2026-12-21T20:00:00Z' };
+const input = { name:'Test',firstName:'Client',phone:'06 00 00 00 00',email:'test@example.com',pickup:'2026-12-24',payment:'cash',items:[{id:'tartelette',quantity:2,price:1}],total:1 };
+test('prices are calculated on server',()=>assert.equal(validateOrder(input,config,0).total,2000));
+for (const field of ['name','firstName','phone']) test(field+' obligatoire',()=>assert.throws(()=>validateOrder({...input,[field]:'   '},config,0)));
+test('email facultatif',()=>assert.equal(validateOrder({...input,email:''},config,0).email,''));
+test('email renseigné vérifié',()=>assert.throws(()=>validateOrder({...input,email:'invalide'},config,0)));
+test('closed by default',()=>assert.throws(()=>validateOrder(input,{},0)));
+test('unknown deadline fails closed',()=>assert.throws(()=>validateOrder({...input,pickup:'2026-12-31'},config,0)));
+test('deadline boundary',()=>assert.throws(()=>validateOrder(input,config,Date.parse(config.HOLIDAY_DEADLINE_CHRISTMAS))));
+for(const items of [[{id:'inconnu',quantity:1}],[{id:'tartelette',quantity:-1}],[{id:'tartelette',quantity:1.5}],[{id:'tartelette',quantity:1},{id:'tartelette',quantity:1}],[]]) test('rejects invalid basket '+JSON.stringify(items),()=>assert.throws(()=>validateOrder({...input,items},config,0)));
+test('poisson au tarif confirmé de 15 euros',()=>assert.equal(validateOrder({...input,items:[{id:'poisson',quantity:1}]},config,0).total,1500));
