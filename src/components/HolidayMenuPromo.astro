@@ -1,6 +1,6 @@
 <div id="holiday-menu-invitation" hidden>
  <a class="holiday-menu-banner" href="/menu-fetes/">
-  <div><p>Noël &amp; Nouvel An · Le menu de Benjamin</p><h2>Un peu de magie,<br/><em>beaucoup de gourmandise.</em></h2></div>
+  <div><p>Noël &amp; Nouvel An · Une Escale Gourmande</p><h2>Un peu de magie,<br/><em>beaucoup de gourmandise.</em></h2></div>
   <span>Découvrir le menu des fêtes →</span>
  </a>
 </div>
@@ -14,13 +14,11 @@
  @media(max-width:620px){.holiday-menu-banner{display:block;text-align:center;padding:20px;width:calc(100% - 32px)}.holiday-menu-banner h2{font-size:26px;margin-bottom:20px}.holiday-menu-banner span{display:inline-block;font-size:10px}:global(.holiday-home-hero.has-holiday-menu){min-height:790px;padding-bottom:245px}:global(.holiday-home-hero.has-holiday-menu .holiday-home-copy>img){height:140px;margin-bottom:18px}}
 </style>
 <script>
- import {isChristmasSeason} from '../lib/christmasSeason';
  import {holidayCatalog} from '../lib/holidayCatalogClient';
  const preview=import.meta.env.DEV&&new URLSearchParams(location.search).get('preview')==='christmas';
  function updateHolidayMenuPromo(){
   const invitation=document.getElementById('holiday-menu-invitation');
   const hero=invitation?.closest('section');
-  if(!preview&&!isChristmasSeason()){if(invitation)invitation.hidden=true;hero?.classList.remove('has-holiday-menu');return;}
   holidayCatalog().then(catalog=>{const visible=catalog.campaignVisible||preview;if(invitation)invitation.hidden=!visible;hero?.classList.toggle('has-holiday-menu',visible);}).catch(()=>{});
  }
  updateHolidayMenuPromo();

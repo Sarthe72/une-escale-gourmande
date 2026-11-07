@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SeasonalAwareness from '../components/SeasonalAwareness.astro';
 import ChristmasDecor from '../components/ChristmasDecor.astro';
+import ChristmasSurround from '../components/ChristmasSurround.astro';
 import HolidayNavigation from '../components/HolidayNavigation.astro';
 
 interface Props {
@@ -94,8 +95,9 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
       </div>
     </header>
 
-    <main class="pt-[72px]">
+    <main class="pt-[72px] relative overflow-hidden">
       <slot />
+      <ChristmasSurround />
     </main>
 
     <footer class="site-footer bg-[#1a1a1a] text-stone-300 mt-20 relative overflow-hidden">

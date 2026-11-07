@@ -4,6 +4,7 @@ const {placement='opening',page='home',motif='candles'}=Astro.props;
 const candles=placement==='interlude'&&motif==='candles';
 ---
 <div data-christmas-decor hidden aria-hidden="true" class:list={['christmas-page-decor',placement,`page-${page}`,{'with-candles':candles}]}>
+ {placement==='opening' && <div class="warm-lights">{[7,19,32,45,58,71,84,95].map((left,i)=><span style={`left:${left}%;top:${18+(i%3)*16}px`}/>)}</div>}
  <img
    data-christmas-src={candles?'/fetes/noel-ivoire/bougies-640.webp':'/fetes/noel-ivoire/guirlande-1440.webp'}
    data-christmas-srcset={candles?'/fetes/noel-ivoire/bougies-320.webp 320w, /fetes/noel-ivoire/bougies-640.webp 640w':'/fetes/noel-ivoire/guirlande-720.webp 720w, /fetes/noel-ivoire/guirlande-1440.webp 1440w'}
@@ -16,6 +17,10 @@ const candles=placement==='interlude'&&motif==='candles';
  .christmas-page-decor[hidden]{display:none!important}
  .opening{position:absolute;inset:0 0 auto;z-index:2;height:230px;overflow:hidden;mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}
  .opening img{display:block;width:100%;height:auto}
+ .warm-lights{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 12% 0%,#ffd78b24,transparent 35%),radial-gradient(ellipse at 88% 0%,#ffd78b24,transparent 35%)}
+ .warm-lights span{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff7d9;box-shadow:0 0 7px 3px #ffdc9bcc,0 0 24px 10px #f4ba5b40}
+ .page-chef .warm-lights,.page-contact .warm-lights{opacity:.65}
+ .page-contact .warm-lights span:nth-child(n+3):nth-child(-n+6){display:none}
  .opening.page-chambre{height:210px}
  .opening.page-traiteur{height:185px}
  .opening.page-truffe{height:230px;filter:brightness(1.05)}

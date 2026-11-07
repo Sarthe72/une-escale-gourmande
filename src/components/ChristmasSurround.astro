@@ -1,0 +1,27 @@
+---
+---
+<div data-christmas-decor hidden aria-hidden="true" class="christmas-surround">
+ <div class="gourmet-top"><img data-christmas-src="/fetes/noel-ivoire/cadre-gourmand-haut.webp" width="1024" height="260" alt="" decoding="async"/></div>
+ <div class="gourmet-side left">{Array.from({length:16},()=> <img data-christmas-src="/fetes/noel-ivoire/cadre-gourmand-gauche.webp" width="180" height="800" alt="" loading="lazy"/>)}</div>
+ <div class="gourmet-side right">{Array.from({length:16},()=> <img data-christmas-src="/fetes/noel-ivoire/cadre-gourmand-droite.webp" width="180" height="800" alt="" loading="lazy"/>)}</div>
+ <div class="gourmet-finale"><img class="corner-left" data-christmas-src="/fetes/noel-ivoire/gourmandise-gauche.webp" width="450" height="426" alt="" loading="lazy"/><img class="corner-right" data-christmas-src="/fetes/noel-ivoire/gourmandise-droite.webp" width="450" height="426" alt="" loading="lazy"/></div>
+</div>
+<style>
+ .christmas-surround{pointer-events:none;user-select:none}
+ .christmas-surround[hidden]{display:none!important}
+ .gourmet-top{position:absolute;top:72px;left:0;right:0;height:210px;z-index:4;overflow:hidden;mask-image:linear-gradient(#000 70%,transparent)}
+ .gourmet-top img{width:100%;height:auto;display:block}
+ .gourmet-side{position:absolute;top:245px;bottom:225px;width:clamp(30px,7vw,110px);overflow:hidden;z-index:3;display:flex;flex-direction:column;mask-image:linear-gradient(transparent,#000 50px,#000 calc(100% - 50px),transparent)}
+ .gourmet-side.left{left:0}.gourmet-side.right{right:0}
+ .gourmet-side img{display:block;width:100%;height:auto;flex-shrink:0}
+ .gourmet-finale{position:relative;height:350px;margin:0 calc(clamp(30px,7vw,110px) * -1);overflow:hidden;z-index:3}
+ .gourmet-finale img{position:absolute;bottom:0;width:min(380px,32%);height:auto;display:block}.corner-left{left:0}.corner-right{right:0}
+ :global(html[data-christmas-season="on"] main.pt-\[72px\]){padding-inline:clamp(30px,7vw,110px);padding-top:160px;background:#f7f1e5}
+ :global(html[data-christmas-season="on"] .christmas-page-decor.opening){display:none!important}
+ @media(max-width:600px){
+  .gourmet-top{height:110px;mask-image:none}.gourmet-top img{width:130%;max-width:none;margin-left:-15%}
+  .gourmet-side{top:170px;bottom:125px;width:26px}
+  .gourmet-finale{height:180px;margin-inline:-26px}.gourmet-finale img{width:50%}
+  :global(html[data-christmas-season="on"] main.pt-\[72px\]){padding-inline:26px;padding-top:140px}
+ }
+</style>

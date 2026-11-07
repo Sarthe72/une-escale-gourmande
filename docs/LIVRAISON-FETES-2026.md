@@ -1,11 +1,11 @@
 # Livraison préparée — menus des fêtes et Escale Pro
 
-État : version de validation locale. Aucun déploiement, aucune ouverture des commandes publiques, aucune modification des données du CRM en ligne.
+État au 7 novembre 2026 : version en validation. Base D1 de production créée et migrations 0001 à 0004 appliquées. Commandes publiques fermées ; site et CRM non publiés dans cette version.
 
 ## Ce qui est développé
 
-- Page festive approuvée intégrée au site : `/menu-fetes/`, panier, coordonnées obligatoires nom/prénom/téléphone, e-mail facultatif, précisions, retrait et paiement. Prix serveur : 10 €, 9 €, 14 €, 15 €, 5,50 €, 5,50 €. Le nom du poisson reste générique.
-- Invitation intégrée à la photo d’accueil en décembre et jusqu’au 5 janvier, activable sans afficher la campagne avant validation.
+- Page festive approuvée intégrée au site : `/menu-fetes/`, panier, coordonnées obligatoires nom/prénom/téléphone, e-mail obligatoire, précisions, retrait et paiement. Prix serveur : 10 €, 9 €, 14 €, 15 €, 5,50 €, 5,50 €. La lotte est confirmée à 15 € par portion.
+- Invitation intégrée à la photo d’accueil dès activation de la campagne, activable sans afficher la campagne avant validation.
 - Stockage partagé D1 pour les commandes, la facturation et l’historique des corrections. Les dates, prix et quantités sont vérifiés côté serveur. Les nouvelles tentatives identiques ne créent pas de doublon.
 - Une connexion sécurisée à l’entrée d’Escale Pro, pour toutes ses rubriques. Pas de connexion distincte aux commandes. Le PIN historique reste dans les données locales, mais cette version utilise une clé d’accès serveur unique plutôt que ce PIN local comme authentification. La clé de production devra être configurée au lancement.
 - Commandes web, téléphone et e-mail dans la même liste. Saisie manuelle et reprise des coordonnées d’un client déjà présent dans les commandes.
@@ -35,8 +35,8 @@ Recette locale : `npm run dev -- --host 127.0.0.1 --port 8793`, puis `/?preview=
 
 ## Paramètres à valider avant activation
 
-1. Nom définitif du poisson, formulation coppa/jambon et informations d’allergènes.
-2. Heure exacte des clôtures des 21 et 28 décembre (les heures de la configuration locale ne sont que des valeurs de test).
+1. Lotte confirmée à 15 € ; informations d’allergènes et ingrédients à valider.
+2. Clôtures confirmées : 21 et 28 décembre 2026 à 23 h 59, Europe/Paris (UTC+1). Configuration de production préparée ; commandes publiques toujours fermées.
 3. Modèle de facture, coordonnées, régime de TVA et série de numérotation à confirmer avant émission réelle. Le serveur refuse l’encaissement tant que `HOLIDAY_VAT_MODE=exempt_293b` n’a pas été explicitement configuré ; ce mode correspond au modèle historique du CRM et ne doit être activé qu’après confirmation.
 4. Durée de conservation des coordonnées et information de confidentialité adaptée à la prise de commande.
 5. Alerte de nouvelle commande : le bouton Actualiser fonctionne. Le choix d’une alerte hors CRM reste ouvert ; aucun envoi automatique d’e-mail n’est activé ni revendiqué dans cette livraison.
@@ -53,7 +53,7 @@ Conserver une sauvegarde des exports locaux de Benjamin et de la version déploy
 - Configurer `HOLIDAY_ADMIN_KEY` comme secret serveur, avec une valeur aléatoire forte d’au moins 32 caractères. Ne pas réutiliser la clé locale, ne pas la mettre dans Git, les fichiers publics, les variables VITE ou une URL.
 - Variables : `HOLIDAY_ALLOWED_ORIGINS=https://sarthe72.github.io`, les deux échéances `HOLIDAY_DEADLINE_CHRISTMAS` / `HOLIDAY_DEADLINE_NEWYEAR` avec fuseau explicite, et le mode de facturation validé.
 - Déployer d’abord avec `HOLIDAY_CAMPAIGN_VISIBLE=false` et `HOLIDAY_ORDERS_OPEN=false`. Vérifier l’accès administrateur, les migrations et le modèle de facture sans envoyer de commande réelle.
-- Activer `HOLIDAY_CAMPAIGN_VISIBLE=true` pour afficher la page ; activer ensuite `HOLIDAY_ORDERS_OPEN=true` au moment convenu. Le bandeau d’accueil reste limité à la période décembre–5 janvier.
+- Activer `HOLIDAY_CAMPAIGN_VISIBLE=true` pour afficher la page ; activer ensuite `HOLIDAY_ORDERS_OPEN=true` au moment convenu. Le bandeau suit la visibilité de la campagne ; les décors restent limités au 1er décembre–5 janvier.
 - `npm ci`, `npm test`, `npm run build`, puis le déploiement existant. Attention : un push sur master peut déclencher automatiquement la publication ; aucun push n’a été effectué pour cette livraison.
 
 ### Escale Pro / GitHub Pages
@@ -70,3 +70,31 @@ Tests locaux : validation des coordonnées/prix/dates, accès anonyme refusé, o
 Retour arrière : fermer `HOLIDAY_ORDERS_OPEN` puis masquer la campagne, conserver la base et son historique, restaurer les fichiers de la version précédente. Ne pas supprimer la base ni les factures émises.
 
 Le site a été mis à jour vers Astro 7.4.7 avec l’adaptateur Cloudflare 14.4.6, Wrangler 4.158.0 et Vite 8.3.6. Les compilations et les 64 tests du site passent après cette mise à jour, ainsi que les 4 tests CRM et le test HTTP complet. Les audits npm du site et du CRM du 6 novembre 2026 ne signalent plus de vulnérabilité. Le parcours navigateur a été testé avec des coordonnées fictives uniquement.
+
+## E-mail client
+Adresse obligatoire pour suivi de commande et envoi de facture après paiement/retrait. Aucun fichier de prospection, aucune campagne et aucun choix mailing ne sont créés.
+
+## Préparation du 14 novembre — état du 7 novembre
+- Lotte à 15 € et coppa confirmées. E-mail requis côté site, serveur et saisie CRM.
+- Clôtures : 21/12 et 28/12 à 23 h 59 Europe/Paris, dans le modèle de configuration de production. Aucune ouverture automatique activée.
+- Réponses de Benjamin retrouvées dans Cloudflare (envoi du 05/11 à 20:01 UTC). Il a fourni une liste d’ingrédients ; elle mentionne encore du maigre, remplacé depuis par la lotte. La liste d’allergènes des préparations composées reste à faire valider.
+- Facturation : coordonnées reprises de l’ancien modèle CRM, SIRET 93942640900016. Le modèle PDF préparé reprend la franchise de TVA ; activer ce mode seulement après validation finale du statut.
+
+### E-mails transactionnels — non activés
+Migration 0004 ajoute une file atomique : alerte de commande web et facture PDF à la validation du paiement/retrait. Le Worker séparé workers/holiday-mail.js traite la file toutes les cinq minutes et reprend les erreurs, même si Benjamin ferme le CRM. Clé d’idempotence par événement et statut d’envoi dans la commande. Une correction avant l’envoi annule la facture en attente ; un e-mail déjà envoyé ne peut pas être rappelé. Une facture déjà envoyée n’est pas renvoyée automatiquement après correction/revalidation.
+
+Resend est la solution préparée, sans compte ni envoi activés : offre gratuite annoncée 3 000 e-mails/mois et 100/jour. Cette intégration limite ses tentatives à 90/jour. Respecter le forfait gratuit et ne pas activer de facturation automatique. Sources : https://resend.com/pricing et https://resend.com/docs/dashboard/emails/idempotency-keys.
+
+Avant activation : vérifier un domaine expéditeur, enregistrer RESEND_API_KEY uniquement comme secret du Worker e-mail, fournir HOLIDAY_MAIL_FROM, conserver jardinbenjamin@hotmail.fr comme destinataire d’alerte, compléter la confidentialité avec le prestataire réellement utilisé, tester l’envoi vers une adresse de test, puis passer HOLIDAY_MAIL_ENABLED=true. Le modèle wrangler.mail-production.example.jsonc reste désactivé et utilise un identifiant de base fictif. Appliquer 0004 avant la nouvelle version de l’API.
+
+Sauvegarde avant remplacement : les anciens devis et factures sont sur l’appareil de Benjamin ; une sauvegarde de code seule ne les sauvegarde pas. Obtenir et vérifier son export depuis cet appareil avant le lancement. Aucune donnée existante n’a été effacée ni migrée.
+
+## Avancement du 7 novembre — raccordement réel
+- Base de production `escale-commandes-fetes` : migrations vérifiées, aucune migration restante.
+- Domaine `notifications.uneescalegourmande.fr` : TXT DKIM et deux CNAME ajoutés, DNS uniquement. Vérification Resend en cours ; réception désactivée. MX et SPF de la messagerie existante inchangés.
+- Expéditeur préparé : Une Escale Gourmande <commandes@notifications.uneescalegourmande.fr>. Alertes et réponses : jardinbenjamin@hotmail.fr.
+- Service e-mail séparé, sans endpoint public, déployable indépendamment par workflow manuel `target=mail`. Configuration encore désactivée. Aucune clé Resend dans le dépôt.
+- Page des fêtes : marque seule, livraison sur demande avec contact préalable, clôtures à 23 h 59.
+- PDF : coordonnées longues réparties sur plusieurs lignes et changement de page si nécessaire.
+- Tests : 69 site et 7 CRM réussis ; compilation du site réussie.
+- Restent nécessaires avant ouverture : domaine Resend entièrement validé, clé d’envoi serveur, test réel des e-mails, sauvegarde du navigateur de Benjamin, confirmation TVA et allergènes, recette sur accès réel.

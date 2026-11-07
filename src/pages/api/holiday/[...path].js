@@ -66,9 +66,9 @@ export async function ALL({ request, params }) {
     if(route==='session' && request.method==='GET') return reply({ok:true,expires:session.expires});
     if (route === 'logout' && request.method === 'POST') { await db.prepare('DELETE FROM holiday_sessions WHERE token_hash=?').bind(await hash(token)).run(); return reply({ ok: true }); }
     if (route === 'orders' && request.method === 'GET') {
-      const rows = await db.prepare('SELECT o.*,i.sequence AS invoice_sequence FROM holiday_orders o LEFT JOIN holiday_invoices i ON i.order_id=o.id ORDER BY o.pickup,o.created_at LIMIT 1001').all();
+      const rows = await db.prepare("SELECT o.*,i.sequence AS invoice_sequence,(SELECT state FROM holiday_mail m WHERE m.event_key='invoice:'||o.id) AS invoice_mail_status FROM holiday_orders o LEFT JOIN holiday_invoices i ON i.order_id=o.id ORDER BY o.pickup,o.created_at LIMIT 1001").all();
       if (rows.results.length > 1000) return reply({ error: 'Volume trop important : export nécessaire.' }, 409);
-      return reply({ orders: rows.results.map(r => ({ ...JSON.parse(r.payload), id: r.id, createdAt: r.created_at, status: r.status, paid: !!r.paid, version: r.version,paidAt:r.paid_at,collectedAt:r.collected_at,invoiceId:r.invoice_sequence?`holiday-invoice-${r.invoice_sequence}`:undefined })) });
+      return reply({ orders: rows.results.map(r => ({ ...JSON.parse(r.payload), id: r.id, createdAt: r.created_at, status: r.status, paid: !!r.paid, version: r.version,paidAt:r.paid_at,collectedAt:r.collected_at,invoiceMailStatus:r.invoice_mail_status||null,invoiceId:r.invoice_sequence?`holiday-invoice-${r.invoice_sequence}`:undefined })) });
     }
     if(route==='invoices' && request.method==='GET') {
       const rows=await db.prepare('SELECT i.*,o.paid,o.paid_at FROM holiday_invoices i JOIN holiday_orders o ON o.id=i.order_id ORDER BY i.sequence DESC LIMIT 1001').all();

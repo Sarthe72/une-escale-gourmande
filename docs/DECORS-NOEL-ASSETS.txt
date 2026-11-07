@@ -1,0 +1,5 @@
+Création intégrée imagegen : décor photoréaliste de cadeaux ivoire, rubans bordeaux, deux sucres d’orge, sapin givré, boules champagne, lanterne et bougie allumée, guirlande lumineuse dorée. Composition compacte sur fond transparent, sans texte ni logo. Asset optimisé : public/fetes/noel-ivoire/cadeaux-640.webp. Source : exec-54cd4987-1a20-4727-bb36-308008934f11.png.
+Nouveau cadre gourmand, outil imagegen intégré (fond transparent).
+Prompt : Luxury photorealistic Christmas decorative frame for French gastronomic guesthouse; frosted evergreen, ivory silk bows, champagne baubles, warm amber fairy lights, gilded star shortbread, ivory macarons, artisan chocolate truffles and gingerbread cottages with lit windows. Transparent center, decorations along outer edges, no red, no text or branding.
+Source : exec-72997a5f-aa09-443c-96b8-257f7bfb637a.png.
+Déclinaisons techniques WebP : public/fetes/noel-ivoire/cadre-gourmand-{haut,gauche,droite,bas}.webp et gourmandise-{gauche,droite}.webp.

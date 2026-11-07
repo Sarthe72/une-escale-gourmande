@@ -2,7 +2,7 @@ export const dishes = [
   { id: 'tartelette', name: 'Tartelette périgourdine', price: 1000 },
   { id: 'truite', name: 'Truite de Borrèze en gravlax', price: 900 },
   { id: 'volaille', name: 'Suprême de volaille farcie', price: 1400 },
-  { id: 'poisson', name: 'Poisson à l’américaine — espèce à confirmer', price: 1500 },
+  { id: 'poisson', name: 'Lotte à l’américaine', price: 1500 },
   { id: 'chocolat', name: 'Royal chocolat', price: 550 },
   { id: 'ananas', name: 'Entremets ananas et yuzu', price: 550 },
 ];
@@ -24,7 +24,7 @@ export function validateOrder(input, config, now = Date.now()) {
   const email = String(input.email || '').trim().toLowerCase();
   const notes = String(input.notes || '').trim();
   if (notes.length > 1000) throw new Error('Les informations complémentaires sont limitées à 1 000 caractères.');
-  if (!name || name.length > 100 || !firstName || firstName.length > 100 || !/^\+?[0-9]{10,15}$/.test(phone) || (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || email.length > 254) throw new Error('Renseignez votre nom, votre prénom et un numéro de téléphone valide. Vérifiez l’e-mail si vous en indiquez un.');
+  if (!name || name.length > 100 || !firstName || firstName.length > 100 || !/^\+?[0-9]{10,15}$/.test(phone) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) throw new Error('Renseignez votre nom, votre prénom, un téléphone et une adresse e-mail valides.');
   if (!['cheque', 'cash', 'instant_transfer'].includes(input.payment)) throw new Error('Choisissez un mode de paiement.');
   if (!Array.isArray(input.items) || !input.items.length || input.items.length > dishes.length) throw new Error('Choisissez vos plats.');
   const seen = new Set();

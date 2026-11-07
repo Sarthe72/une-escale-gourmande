@@ -8,7 +8,8 @@ const { placement } = Astro.props;
   ) : placement === 'header' ? (
     <svg viewBox="0 0 1200 22" preserveAspectRatio="none" width="1200" height="22">
       <path d="M0 2Q150 28 300 2Q450 28 600 2Q750 28 900 2Q1050 28 1200 2" fill="none" stroke="#365c45" stroke-width="2"/>
-      {[75,225,375,525,675,825,975,1125].map((x, i) => <circle cx={x} cy="12" r="3" fill={i % 2 ? '#d6bf8e' : '#fff2c6'} />)}
+      <defs><radialGradient id="christmas-light-halo"><stop stop-color="#ffe4a0" stop-opacity=".85"/><stop offset="1" stop-color="#ffd178" stop-opacity="0"/></radialGradient></defs>
+      {[75,225,375,525,675,825,975,1125].map((x) => <g><circle cx={x} cy="12" r="14" fill="url(#christmas-light-halo)"/><circle cx={x} cy="12" r="3" fill="#fff5d7"/></g>)}
     </svg>
   ) : (
     <img data-christmas-src="/fetes/noel-ivoire/bougies-320.webp" data-christmas-srcset="/fetes/noel-ivoire/bougies-320.webp 320w, /fetes/noel-ivoire/bougies-640.webp 640w" sizes="(max-width:767px) 130px, 190px" width="320" height="213" loading="lazy" decoding="async" alt=""/>
@@ -18,8 +19,8 @@ const { placement } = Astro.props;
   .christmas-decor { pointer-events: none; user-select: none; }
   .christmas-decor[hidden] { display: none !important; }
   .logo { position: absolute; top: -7px; left: 9px; transform: rotate(-15deg); }
-  .header { position: absolute; inset: 0 0 auto; height: 14px; overflow: hidden; }
-  .header svg { width: 100%; height: 14px; display: block; }
+  .header { position: absolute; inset: 0 0 auto; height: 22px; overflow: hidden; }
+  .header svg { width: 100%; height: 22px; display: block; }
   .footer { position: absolute; right: 24px; bottom: 14px; width:190px;opacity:.95; }
   .footer img{width:100%;height:auto}
   :global(html[data-christmas-season="on"] [data-christmas-decor][hidden]){display:block!important}
