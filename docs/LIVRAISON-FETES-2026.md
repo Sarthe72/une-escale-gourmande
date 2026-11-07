@@ -98,3 +98,13 @@ Sauvegarde avant remplacement : les anciens devis et factures sont sur l’appar
 - PDF : coordonnées longues réparties sur plusieurs lignes et changement de page si nécessaire.
 - Tests : 69 site et 7 CRM réussis ; compilation du site réussie.
 - Restent nécessaires avant ouverture : domaine Resend entièrement validé, clé d’envoi serveur, test réel des e-mails, sauvegarde du navigateur de Benjamin, confirmation TVA et allergènes, recette sur accès réel.
+
+### Raccordement terminé le 7 novembre au soir
+- Domaine Resend vérifié. Clé créée avec permission Sending access limitée à notifications.uneescalegourmande.fr ; stockée uniquement comme secret chiffré RESEND_API_KEY du Worker Cloudflare escale-commandes-mail. Aucun secret dans GitHub ou le code.
+- Service e-mail déployé avec succès par GitHub Actions (run 42413751776) depuis la branche de préparation. Le job de publication du site a été ignoré. Envoi toujours désactivé, aucun e-mail de test ou client envoyé.
+- Paramètres d’expédition, destinataire marchand, adresse de réponse, liaison D1 et déclencheur toutes les cinq minutes vérifiés dans Cloudflare.
+- 70 tests site, 7 tests CRM, compilations site et CRM et scénario HTTP local réussis. Rendu PDF avec coordonnées très longues et six plats vérifié sur deux pages.
+- Branches de préparation sauvegardées sur GitHub ; aucune fusion sur master, aucun remplacement du site ou du CRM publics.
+- Confidentialité mise à jour pour identifier Resend comme prestataire transactionnel.
+- Questions envoyées à Melvin : confirmation de la franchise TVA actuelle et validation des allergènes / produits composés par Benjamin.
+- Encore à faire : réception réelle d’un e-mail de test, accès serveur CRM de production, export des données locales depuis l’appareil de Benjamin et recette réelle avant ouverture du 14 novembre.
