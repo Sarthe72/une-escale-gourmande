@@ -108,3 +108,9 @@ Sauvegarde avant remplacement : les anciens devis et factures sont sur l’appar
 - Confidentialité mise à jour pour identifier Resend comme prestataire transactionnel.
 - Questions envoyées à Melvin : confirmation de la franchise TVA actuelle et validation des allergènes / produits composés par Benjamin.
 - Encore à faire : réception réelle d’un e-mail de test, accès serveur CRM de production, export des données locales depuis l’appareil de Benjamin et recette réelle avant ouverture du 14 novembre.
+
+## Confirmation du 8 novembre 2026
+Melvin confirme le régime sans TVA déjà appliqué dans le CRM. HOLIDAY_VAT_MODE=exempt_293b est configuré dans les fichiers de production ; ce point n’est plus en attente. Commandes toujours fermées. Les ingrédients du questionnaire ont été repris dans docs/ALLERGENES-FETES-2026.md : seules les compositions fournisseurs et substitutions nécessitent une vérification ciblée.
+
+## Consigne du 8 novembre — allergènes
+Utiliser uniquement les éléments expressément fournis par Benjamin, sans déduction, allergène supplémentaire ou mention de traces. Le tableau déduit a été remplacé par sa réponse originale dans docs/ALLERGENES-FETES-2026.md. Cette consigne remplace les demandes de vérification complémentaire figurant dans les états historiques ci-dessus.

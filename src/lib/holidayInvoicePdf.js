@@ -3,6 +3,7 @@ export function holidayInvoicePdf(row) {
  const order=JSON.parse(row.snapshot);const doc=new jsPDF({unit:'mm',format:'a4'});
  const text=(s,x,y,size=11,bold=false)=>{doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);doc.text(String(s).replaceAll('œ','oe'),x,y);};
  text('Une Escale Gourmande',20,23,18,true);
+ if(row.test)text('TEST — SANS VALEUR COMPTABLE',20,15,11,true);
  ['JARDIN Benjamin','1144 route des calvaires','24800 Eyzerac','SIRET : 93942640900016','06 25 14 26 08 · jardinbenjamin@hotmail.fr'].forEach((s,i)=>text(s,20,33+i*5,9));
  text('FACTURE '+row.number,20,71,15,true);
  text('Émise le '+new Date(row.issued_at).toLocaleDateString('fr-FR',{timeZone:'Europe/Paris'}),20,80);

@@ -28,3 +28,13 @@ test('mail de facture : PDF joint, destinataire du snapshot, absence de double e
 test('correction avant envoi : la facture ne part pas',async()=>{
  const db=fakeMailDb(false);await drainMail({HOLIDAY_MAIL_ENABLED:'true',HOLIDAY_DB:db,RESEND_API_KEY:'test-only',HOLIDAY_MAIL_FROM:'test@example.com',HOLIDAY_MAIL_TO:'merchant@example.com'},()=>{throw Error('Unexpected transmission')});assert.equal(db.state.status,'cancelled');
 });
+
+test('contrôle réel isolé : facture fictive sans commande ni facture comptable',async()=>{
+ const db=fakeMailDb();db.state.job={event_key:'test:check-001',kind:'test',order_id:'TEST-CHECK-001',test_payload:JSON.stringify({to:'test@example.com'}),attempts:0};
+ const original=db.prepare;db.prepare=sql=>{assert.ok(!sql.includes('FROM holiday_orders'));assert.ok(!sql.includes('FROM holiday_invoices'));if(sql.startsWith('SELECT * FROM holiday_mail '))assert.ok(sql.includes("AND kind='test'"));return original.call(db,sql);};
+ let count=0;
+ await drainMail({HOLIDAY_MAIL_TEST_ENABLED:'true',HOLIDAY_DB:db,RESEND_API_KEY:'test-only',HOLIDAY_MAIL_FROM:'test@example.com',HOLIDAY_MAIL_TO:'merchant@example.com'},async(_url,options)=>{
+  const body=JSON.parse(options.body);assert.match(body.subject,/TEST/);assert.deepEqual(body.to,['test@example.com']);assert.match(Buffer.from(body.attachments[0].content,'base64').toString('latin1'),/SANS VALEUR COMPTABLE/);count++;return Response.json({id:'test-check'});
+ });
+ assert.equal(count,1);assert.equal(db.state.status,'sent');
+});

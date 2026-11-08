@@ -9,7 +9,7 @@ on:
         description: Service à publier
         type: choice
         default: site
-        options: [site, mail]
+        options: [site, mail, mail-check]
 
 concurrency:
   group: production
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'workflow_dispatch' || inputs.target != 'mail'
+    if: github.event_name != 'workflow_dispatch' || inputs.target == 'site'
     name: Construire et publier sur Cloudflare
     runs-on: ubuntu-latest
     permissions:
@@ -45,7 +45,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
   mail:
-    if: github.event_name == 'workflow_dispatch' && inputs.target == 'mail'
+    if: github.event_name == 'workflow_dispatch' && (inputs.target == 'mail' || inputs.target == 'mail-check')
     name: Préparer le service des e-mails
     runs-on: ubuntu-latest
     permissions:
@@ -59,7 +59,13 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: Publier le service sans ouvrir les commandes
-        run: npx wrangler deploy --config wrangler.mail-production.jsonc
         env:
+          MAIL_CHECK: ${{ inputs.target == 'mail-check' }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: a8ef483748a8075bf90d197e2d5b6977
+        run: |
+          if [ "$MAIL_CHECK" = "true" ]; then
+            npx wrangler deploy --config wrangler.mail-production.jsonc --var HOLIDAY_MAIL_TEST_ENABLED:true
+          else
+            npx wrangler deploy --config wrangler.mail-production.jsonc
+          fi
