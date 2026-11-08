@@ -137,3 +137,13 @@ Migration 0006 préparée et appliquée. Les anciennes sessions serveur ont ét�
 Recette locale réussie : association à usage unique, preuve signée valide, rejet du second emploi du lien et de la preuve, accès anonyme refusé, puis commande / facture / correction / révocation. 72 tests site et 7 tests CRM passent. Les compilations passent.
 Le jeton GitHub actuel ne peut pas interroger D1 : les migrations sont donc appliquées avec l’accès D1 existant de Melvin avant publication, sans élargir les permissions. Le retrait de secret utilise uniquement l’accès de déploiement GitHub existant.
 Cette correction reste sur les branches de préparation ; l’ancienne connexion du CRM public n’a pas été remplacée.
+
+Retrait du secret vérifié avec succès par le run GitHub 42465489169. HOLIDAY_ADMIN_KEY absent du Worker, anciennes sessions révoquées via l’accès D1 existant. Aucun PIN utilisateur lu, changé ou envoyé au serveur. Correction CRM sauvegardée sur codex/fetes-orders. Association du téléphone encore à réaliser au déploiement de la nouvelle version.
+
+## Mise à jour publiée le 8 novembre — GO de Melvin
+Site : source master 4cee131, déploiement 42469087417 réussi. CRM : source master b008597, déploiement GitHub Pages 42469078284 réussi. Même adresse https://sarthe72.github.io/escale-pro/, aucun service worker à réinstaller.
+- PIN habituel conservé. Les clés de documents locales et leur contenu ne sont pas migrés ni effacés. Copie préalable des documents existants en IndexedDB au premier démarrage, sans PIN/session ; téléchargement disponible dans Sauvegarde de mes documents. Ce n’est pas une sauvegarde externe et sa réussite sur le téléphone reste à vérifier sur cet appareil. Le démarrage n’attend pas plus de 1,5 seconde une éventuelle indisponibilité du stockage de copie.
+- Catalogue en ligne : lotte 15 €, commandes fermées, campagne masquée. Page menu-fetes retourne 404 ; commandes/factures anonymes retournent 401 ; ancienne clé refusée.
+- Test de connexion de production réussi via scripts/test-crm-production.mjs --production : lien unique, preuve signée, rejet du rejeu, accès aux routes protégées, révocation de session. Appareil technique révoqué en fin de test ; aucune commande/facture créée.
+- Lien privé à usage unique créé séparément pour le téléphone de Benjamin, valable 24 heures. Ne pas enregistrer sa valeur dans ce dossier. L’ouverture doit se faire sur son téléphone dans le navigateur habituel du CRM, puis avec son PIN habituel. Association réelle du téléphone encore attendue.
+- Les e-mails clients restent désactivés jusqu’à activation de la vente ; test réel de facture déjà reçu le 8 novembre.
