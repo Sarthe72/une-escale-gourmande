@@ -1,8 +1,11 @@
 // Local-only integration test: creates fictitious orders in the local database.
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
 const base = 'http://127.0.0.1:8791/api/holiday';
-const key = (await readFile('.dev.vars', 'utf8')).split(/\r?\n/).find(line => line.startsWith('HOLIDAY_ADMIN_KEY=')).slice(18);
+const pairing=crypto.getRandomValues(new Uint8Array(32));
+const pairToken=Buffer.from(pairing).toString('hex');
+const pairHash=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pairToken))).toString('hex');
+execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','d1','execute','holiday-orders-local','--local','--config','wrangler.orders-local.jsonc','--command',`INSERT INTO holiday_crm_pairings(token_hash,expires) VALUES ('${pairHash}',${Date.now()+60000})`],{stdio:'pipe'});
 const call = async (path, method = 'GET', body, headers = {}) => {
  const response = await fetch(`${base}/${path}`, { method, headers: { ...(body ? { 'Content-Type': 'application/json' } : {}), ...headers }, ...(body ? { body: JSON.stringify(body) } : {}) });
  return { status: response.status, data: await response.json(), headers: response.headers };
@@ -10,7 +13,15 @@ const call = async (path, method = 'GET', body, headers = {}) => {
 const order = { name: 'Automatique', firstName: 'Test', phone: '0600000000', email: 'test@example.com', pickup: '2026-12-24', payment: 'cheque', items: [{ id: 'chocolat', quantity: 2 }], total: 1 };
 assert.equal((await call('orders')).status, 401);
 assert.equal((await call('login', 'POST', {key:'incorrect'})).status, 401);
-const login = await call('login', 'POST', { key }); assert.equal(login.status, 200);
+const keys=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},false,['sign','verify']);
+const publicKey=await crypto.subtle.exportKey('jwk',keys.publicKey);
+const paired=await call('pair','POST',{token:pairToken,publicKey});assert.equal(paired.status,200);
+assert.equal((await call('pair','POST',{token:pairToken,publicKey})).status,401);
+const challenge=await call('challenge','POST',{deviceId:paired.data.deviceId});assert.equal(challenge.status,200);
+const signature=Buffer.from(await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},keys.privateKey,new TextEncoder().encode(challenge.data.challenge))).toString('base64url');
+const proof={deviceId:paired.data.deviceId,challengeId:challenge.data.id,signature};
+const login=await call('login','POST',proof);assert.equal(login.status,200);
+assert.equal((await call('login','POST',proof)).status,401);
 const auth = { Authorization: `Bearer ${login.data.token}`, Origin: 'http://127.0.0.1:5174' };
 assert.equal((await call('orders/manual','POST',{...order,source:'phone'}, {'Idempotency-Key':crypto.randomUUID()})).status,401);
 const manual=await call('orders/manual','POST',{...order,source:'phone',notes:'Test de saisie téléphonique'}, {...auth,'Idempotency-Key':crypto.randomUUID()});

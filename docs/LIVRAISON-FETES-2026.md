@@ -129,3 +129,11 @@ Envoi autorisé par Melvin à passe.melvin@gmail.com. Événement technique isol
 
 ### Accès CRM configuré le 8 novembre
 Melvin a saisi lui-même la phrase secrète dans Cloudflare. Présence de HOLIDAY_ADMIN_KEY vérifiée comme secret chiffré sur le Worker une-escale-gourmande ; valeur non lue et non enregistrée. La connexion devra être testée par Melvin avec cette phrase lors de la recette de la nouvelle version. Le site et le CRM de préparation ne sont pas encore publiés.
+
+## Connexion corrigée — PIN habituel, 8 novembre
+À la demande de Melvin, l’accès par HOLIDAY_ADMIN_KEY est retiré. Le CRM de préparation utilise à nouveau PinScreen et le PIN local existant, sans modification des clés ep_pin_v2, ep_recovery_v2 ou ep_setup. Le changement de PIN et la déconnexion habituels sont rétablis.
+Les commandes restent protégées par une association d’appareil : lien privé à usage unique, puis clé privée non exportable conservée en IndexedDB et preuve signée sur challenge éphémère. Le PIN ne quitte pas l’appareil. Aucun second mot de passe à retenir. Un téléphone non associé conserve l’accès à ses documents locaux mais ne peut pas consulter les commandes partagées.
+Migration 0006 préparée et appliquée. Les anciennes sessions serveur ont été révoquées. Le script propriétaire scripts/create-crm-pairing.mjs --production génère, au moment de l’association, un lien privé valide 24 h. Ne pas créer ce lien plusieurs jours avant l’installation. Ne pas le publier dans Git, dans un QR public ou dans le kit communication.
+Recette locale réussie : association à usage unique, preuve signée valide, rejet du second emploi du lien et de la preuve, accès anonyme refusé, puis commande / facture / correction / révocation. 72 tests site et 7 tests CRM passent. Les compilations passent.
+Le jeton GitHub actuel ne peut pas interroger D1 : les migrations sont donc appliquées avec l’accès D1 existant de Melvin avant publication, sans élargir les permissions. Le retrait de secret utilise uniquement l’accès de déploiement GitHub existant.
+Cette correction reste sur les branches de préparation ; l’ancienne connexion du CRM public n’a pas été remplacée.

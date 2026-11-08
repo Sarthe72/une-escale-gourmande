@@ -32,8 +32,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx wrangler secret delete HOLIDAY_ADMIN_KEY --name une-escale-gourmande --config wrangler.jsonc
-      - run: npx wrangler d1 execute escale-commandes-fetes --remote --command "DELETE FROM holiday_sessions" --config wrangler.jsonc
+      - name: Retirer la clé si elle existe encore
+        run: |
+          npx wrangler secret list --name une-escale-gourmande --config wrangler.jsonc > /tmp/escale-before.json
+          if node -e "const fs=require('fs');process.exit(JSON.parse(fs.readFileSync('/tmp/escale-before.json','utf8')).some(x=>x.name==='HOLIDAY_ADMIN_KEY')?0:1)"; then
+            npx wrangler secret delete HOLIDAY_ADMIN_KEY --name une-escale-gourmande --config wrangler.jsonc
+          fi
       - name: Vérifier le retrait du secret
         run: |
           npx wrangler secret list --name une-escale-gourmande --config wrangler.jsonc > /tmp/escale-secret-names.json
@@ -60,12 +64,6 @@ jobs:
 
       - name: Construire le site
         run: npm test && npm run build && node scripts/check-holiday-release.mjs
-
-      - name: Préparer la structure des commandes
-        run: npx wrangler d1 migrations apply escale-commandes-fetes --remote --config wrangler.jsonc
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: a8ef483748a8075bf90d197e2d5b6977
 
       - name: Publier sur Cloudflare
         run: npx wrangler deploy
