@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const config=JSON.parse(await readFile(new URL('../dist/server/wrangler.json',import.meta.url),'utf8'));
+assert.equal(config.name,'une-escale-gourmande');
+assert.equal(config.assets.directory,'../client','Les fichiers du serveur ne doivent pas être servis comme fichiers publics.');
+const db=config.d1_databases.find(binding=>binding.binding==='HOLIDAY_DB');
+assert.equal(db?.database_id,'52c403f2-0b0c-41eb-a71c-4b12a3a22a8d');
+assert.equal(config.vars.HOLIDAY_ALLOWED_ORIGINS,'https://sarthe72.github.io');
+assert.equal(config.vars.HOLIDAY_VAT_MODE,'exempt_293b');
+assert.equal(config.vars.HOLIDAY_DEADLINE_CHRISTMAS,'2026-12-21T23:59:00+01:00');
+assert.equal(config.vars.HOLIDAY_DEADLINE_NEWYEAR,'2026-12-28T23:59:00+01:00');
+assert.ok(['true','false'].includes(config.vars.HOLIDAY_ORDERS_OPEN));
+assert.ok(['true','false'].includes(config.vars.HOLIDAY_CAMPAIGN_VISIBLE));
+assert.ok(!Object.hasOwn(config.vars,'HOLIDAY_ADMIN_KEY'),'La clé CRM doit être un secret serveur.');
+console.log('PASS : base de production, accès CRM, TVA, échéances et séparation des fichiers publics.');

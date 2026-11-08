@@ -114,3 +114,15 @@ Melvin confirme le régime sans TVA déjà appliqué dans le CRM. HOLIDAY_VAT_MO
 
 ## Consigne du 8 novembre — allergènes
 Utiliser uniquement les éléments expressément fournis par Benjamin, sans déduction, allergène supplémentaire ou mention de traces. Le tableau déduit a été remplacé par sa réponse originale dans docs/ALLERGENES-FETES-2026.md. Cette consigne remplace les demandes de vérification complémentaire figurant dans les états historiques ci-dessus.
+
+## Recette e-mail du 8 novembre 2026
+Envoi autorisé par Melvin à passe.melvin@gmail.com. Événement technique isolé test:mail-validation-20261108, sans création de commande ni consommation d’un numéro de facture.
+- Reçu dans la boîte Gmail le 8 novembre à 9 h 35 (Paris), sujet TEST · Facture fictive · Une Escale Gourmande.
+- Pièce jointe PDF présente, 5 488 octets, marquée TEST — SANS VALEUR COMPTABLE.
+- Expéditeur : commandes@notifications.uneescalegourmande.fr ; réponse : jardinbenjamin@hotmail.fr.
+- File serveur : envoyé, une seule tentative. Base vérifiée : 0 commande, 0 facture, 1 test envoyé.
+- Mode test isolé activé par le run 42463224089, puis redéploiement normal de désactivation lancé via le run 42463657440. Les envois clients restent désactivés.
+- Migration 0005 ajoute le champ technique test_payload à la file ; aucun endpoint public de test.
+- Configuration principale du site raccordée à la D1 de production, campagne et commandes toujours fermées. Contrôle automatique scripts/check-holiday-release.mjs ajouté avant publication.
+- Ancien formulaire /commande-fetes/ remplacé par une redirection vers le parcours unique /menu-fetes/. Ingrédients fournis par Benjamin consultables sous chaque plat, sans allergènes ou traces déduits.
+- Connexion réelle : secret HOLIDAY_ADMIN_KEY absent du Worker du site ; formulaire Cloudflare préparé et saisie de la nouvelle phrase secrète confiée à Melvin. Aucun secret saisi par l’agent.
