@@ -126,3 +126,6 @@ Envoi autorisé par Melvin à passe.melvin@gmail.com. Événement technique isol
 - Configuration principale du site raccordée à la D1 de production, campagne et commandes toujours fermées. Contrôle automatique scripts/check-holiday-release.mjs ajouté avant publication.
 - Ancien formulaire /commande-fetes/ remplacé par une redirection vers le parcours unique /menu-fetes/. Ingrédients fournis par Benjamin consultables sous chaque plat, sans allergènes ou traces déduits.
 - Connexion réelle : secret HOLIDAY_ADMIN_KEY absent du Worker du site ; formulaire Cloudflare préparé et saisie de la nouvelle phrase secrète confiée à Melvin. Aucun secret saisi par l’agent.
+
+### Accès CRM configuré le 8 novembre
+Melvin a saisi lui-même la phrase secrète dans Cloudflare. Présence de HOLIDAY_ADMIN_KEY vérifiée comme secret chiffré sur le Worker une-escale-gourmande ; valeur non lue et non enregistrée. La connexion devra être testée par Melvin avec cette phrase lors de la recette de la nouvelle version. Le site et le CRM de préparation ne sont pas encore publiés.

@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { dishes, pickups, validateOrder } from '../../../lib/holidayOrders.js';
 import {invoiceFromRow} from '../../../lib/holidayInvoices.js';
+import {validDeviceKey,verifyDeviceProof} from '../../../lib/crmDeviceAuth.js';
 export const prerender = false;
 const hash = async text => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))), b => b.toString(16).padStart(2, '0')).join('');
 export async function ALL({ request, params }) {
@@ -28,14 +29,33 @@ export async function ALL({ request, params }) {
       try { body = JSON.parse(raw); } catch { return reply({ error: 'Demande invalide.' }, 400); }
       if (!body || typeof body !== 'object') return reply({ error: 'Demande invalide.' }, 400);
     }
-    if ((route === 'login' || route === 'orders') && request.method === 'POST') {
+    if (['login','challenge','pair','orders'].includes(route) && request.method === 'POST') {
       const bucket = `${route}:${await hash(request.headers.get('CF-Connecting-IP') || 'local')}:${Math.floor(Date.now() / 900000)}`;
       const rate = await db.prepare('INSERT INTO holiday_limits(bucket,count) VALUES (?,1) ON CONFLICT(bucket) DO UPDATE SET count=count+1 RETURNING count').bind(bucket).first();
-      if (rate.count > (route === 'login' ? 10 : 30)) return reply({ error: 'Trop de tentatives. Réessayez dans 15 minutes.' }, 429);
+      if (rate.count > (route === 'orders' ? 30 : 10)) return reply({ error: 'Trop de tentatives. Réessayez dans 15 minutes.' }, 429);
+    }
+    if(route==='pair'&&request.method==='POST'){
+      if(typeof body.token!=='string'||!/^[a-f0-9]{64}$/.test(body.token)||!validDeviceKey(body.publicKey))return reply({error:'Lien d’association invalide.'},400);
+      const id=crypto.randomUUID(),now=Date.now();
+      const publicKey={kty:'EC',crv:'P-256',x:body.publicKey.x,y:body.publicKey.y};
+      const result=await db.batch([
+        db.prepare('INSERT INTO holiday_crm_devices(id,public_key,created_at) SELECT ?,?,? FROM holiday_crm_pairings WHERE token_hash=? AND expires>? AND used_at IS NULL').bind(id,JSON.stringify(publicKey),new Date(now).toISOString(),await hash(body.token),now),
+        db.prepare('UPDATE holiday_crm_pairings SET used_at=? WHERE token_hash=? AND expires>? AND used_at IS NULL').bind(now,await hash(body.token),now),
+      ]);
+      if(!result[0].meta.changes)return reply({error:'Ce lien d’association a expiré ou a déjà été utilisé.'},401);
+      return reply({deviceId:id});
+    }
+    if(route==='challenge'&&request.method==='POST'){
+      const device=await db.prepare('SELECT id FROM holiday_crm_devices WHERE id=? AND revoked=0').bind(String(body.deviceId||'')).first();
+      if(!device)return reply({error:'Cet appareil doit être associé au CRM.'},401);
+      const id=crypto.randomUUID(),challenge=crypto.randomUUID()+crypto.randomUUID();
+      await db.batch([db.prepare('DELETE FROM holiday_crm_challenges WHERE expires<?').bind(Date.now()),db.prepare('INSERT INTO holiday_crm_challenges VALUES(?,?,?,?)').bind(id,device.id,challenge,Date.now()+60000)]);
+      return reply({id,challenge});
     }
     if (route === 'login' && request.method === 'POST') {
-      if (!env.HOLIDAY_ADMIN_KEY || env.HOLIDAY_ADMIN_KEY.length < 32) return reply({ error: 'Accès sécurisé non configuré.' }, 503);
-      if (await hash(String(body.key || '')) !== await hash(env.HOLIDAY_ADMIN_KEY)) return reply({ error: 'Accès refusé.' }, 401);
+      const device=await db.prepare('SELECT public_key FROM holiday_crm_devices WHERE id=? AND revoked=0').bind(String(body.deviceId||'')).first();
+      const challenge=await db.prepare('DELETE FROM holiday_crm_challenges WHERE id=? AND device_id=? AND expires>? RETURNING challenge').bind(String(body.challengeId||''),String(body.deviceId||''),Date.now()).first();
+      if(!device||!challenge||!await verifyDeviceProof(JSON.parse(device.public_key),challenge.challenge,body.signature))return reply({error:'Accès refusé.'},401);
       const token = crypto.randomUUID() + crypto.randomUUID();
       await db.prepare('INSERT INTO holiday_sessions VALUES (?,?)').bind(await hash(token), Date.now() + 8 * 3600000).run();
       await db.batch([db.prepare('DELETE FROM holiday_sessions WHERE expires < ?').bind(Date.now()), db.prepare('DELETE FROM holiday_limits WHERE bucket NOT LIKE ?').bind(`%:${Math.floor(Date.now() / 900000)}`)]);
