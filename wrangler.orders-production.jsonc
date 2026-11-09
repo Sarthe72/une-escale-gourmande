@@ -1,18 +1,38 @@
 {
- "name":"une-escale-gourmande",
- "main":"@astrojs/cloudflare/entrypoints/server",
- "compatibility_date":"2026-05-15",
- "compatibility_flags":["global_fetch_strictly_public"],
- "assets":{"directory":"./dist","binding":"ASSETS"},
- "observability":{"enabled":true},
- "kv_namespaces":[{"binding":"SESSION","id":"978bc4e3606441748b6db08d68f8f89e"}],
- "d1_databases":[{"binding":"HOLIDAY_DB","database_name":"escale-commandes-fetes","database_id":"52c403f2-0b0c-41eb-a71c-4b12a3a22a8d","migrations_dir":"migrations"}],
- "vars":{
-  "HOLIDAY_ALLOWED_ORIGINS":"https://sarthe72.github.io",
-  "HOLIDAY_CAMPAIGN_VISIBLE":"false",
-  "HOLIDAY_ORDERS_OPEN":"false",
-  "HOLIDAY_DEADLINE_CHRISTMAS":"2026-12-21T23:59:00+01:00",
-  "HOLIDAY_DEADLINE_NEWYEAR":"2026-12-28T23:59:00+01:00",
-  "HOLIDAY_VAT_MODE":"exempt_293b"
- }
+  "name": "une-escale-gourmande",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": [
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "978bc4e3606441748b6db08d68f8f89e"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "HOLIDAY_DB",
+      "database_name": "escale-commandes-fetes",
+      "database_id": "52c403f2-0b0c-41eb-a71c-4b12a3a22a8d",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "HOLIDAY_ALLOWED_ORIGINS": "https://sarthe72.github.io",
+    "HOLIDAY_CAMPAIGN_VISIBLE": "true",
+    "HOLIDAY_ORDERS_OPEN": "true",
+    "HOLIDAY_DEADLINE_CHRISTMAS": "2026-12-21T23:59:00+01:00",
+    "HOLIDAY_DEADLINE_NEWYEAR": "2026-12-28T23:59:00+01:00",
+    "HOLIDAY_VAT_MODE": "exempt_293b",
+    "HOLIDAY_LAUNCH_AT": "2026-11-13T23:59:00+01:00"
+  }
 }

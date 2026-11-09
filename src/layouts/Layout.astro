@@ -24,7 +24,7 @@ const mapsURL = "https://www.google.com/maps/place/Une+escale+gourmande/@45.3809
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script is:inline define:vars={{allowChristmasPreview:import.meta.env.DEV}}>
-      (()=>{const parts=new Intl.DateTimeFormat('en',{timeZone:'Europe/Paris',month:'numeric',day:'numeric'}).formatToParts(new Date());const month=Number(parts.find(p=>p.type==='month')?.value);const day=Number(parts.find(p=>p.type==='day')?.value);const preview=allowChristmasPreview&&new URLSearchParams(location.search).get('preview')==='christmas';document.documentElement.dataset.christmasSeason=preview||month===12||(month===1&&day<=5)?'on':'off';})();
+      (()=>{const parts=new Intl.DateTimeFormat('en',{timeZone:'Europe/Paris',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date());const month=Number(parts.find(p=>p.type==='month')?.value);const day=Number(parts.find(p=>p.type==='day')?.value);const hour=Number(parts.find(p=>p.type==='hour')?.value);const minute=Number(parts.find(p=>p.type==='minute')?.value);const preview=allowChristmasPreview&&new URLSearchParams(location.search).get('preview')==='christmas';document.documentElement.dataset.christmasSeason=preview||(month===12&&!(day===1&&hour===0&&minute===0))||(month===1&&day<=5)?'on':'off';})();
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />

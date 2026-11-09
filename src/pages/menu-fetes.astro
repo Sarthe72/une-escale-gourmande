@@ -1,9 +1,10 @@
 ---
 import {env} from 'cloudflare:workers';
 import page from '../templates/menu-fetes.html?raw';
+import {scheduledFlag} from '../lib/holidaySchedule.js';
 export const prerender=false;
 const preview=import.meta.env.DEV&&Astro.url.searchParams.get('preview')==='christmas';
-if(env.HOLIDAY_CAMPAIGN_VISIBLE!=='true'&&!preview)return new Response('Page indisponible',{status:404,headers:{'X-Robots-Tag':'noindex'}});
+if(!scheduledFlag(env.HOLIDAY_CAMPAIGN_VISIBLE,env.HOLIDAY_LAUNCH_AT)&&!preview)return new Response('Page indisponible',{status:404,headers:{'X-Robots-Tag':'noindex','Cache-Control':'no-store'}});
 const output=preview?page.replace(/(<a\b[^>]*\bhref=")(\/[^"#?]*)"/g,(_match,lead,path)=>`${lead}${path}?preview=christmas"`):page;
 ---
 <Fragment set:html={output}/>

@@ -1,7 +1,8 @@
 import {holidayInvoicePdf,pdfBase64} from '../src/lib/holidayInvoicePdf.js';
+import {scheduledFlag} from '../src/lib/holidaySchedule.js';
 // No HTTP endpoint: only the scheduler can drain this outbox.
 export async function drainMail(env,send=fetch,now=Date.now()) {
- const testOnly=env.HOLIDAY_MAIL_ENABLED!=='true';
+ const testOnly=!scheduledFlag(env.HOLIDAY_MAIL_ENABLED,env.HOLIDAY_LAUNCH_AT,now);
  if(testOnly&&env.HOLIDAY_MAIL_TEST_ENABLED!=='true')return {disabled:true};
  if(!env.HOLIDAY_DB||!env.RESEND_API_KEY||!env.HOLIDAY_MAIL_FROM||!env.HOLIDAY_MAIL_TO)throw Error('Mail configuration incomplete');
  const db=env.HOLIDAY_DB,seconds=Math.floor(now/1000),day=new Date(now).toISOString().slice(0,10);

@@ -38,3 +38,8 @@ test('contrôle réel isolé : facture fictive sans commande ni facture comptabl
  });
  assert.equal(count,1);assert.equal(db.state.status,'sent');
 });
+
+test('e-mails programmés : aucune lecture de données ni transmission avant ouverture',async()=>{
+ const result=await drainMail({HOLIDAY_MAIL_ENABLED:'true',HOLIDAY_LAUNCH_AT:'2026-11-13T23:59:00+01:00'},()=>{throw Error('Envoi prématuré');},Date.parse('2026-11-13T22:58:59.999Z'));
+ assert.deepEqual(result,{disabled:true});
+});

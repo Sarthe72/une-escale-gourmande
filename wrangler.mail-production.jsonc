@@ -5,6 +5,6 @@
  "workers_dev":false,
  "triggers":{"crons":["*/5 * * * *"]},
  "d1_databases":[{"binding":"HOLIDAY_DB","database_name":"escale-commandes-fetes","database_id":"52c403f2-0b0c-41eb-a71c-4b12a3a22a8d"}],
- "vars":{"HOLIDAY_MAIL_ENABLED":"false","HOLIDAY_MAIL_FROM":"Une Escale Gourmande <commandes@notifications.uneescalegourmande.fr>","HOLIDAY_MAIL_TO":"jardinbenjamin@hotmail.fr","HOLIDAY_MAIL_REPLY_TO":"jardinbenjamin@hotmail.fr"}
+ "vars":{"HOLIDAY_MAIL_ENABLED":"true","HOLIDAY_LAUNCH_AT":"2026-11-13T23:59:00+01:00","HOLIDAY_MAIL_FROM":"Une Escale Gourmande <commandes@notifications.uneescalegourmande.fr>","HOLIDAY_MAIL_TO":"jardinbenjamin@hotmail.fr","HOLIDAY_MAIL_REPLY_TO":"jardinbenjamin@hotmail.fr"}
  // RESEND_API_KEY: secret configured separately. No paid plan or billing enabled.
 }

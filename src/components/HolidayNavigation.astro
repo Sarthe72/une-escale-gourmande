@@ -5,5 +5,6 @@ const {class:linkClass=''}=Astro.props;
 <script>
  import {holidayCatalog} from '../lib/holidayCatalogClient';
  const preview=import.meta.env.DEV&&new URLSearchParams(location.search).get('preview')==='christmas';
- holidayCatalog().then(catalog=>{if(catalog.campaignVisible||preview)document.querySelectorAll<HTMLElement>('[data-holiday-navigation]').forEach(link=>{link.hidden=false;});}).catch(()=>{});
+ function update(){holidayCatalog().then(catalog=>{document.querySelectorAll<HTMLElement>('[data-holiday-navigation]').forEach(link=>{link.hidden=!(catalog.campaignVisible||preview);});}).catch(()=>{});}
+ update();document.addEventListener('seasonal-date-change',update);
 </script>

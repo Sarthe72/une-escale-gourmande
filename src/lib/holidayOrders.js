@@ -1,3 +1,4 @@
+import {scheduledFlag} from './holidaySchedule.js';
 export const dishes = [
   { id: 'tartelette', name: 'Tartelette périgourdine', price: 1000 },
   { id: 'truite', name: 'Truite de Borrèze en gravlax', price: 900 },
@@ -14,7 +15,7 @@ export const pickups = [
   { id: '2027-01-02', label: '2 janvier · 9 h–12 h', group: 'NEWYEAR' },
 ];
 export function validateOrder(input, config, now = Date.now()) {
-  if (config.HOLIDAY_ORDERS_OPEN !== 'true') throw new Error('Les commandes ne sont pas encore ouvertes.');
+  if (!scheduledFlag(config.HOLIDAY_ORDERS_OPEN,config.HOLIDAY_LAUNCH_AT,now)) throw new Error('Les commandes ne sont pas encore ouvertes.');
   const pickup = pickups.find(p => p.id === input.pickup);
   const deadline = pickup && Date.parse(config[`HOLIDAY_DEADLINE_${pickup.group}`]);
   if (!Number.isFinite(deadline) || now >= deadline) throw new Error('Ce retrait n’est plus disponible.');

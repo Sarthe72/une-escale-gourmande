@@ -26,6 +26,7 @@ const donationURL = 'https://don.ligue-cancer.net/Agnes/~mon-don?ns_ira_cr_arg=I
   }
   updateAwareness();
   // Also switch at midnight if the page stays open across a month boundary.
-  setInterval(updateAwareness, 60_000);
+  function nextMinute(){setTimeout(()=>{updateAwareness();nextMinute();},60_000-Date.now()%60_000);}
+  nextMinute();
   document.addEventListener('visibilitychange', updateAwareness);
 </script>

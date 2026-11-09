@@ -7,6 +7,7 @@ const db=config.d1_databases.find(binding=>binding.binding==='HOLIDAY_DB');
 assert.equal(db?.database_id,'52c403f2-0b0c-41eb-a71c-4b12a3a22a8d');
 assert.equal(config.vars.HOLIDAY_ALLOWED_ORIGINS,'https://sarthe72.github.io');
 assert.equal(config.vars.HOLIDAY_VAT_MODE,'exempt_293b');
+assert.equal(config.vars.HOLIDAY_LAUNCH_AT,'2026-11-13T23:59:00+01:00');
 assert.equal(config.vars.HOLIDAY_DEADLINE_CHRISTMAS,'2026-12-21T23:59:00+01:00');
 assert.equal(config.vars.HOLIDAY_DEADLINE_NEWYEAR,'2026-12-28T23:59:00+01:00');
 assert.ok(['true','false'].includes(config.vars.HOLIDAY_ORDERS_OPEN));

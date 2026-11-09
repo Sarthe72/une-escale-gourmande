@@ -147,3 +147,11 @@ Site : source master 4cee131, déploiement 42469087417 réussi. CRM : source mas
 - Test de connexion de production réussi via scripts/test-crm-production.mjs --production : lien unique, preuve signée, rejet du rejeu, accès aux routes protégées, révocation de session. Appareil technique révoqué en fin de test ; aucune commande/facture créée.
 - Lien privé à usage unique créé séparément pour le téléphone de Benjamin, valable 24 heures. Ne pas enregistrer sa valeur dans ce dossier. L’ouverture doit se faire sur son téléphone dans le navigateur habituel du CRM, puis avec son PIN habituel. Association réelle du téléphone encore attendue.
 - Les e-mails clients restent désactivés jusqu’à activation de la vente ; test réel de facture déjà reçu le 8 novembre.
+
+## Programmation confirmée par Melvin le 9 novembre
+- Menus, navigation, bandeau et prise de commandes : 13 novembre 2026 à 23 h 59 Europe/Paris (2026-11-13T22:59:00Z).
+- E-mails transactionnels : autorisés à partir de ce même instant, traités par la file toutes les cinq minutes.
+- Activation implémentée dans le serveur et dans le Worker e-mail via HOLIDAY_LAUNCH_AT : aucun déploiement ou ordinateur local requis au moment du lancement. Un flag false reste un interrupteur de fermeture ; une date invalide bloque l’ouverture.
+- Décors saisonniers : 1er décembre à 00 h 01 Europe/Paris, jusqu’au 5 janvier inclus. Calendrier annuel conservé. Le pré-affichage du layout et les composants suivent la même minute.
+- Les pages déjà ouvertes actualisent le catalogue et les éléments saisonniers à la prochaine frontière de minute, et lors du retour sur l’onglet. Le 404 de la page cachée est non stockable pour ne pas persister après l’ouverture.
+- 81 tests passent, incluant les millisecondes précédant le lancement, les commandes directes au serveur et le refus d’envoi des e-mails avant la date ; tests des décors à 00 h 00, 00 h 00 min 59 s et 00 h 01 sur 2026, 2027, 2028.

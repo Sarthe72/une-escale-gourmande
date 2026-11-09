@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import { dishes, pickups, validateOrder } from '../../../lib/holidayOrders.js';
 import {invoiceFromRow} from '../../../lib/holidayInvoices.js';
 import {validDeviceKey,verifyDeviceProof} from '../../../lib/crmDeviceAuth.js';
+import {scheduledFlag} from '../../../lib/holidaySchedule.js';
 export const prerender = false;
 const hash = async text => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))), b => b.toString(16).padStart(2, '0')).join('');
 export async function ALL({ request, params }) {
@@ -16,7 +17,7 @@ export async function ALL({ request, params }) {
   const route = params.path;
   if (route === 'catalog' && request.method === 'GET') {
     const available=pickups.filter(pickup=>{const deadline=Date.parse(env[`HOLIDAY_DEADLINE_${pickup.group}`]);return Number.isFinite(deadline)&&Date.now()<deadline;});
-    return reply({dishes,pickups:available,open:env.HOLIDAY_ORDERS_OPEN==='true'&&available.length>0,campaignVisible:env.HOLIDAY_CAMPAIGN_VISIBLE==='true',address:'5 place du Vieux Pont, 24800 Saint-Jean-de-Côle'});
+    return reply({dishes,pickups:available,opensAt:env.HOLIDAY_LAUNCH_AT||null,open:scheduledFlag(env.HOLIDAY_ORDERS_OPEN,env.HOLIDAY_LAUNCH_AT)&&available.length>0,campaignVisible:scheduledFlag(env.HOLIDAY_CAMPAIGN_VISIBLE,env.HOLIDAY_LAUNCH_AT),address:'5 place du Vieux Pont, 24800 Saint-Jean-de-Côle'});
   }
   const db = env.HOLIDAY_DB;
   if (!db) return reply({ error: 'Service de commandes non configuré.' }, 503);
