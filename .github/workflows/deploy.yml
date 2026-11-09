@@ -12,7 +12,7 @@ on:
         options: [site, mail, mail-check, retire-key]
 
 concurrency:
-  group: production
+  group: production-${{ (inputs.target == 'mail' || inputs.target == 'mail-check') && 'mail' || 'site' }}
   cancel-in-progress: true
 
 jobs:
