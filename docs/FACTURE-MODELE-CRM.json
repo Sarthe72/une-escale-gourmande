@@ -1,0 +1,10 @@
+{
+  "source": "Sarthe72/escale-pro",
+  "commit": "be39b72cfa0f6d62a125a6513954ef37a1956f1f",
+  "templateSha256": "c9418c1055bef4b499f04f194a05c4b7890b8dbbe672f5bd24ba0d4c7a4a1e2f",
+  "constantsSha256": "76d295243a29ed071c765e50f058589ab299385487e6a2b463713987138a57d4",
+  "adaptations": [
+    "Chemin du module de constantes",
+    "Retour du document jsPDF au lieu du Blob pour permettre la conversion serveur en octets"
+  ]
+}

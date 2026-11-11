@@ -13,12 +13,13 @@ function fakeMailDb(paid=true){
  const invoice={number:'FAC-NOEL-000001',order_id:'test',issued_at:'2026-12-24T14:00:00Z',snapshot:JSON.stringify({firstName:'Client',name:'Exemple',email:'client@example.com',phone:'0600000000',pickup:'2026-12-24',payment:'cash',total:1500,items:[{name:'Lotte à l’américaine',price:1500,quantity:1}]})};
  return {state,prepare(sql){return {bind(){return this;},async all(){return {results:state.status==='pending'?[state.job]:[]}},async first(){if(sql.includes('FROM holiday_orders'))return {paid:paid?1:0,status:paid?'collected':'confirmed'};if(sql.includes('FROM holiday_invoices'))return invoice;return {attempts:1};},async run(){if(sql.includes("state='processing'"))state.status='processing';else if(sql.includes("state='cancelled'"))state.status='cancelled';else if(sql.includes("state='sent'"))state.status='sent';else state.status='pending';return {meta:{changes:1}};}};}};
 }
-test('facture avec coordonnées longues et six plats : total reporté sur une deuxième page',()=>{
- const snapshot={firstName:'Alexandre '.repeat(10),name:'Démonstration '.repeat(7),email:'client.'+'a'.repeat(170)+'@example.com',phone:'0600000000',pickup:'2026-12-24',payment:'cash',total:5900,items:['Tartelette périgourdine','Truite de Borrèze en gravlax','Suprême de volaille farcie','Lotte à l’américaine','Royal chocolat','Entremets ananas et yuzu du potager'].map((name,i)=>({name,quantity:1,price:[1000,900,1400,1500,550,550][i]}))};
- const pdf=new TextDecoder().decode(holidayInvoicePdf({number:'TEST-LONG',order_id:'test',issued_at:'2026-12-24T14:00:00Z',snapshot:JSON.stringify(snapshot)}));
- assert.match(pdf,/\/Count 2\b/);
- assert.match(pdf,/TOTAL : 59,00 EUR/);
+test('facture e-mail : modèle du CRM, tableau, filigrane, coordonnées bancaires et état acquitté',()=>{
+ const snapshot={firstName:'Client',name:'Exemple',email:'client@example.com',phone:'0600000000',pickup:'2026-12-24',payment:'cash',total:5900,items:['Tartelette périgourdine','Truite de Borrèze en gravlax','Suprême de volaille farcie','Lotte à l’américaine','Royal chocolat','Entremets ananas et yuzu du potager'].map((name,i)=>({name,quantity:1,price:[1000,900,1400,1500,550,550][i]}))};
+ const pdf=new TextDecoder('latin1').decode(holidayInvoicePdf({number:'TEST-CRM',order_id:'test',issued_at:'2026-12-24T14:00:00Z',snapshot:JSON.stringify(snapshot)}));
+ for(const text of ['PRESTATIONS','PRIX UNIT.','TOTAL','Total HT','Total TTC','IBAN','BIC','ACQUITTEE','Une Escale Gourmande'])assert.ok(pdf.includes(text),text);
+ assert.match(pdf,/\/Count 1\b/);
 });
+
 test('mail de facture : PDF joint, destinataire du snapshot, absence de double envoi',async()=>{
  const db=fakeMailDb();let sent=0;
  const send=async(url,options)=>{sent++;const body=JSON.parse(options.body);assert.equal(url,'https://api.resend.com/emails');assert.deepEqual(body.to,['client@example.com']);assert.equal(options.headers['Idempotency-Key'],'invoice:test');assert.equal(Buffer.from(body.attachments[0].content,'base64').subarray(0,5).toString(),'%PDF-');return Response.json({id:'provider-test'});};

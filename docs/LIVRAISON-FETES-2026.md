@@ -155,3 +155,16 @@ Site : source master 4cee131, déploiement 42469087417 réussi. CRM : source mas
 - Décors saisonniers : 1er décembre à 00 h 01 Europe/Paris, jusqu’au 5 janvier inclus. Calendrier annuel conservé. Le pré-affichage du layout et les composants suivent la même minute.
 - Les pages déjà ouvertes actualisent le catalogue et les éléments saisonniers à la prochaine frontière de minute, et lors du retour sur l’onglet. Le 404 de la page cachée est non stockable pour ne pas persister après l’ouverture.
 - 81 tests passent, incluant les millisecondes précédant le lancement, les commandes directes au serveur et le refus d’envoi des e-mails avant la date ; tests des décors à 00 h 00, 00 h 00 min 59 s et 00 h 01 sur 2026, 2027, 2028.
+
+### Programmation publiée et contrôlée le 9 novembre
+- Site publié avec succès : run 42625199783, commit d25360e (source de programmation c1aa5df).
+- Worker e-mail publié avec succès : run 42625054368, version 418d4f31-3362-4750-b870-495eb638fc45. Variables HOLIDAY_MAIL_ENABLED=true et HOLIDAY_LAUNCH_AT=2026-11-13T23:59:00+01:00 vérifiées dans les journaux de publication. Le calendrier bloque encore les envois.
+- API réelle : opensAt correspond à l’horaire demandé, open=false et campaignVisible=false. Page menu encore 404 avec Cache-Control:no-store ; tentative de commande refusée avec le message d’ouverture non effective. Aucun document créé par ce contrôle.
+- 81 tests et compilation réussis. Les tâches de publication du site et des e-mails ont désormais des groupes distincts pour éviter qu’elles s’annulent mutuellement.
+- Téléphone : aucun appareil réel associé au moment de la vérification ; l’association reste à réaliser avant exploitation des commandes dans le CRM.
+
+## Factures e-mail corrigées le 11 novembre
+Melvin signale que la pièce jointe du test du 8 novembre ne respecte pas le modèle existant. Le mail et sa pièce jointe ont été lus dans Gmail : le PDF utilisait le générateur simplifié holidayInvoicePdf.
+Ce générateur est remplacé par un adaptateur vers une copie fidèle du générateur genFacturePDF du CRM publié. Aucun fichier du CRM n’est modifié. La mise en page, le filigrane, les couleurs, le tableau, le pied de page et les informations bancaires sont conservés. Seuls le chemin d’import des constantes et le format de sortie technique (document au lieu de Blob) sont adaptés pour le serveur. Le statut acquitté est fourni après la vérification paiement/retrait du Worker.
+Provenance et empreintes des fichiers : docs/FACTURE-MODELE-CRM.json. Un test compare l’empreinte du générateur restauré à la source CRM. Deux PDF fictifs à six plats ont été générés : le PDF du modèle original et celui du chemin d’envoi e-mail ont un rendu strictement identique pixel par pixel, vérifié après rendu Poppler.
+82 tests réussis, compilation Worker réussie. La programmation d’ouverture et les paramètres d’envoi ne sont pas modifiés. Aucun nouvel e-mail n’est envoyé pour cette correction.
