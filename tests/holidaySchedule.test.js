@@ -1,8 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {scheduledFlag} from '../src/lib/holidaySchedule.js';
+import {scheduledFlag,holidayBannerVisible} from '../src/lib/holidaySchedule.js';
 import {validateOrder} from '../src/lib/holidayOrders.js';
 const opens='2026-11-13T23:59:00+01:00';
+test('bandeau retiré le 29 décembre à 00 h 01 Paris',()=>{
+ assert.equal(holidayBannerVisible('true',opens,Date.parse(opens)-1),false);
+ assert.equal(holidayBannerVisible('true',opens,Date.parse(opens)),true);
+ assert.equal(holidayBannerVisible('true',opens,Date.parse('2026-12-28T23:00:59.999Z')),true);
+ assert.equal(holidayBannerVisible('true',opens,Date.parse('2026-12-28T23:01:00Z')),false);
+ assert.equal(holidayBannerVisible('true',opens,Date.parse('2027-01-12T12:00:00Z')),false);
+});
 test('ouverture Paris : fermé juste avant, ouvert à 23 h 59 exactement',()=>{
  assert.equal(scheduledFlag('true',opens,Date.parse('2026-11-13T22:58:59.999Z')),false);
  assert.equal(scheduledFlag('true',opens,Date.parse('2026-11-13T22:59:00Z')),true);

@@ -4,3 +4,8 @@ export function scheduledFlag(flag,opensAt,now=Date.now()){
  const opening=Date.parse(opensAt);
  return Number.isFinite(opening)&&now>=opening;
 }
+
+export const HOLIDAY_BANNER_END_AT='2026-12-29T00:01:00+01:00';
+export function holidayBannerVisible(flag,opensAt,now=Date.now()){
+ return scheduledFlag(flag,opensAt,now)&&now<Date.parse(HOLIDAY_BANNER_END_AT);
+}

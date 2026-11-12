@@ -19,7 +19,7 @@
  function updateHolidayMenuPromo(){
   const invitation=document.getElementById('holiday-menu-invitation');
   const hero=invitation?.closest('section');
-  holidayCatalog().then(catalog=>{const visible=catalog.campaignVisible||preview;if(invitation)invitation.hidden=!visible;hero?.classList.toggle('has-holiday-menu',visible);}).catch(()=>{});
+  holidayCatalog().then(catalog=>{const visible=catalog.bannerVisible||preview;if(invitation)invitation.hidden=!visible;hero?.classList.toggle('has-holiday-menu',visible);}).catch(()=>{});
  }
  updateHolidayMenuPromo();
  document.addEventListener('seasonal-date-change',updateHolidayMenuPromo);
