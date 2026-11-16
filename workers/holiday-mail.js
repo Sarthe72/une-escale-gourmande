@@ -1,11 +1,15 @@
 import {holidayInvoicePdf,pdfBase64} from '../src/lib/holidayInvoicePdf.js';
 import {scheduledFlag} from '../src/lib/holidaySchedule.js';
+import {confirmationMessage} from '../src/lib/holidayConfirmation.js';
 // No HTTP endpoint: only the scheduler can drain this outbox.
 export async function drainMail(env,send=fetch,now=Date.now()) {
  const testOnly=!scheduledFlag(env.HOLIDAY_MAIL_ENABLED,env.HOLIDAY_LAUNCH_AT,now);
  if(testOnly&&env.HOLIDAY_MAIL_TEST_ENABLED!=='true')return {disabled:true};
  if(!env.HOLIDAY_DB||!env.RESEND_API_KEY||!env.HOLIDAY_MAIL_FROM||!env.HOLIDAY_MAIL_TO)throw Error('Mail configuration incomplete');
  const db=env.HOLIDAY_DB,seconds=Math.floor(now/1000),day=new Date(now).toISOString().slice(0,10);
+ // Reconcile missing confirmations, including orders placed before this fix.
+ // The unique event key also prevents a second confirmation on retries.
+ if(!testOnly)await db.prepare("INSERT OR IGNORE INTO holiday_mail(event_key,kind,order_id) SELECT 'confirmation:'||id,'confirmation',id FROM holiday_orders WHERE status='confirmed' AND json_extract(payload,'$.source')='website'").run();
  const jobs=await db.prepare("SELECT * FROM holiday_mail WHERE ((state='pending' AND next_attempt<=?) OR (state='processing' AND locked_until<?))"+(testOnly?" AND kind='test'":"")+" ORDER BY next_attempt,event_key LIMIT 10").bind(seconds,seconds).all();
  for(const job of jobs.results){
   const claim=await db.prepare("UPDATE holiday_mail SET state='processing',locked_until=?,attempts=attempts+1 WHERE event_key=? AND ((state='pending' AND next_attempt<=?) OR (state='processing' AND locked_until<?))").bind(seconds+180,job.event_key,seconds,seconds).run();
@@ -20,10 +24,11 @@ export async function drainMail(env,send=fetch,now=Date.now()) {
     message={to:[check.to],subject:'TEST · Facture fictive · Une Escale Gourmande',text:'Test technique demandé pour vérifier la réception des factures. Le PDF joint est fictif et sans valeur comptable. Aucune commande ni facture réelle n’a été créée.',attachments:[{filename:'TEST-facture-sans-valeur-comptable.pdf',content:pdfBase64(pdf)}]};
    }else{
    const orderRow=await db.prepare('SELECT * FROM holiday_orders WHERE id=?').bind(job.order_id).first();
-   if(!orderRow||job.kind==='invoice'&&(!orderRow.paid||orderRow.status!=='collected')){
+   if(!orderRow||job.kind==='confirmation'&&orderRow.status==='cancelled'||job.kind==='invoice'&&(!orderRow.paid||orderRow.status!=='collected')){
     await db.prepare("UPDATE holiday_mail SET state='cancelled' WHERE event_key=?").bind(job.event_key).run();continue;
    }
-   if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${job.order_id}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
+   if(job.kind==='confirmation')message=confirmationMessage(job.order_id,JSON.parse(orderRow.payload));
+   else if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${job.order_id}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
    else{
     const invoice=await db.prepare('SELECT * FROM holiday_invoices WHERE order_id=?').bind(job.order_id).first();
     if(!invoice?.number)throw Error('Invoice not ready');

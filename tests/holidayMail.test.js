@@ -11,7 +11,7 @@ test('facture PDF générée depuis le snapshot serveur',()=>{
 function fakeMailDb(paid=true){
  const state={job:{event_key:'invoice:test',kind:'invoice',order_id:'test',attempts:0},status:'pending'};
  const invoice={number:'FAC-NOEL-000001',order_id:'test',issued_at:'2026-12-24T14:00:00Z',snapshot:JSON.stringify({firstName:'Client',name:'Exemple',email:'client@example.com',phone:'0600000000',pickup:'2026-12-24',payment:'cash',total:1500,items:[{name:'Lotte à l’américaine',price:1500,quantity:1}]})};
- return {state,prepare(sql){return {bind(){return this;},async all(){return {results:state.status==='pending'?[state.job]:[]}},async first(){if(sql.includes('FROM holiday_orders'))return {paid:paid?1:0,status:paid?'collected':'confirmed'};if(sql.includes('FROM holiday_invoices'))return invoice;return {attempts:1};},async run(){if(sql.includes("state='processing'"))state.status='processing';else if(sql.includes("state='cancelled'"))state.status='cancelled';else if(sql.includes("state='sent'"))state.status='sent';else state.status='pending';return {meta:{changes:1}};}};}};
+ return {state,prepare(sql){return {bind(){return this;},async all(){return {results:state.status==='pending'?[state.job]:[]}},async first(){if(sql.includes('FROM holiday_orders'))return {paid:paid?1:0,status:paid?'collected':'confirmed'};if(sql.includes('FROM holiday_invoices'))return invoice;return {attempts:1};},async run(){if(sql.startsWith('INSERT OR IGNORE'))return {meta:{changes:0}};if(sql.includes("state='processing'"))state.status='processing';else if(sql.includes("state='cancelled'"))state.status='cancelled';else if(sql.includes("state='sent'"))state.status='sent';else state.status='pending';return {meta:{changes:1}};}};}};
 }
 test('facture e-mail : modèle du CRM, tableau, filigrane, coordonnées bancaires et état acquitté',()=>{
  const snapshot={firstName:'Client',name:'Exemple',email:'client@example.com',phone:'0600000000',pickup:'2026-12-24',payment:'cash',total:5900,items:['Tartelette périgourdine','Truite de Borrèze en gravlax','Suprême de volaille farcie','Lotte à l’américaine','Royal chocolat','Entremets ananas et yuzu du potager'].map((name,i)=>({name,quantity:1,price:[1000,900,1400,1500,550,550][i]}))};
@@ -43,4 +43,17 @@ test('contrôle réel isolé : facture fictive sans commande ni facture comptabl
 test('e-mails programmés : aucune lecture de données ni transmission avant ouverture',async()=>{
  const result=await drainMail({HOLIDAY_MAIL_ENABLED:'true',HOLIDAY_LAUNCH_AT:'2026-11-13T23:59:00+01:00'},()=>{throw Error('Envoi prématuré');},Date.parse('2026-11-13T22:58:59.999Z'));
  assert.deepEqual(result,{disabled:true});
+});
+
+test('confirmation client envoyée une seule fois, sans pièce jointe ni alerte marchand',async()=>{
+ const db=fakeMailDb(false);db.state.job={event_key:'confirmation:test',kind:'confirmation',order_id:'test',attempts:0};
+ const base=db.prepare.bind(db);let reconciled=false;
+ db.prepare=sql=>{const statement=base(sql);
+  if(sql.startsWith('INSERT OR IGNORE')){assert.match(sql,/json_extract\(payload,'\$\.source'\)='website'/);reconciled=true;}
+  if(sql.includes('FROM holiday_orders'))statement.first=async()=>({status:'confirmed',paid:0,payload:JSON.stringify({email:'client@example.com',firstName:'Client',pickup:'2026-12-24',payment:'cheque',total:1500,items:[{name:'Lotte à l’américaine',price:1500,quantity:1}]})});
+  return statement;
+ };
+ let sent=0;const env={HOLIDAY_MAIL_ENABLED:'true',HOLIDAY_DB:db,RESEND_API_KEY:'test-only',HOLIDAY_MAIL_FROM:'test@example.com',HOLIDAY_MAIL_TO:'merchant@example.com'};
+ const send=async(_url,options)=>{sent++;const body=JSON.parse(options.body);assert.deepEqual(body.to,['client@example.com']);assert.equal(options.headers['Idempotency-Key'],'confirmation:test');assert.match(body.subject,/confirmée/);assert.equal(body.attachments,undefined);return Response.json({id:'confirmation-provider'});};
+ await drainMail(env,send);await drainMail(env,send);assert.equal(sent,1);assert.equal(db.state.status,'sent');assert.ok(reconciled);
 });
