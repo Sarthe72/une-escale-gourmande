@@ -1,3 +1,4 @@
+import {holidayReference} from '../src/lib/holidayReference.js';
 import {holidayInvoicePdf,pdfBase64} from '../src/lib/holidayInvoicePdf.js';
 import {scheduledFlag} from '../src/lib/holidaySchedule.js';
 import {confirmationMessage} from '../src/lib/holidayConfirmation.js';
@@ -28,7 +29,7 @@ export async function drainMail(env,send=fetch,now=Date.now()) {
     await db.prepare("UPDATE holiday_mail SET state='cancelled' WHERE event_key=?").bind(job.event_key).run();continue;
    }
    if(job.kind==='confirmation')message=confirmationMessage(job.order_id,JSON.parse(orderRow.payload));
-   else if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${job.order_id}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
+   else if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${holidayReference(job.order_id)}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
    else{
     const invoice=await db.prepare('SELECT * FROM holiday_invoices WHERE order_id=?').bind(job.order_id).first();
     if(!invoice?.number)throw Error('Invoice not ready');

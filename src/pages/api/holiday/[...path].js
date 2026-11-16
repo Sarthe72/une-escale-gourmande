@@ -1,3 +1,4 @@
+import {holidayReference} from '../../../lib/holidayReference.js';
 import { env } from 'cloudflare:workers';
 import { dishes, pickups, validateOrder } from '../../../lib/holidayOrders.js';
 import {invoiceFromRow} from '../../../lib/holidayInvoices.js';
@@ -79,7 +80,7 @@ export async function ALL({ request, params }) {
       await db.prepare('INSERT INTO holiday_orders(id,request_key,fingerprint,created_at,pickup,payload,updated_at) VALUES (?,?,?,?,?,?,?) ON CONFLICT(request_key) DO NOTHING').bind(id, key, fingerprint, now, order.pickup, JSON.stringify(order), now).run();
       const saved = await db.prepare('SELECT id,fingerprint FROM holiday_orders WHERE request_key=?').bind(key).first();
       if (saved.fingerprint !== fingerprint) return reply({ error: 'Cette demande a déjà été utilisée. Recommencez.' }, 409);
-      return reply({ id: saved.id, total: order.total, status: 'confirmed' }, 201);
+      return reply({ id: saved.id, reference:holidayReference(saved.id), total: order.total, status: 'confirmed' }, 201);
     }
     const token = request.headers.get('Authorization')?.replace(/^Bearer /, '') || '';
     const session = token && await db.prepare('SELECT expires FROM holiday_sessions WHERE token_hash=?').bind(await hash(token)).first();
@@ -89,7 +90,7 @@ export async function ALL({ request, params }) {
     if (route === 'orders' && request.method === 'GET') {
       const rows = await db.prepare("SELECT o.*,i.sequence AS invoice_sequence,(SELECT state FROM holiday_mail m WHERE m.event_key='invoice:'||o.id) AS invoice_mail_status FROM holiday_orders o LEFT JOIN holiday_invoices i ON i.order_id=o.id ORDER BY o.pickup,o.created_at LIMIT 1001").all();
       if (rows.results.length > 1000) return reply({ error: 'Volume trop important : export nécessaire.' }, 409);
-      return reply({ orders: rows.results.map(r => ({ ...JSON.parse(r.payload), id: r.id, createdAt: r.created_at, status: r.status, paid: !!r.paid, version: r.version,paidAt:r.paid_at,collectedAt:r.collected_at,invoiceMailStatus:r.invoice_mail_status||null,invoiceId:r.invoice_sequence?`holiday-invoice-${r.invoice_sequence}`:undefined })) });
+      return reply({ orders: rows.results.map(r => ({ ...JSON.parse(r.payload), id: r.id, reference:holidayReference(r.id), createdAt: r.created_at, status: r.status, paid: !!r.paid, version: r.version,paidAt:r.paid_at,collectedAt:r.collected_at,invoiceMailStatus:r.invoice_mail_status||null,invoiceId:r.invoice_sequence?`holiday-invoice-${r.invoice_sequence}`:undefined })) });
     }
     if(route==='invoices' && request.method==='GET') {
       const rows=await db.prepare('SELECT i.*,o.paid,o.paid_at FROM holiday_invoices i JOIN holiday_orders o ON o.id=i.order_id ORDER BY i.sequence DESC LIMIT 1001').all();
