@@ -6,12 +6,17 @@
 </div>
 <style>
  #holiday-menu-invitation[hidden]{display:none}
- .holiday-menu-banner{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);z-index:15;display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1000px,calc(100% - 48px));padding:24px 30px;background:linear-gradient(110deg,#fff9edfa,#eee3cefa);border:1px solid #d6b370a6;color:#234333;box-shadow:0 10px 35px #0003;text-decoration:none}
- .holiday-menu-banner p{font:10px system-ui;letter-spacing:.14em;text-transform:uppercase;color:#96743f;margin-bottom:8px}
- .holiday-menu-banner h2{font:30px/1.15 Georgia,serif}.holiday-menu-banner em{color:#95713b}
- .holiday-menu-banner span{padding:15px 20px;background:#2d5c45;color:#fff5df;font:11px system-ui;text-transform:uppercase;white-space:nowrap}
+ .holiday-menu-banner{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);z-index:15;isolation:isolate;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1000px,calc(100% - 48px));min-height:170px;padding:36px 48px;background:linear-gradient(90deg,#071d15aa,#071d15c9 34%,#071d1570),url('/fetes/christmas-hero.webp') center 19%/cover;border:1px solid #d6b370;color:#fff4dd;box-shadow:0 12px 40px #0006;text-decoration:none}
+ .holiday-menu-banner:before{content:'';position:absolute;inset:8px;border:1px solid #e5c98b66;pointer-events:none}
+ .holiday-menu-banner:after{content:'✦';position:absolute;right:30%;top:20px;color:#ffdf9d;font-size:19px;text-shadow:0 0 14px #ffd57b,220px 115px 12px #ffd57b,-270px 105px 10px #ffd57b;pointer-events:none}
+ .holiday-menu-banner>div{position:relative;text-shadow:0 2px 12px #000}
+ .holiday-menu-banner p{font:10px system-ui;letter-spacing:.14em;text-transform:uppercase;color:#ecd09c;margin:0 0 10px}
+ .holiday-menu-banner h2{font:30px/1.15 Georgia,serif;margin:0}.holiday-menu-banner em{color:#edc982}
+ .holiday-menu-banner span{position:relative;padding:16px 22px;background:linear-gradient(120deg,#7b2839,#521b27);border:1px solid #d1ac6e;color:#fff3d8;font:11px system-ui;text-transform:uppercase;white-space:nowrap;box-shadow:0 3px 20px #0004}
+ .holiday-menu-banner:hover span{background:#853247}
+
  :global(.holiday-home-hero.has-holiday-menu){min-height:780px;padding-bottom:170px}
- @media(max-width:620px){.holiday-menu-banner{display:block;text-align:center;padding:20px;width:calc(100% - 32px)}.holiday-menu-banner h2{font-size:26px;margin-bottom:20px}.holiday-menu-banner span{display:inline-block;font-size:10px}:global(.holiday-home-hero.has-holiday-menu){min-height:790px;padding-bottom:245px}:global(.holiday-home-hero.has-holiday-menu .holiday-home-copy>img){height:140px;margin-bottom:18px}}
+ @media(max-width:620px){.holiday-menu-banner{display:block;text-align:center;padding:32px 24px 26px;min-height:220px;background-position:center top;width:calc(100% - 32px)}.holiday-menu-banner h2{font-size:26px;margin-bottom:20px}.holiday-menu-banner span{display:inline-block;font-size:10px}:global(.holiday-home-hero.has-holiday-menu){min-height:815px;padding-bottom:270px}:global(.holiday-home-hero.has-holiday-menu .holiday-home-copy>img){height:140px;margin-bottom:18px}}
 </style>
 <script>
  import {holidayCatalog} from '../lib/holidayCatalogClient';
