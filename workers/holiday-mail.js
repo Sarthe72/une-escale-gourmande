@@ -24,18 +24,18 @@ export async function drainMail(env,send=fetch,now=Date.now()) {
     const pdf=holidayInvoicePdf({test:true,number:'TEST-SANS-VALEUR',order_id:job.order_id,issued_at:new Date(now).toISOString(),snapshot:JSON.stringify(fixture)});
     message={to:[check.to],subject:'TEST · Facture fictive · Une Escale Gourmande',text:'Test technique demandé pour vérifier la réception des factures. Le PDF joint est fictif et sans valeur comptable. Aucune commande ni facture réelle n’a été créée.',attachments:[{filename:'TEST-facture-sans-valeur-comptable.pdf',content:pdfBase64(pdf)}]};
    }else{
-   const orderRow=await db.prepare('SELECT * FROM holiday_orders WHERE id=?').bind(job.order_id).first();
+   const orderRow=await db.prepare('SELECT o.*,(SELECT sequence FROM holiday_order_references WHERE order_id=o.id) AS order_sequence FROM holiday_orders o WHERE id=?').bind(job.order_id).first();
    if(!orderRow||job.kind==='confirmation'&&orderRow.status==='cancelled'||job.kind==='invoice'&&(!orderRow.paid||orderRow.status!=='collected')){
     await db.prepare("UPDATE holiday_mail SET state='cancelled' WHERE event_key=?").bind(job.event_key).run();continue;
    }
-   if(job.kind==='confirmation')message=confirmationMessage(job.order_id,JSON.parse(orderRow.payload));
-   else if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${holidayReference(job.order_id)}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
+   if(job.kind==='confirmation')message=confirmationMessage(job.order_id,JSON.parse(orderRow.payload),orderRow.order_sequence);
+   else if(job.kind==='order')message={to:[env.HOLIDAY_MAIL_TO],subject:'Nouvelle commande de fêtes · Une Escale Gourmande',text:`Une nouvelle commande a été enregistrée.\nRéférence : ${holidayReference(job.order_id,orderRow.order_sequence)}\nConsultez-la dans Escale Pro : https://sarthe72.github.io/escale-pro/#/commandes`};
    else{
     const invoice=await db.prepare('SELECT * FROM holiday_invoices WHERE order_id=?').bind(job.order_id).first();
     if(!invoice?.number)throw Error('Invoice not ready');
     const order=JSON.parse(invoice.snapshot);
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(order.email))throw Error('Invoice email missing');
-    message={to:[order.email],subject:`Votre facture ${invoice.number} · Une Escale Gourmande`,text:`Bonjour,\n\nVeuillez trouver votre facture acquittée en pièce jointe.\nMerci pour votre commande.\n\nUne Escale Gourmande\n06 25 14 26 08`,attachments:[{filename:invoice.number+'.pdf',content:pdfBase64(holidayInvoicePdf(invoice))}]};
+    message={to:[order.email],subject:`Votre facture ${invoice.number} · Une Escale Gourmande`,text:`Bonjour,\n\nVeuillez trouver votre facture acquittée en pièce jointe.\nMerci pour votre commande.\n\nUne Escale Gourmande\n06 25 14 26 08`,attachments:[{filename:invoice.number+'.pdf',content:pdfBase64(holidayInvoicePdf({...invoice,order_sequence:orderRow.order_sequence}))}]};
    }
    }
    // Hard cap on attempts, including failures: no uncontrolled usage beyond free plan.

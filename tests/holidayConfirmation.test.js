@@ -7,6 +7,13 @@ test('confirmation client : destinataire, plats, total, retrait et paiement sans
  assert.deepEqual(message.to,['client@example.com']);
  for(const text of ['reference-test','2 × Lotte','59,00','24 décembre · 14 h–18 h','Chèque','Deux sacs','5 place du Vieux Pont'])assert.ok(message.text.includes(text),text);
  assert.equal(message.attachments,undefined);
+ assert.match(message.html,/logo-email\.png/);
+});
+test('logo et contenu HTML échappé, référence séquentielle',()=>{
+ const message=confirmationMessage('test',{...order,firstName:'<script>test</script>'},1);
+ assert.match(message.html,/NOEL-0026/);
+ assert.ok(message.html.includes('&lt;script&gt;test&lt;/script&gt;'));
+ assert.ok(!message.html.includes('<script>'));
 });
 test('confirmation invalide refusée',()=>{
  assert.throws(()=>confirmationMessage('test',{...order,email:'invalide'}));
