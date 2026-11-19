@@ -5,4 +5,3 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.sparkles i{animation:none}.hero .button{transition:none}}
 .dish-photo{display:block;width:100%;max-width:310px;height:200px;object-fit:cover;object-position:center 49%;margin:0 0 20px;border:1px solid #b79860}.pending-fish{font:12px/1.6 system-ui;color:#8b6935;display:inline-block;padding-top:5px}dialog{max-height:90vh;overflow:auto}dialog label{font-size:13px;display:block;margin:14px 0 6px}dialog select{width:100%;padding:11px;font:inherit;border:1px solid #a99b7c;background:#fffaf0;color:#243d31}dialog button{margin-top:14px;font-size:12px}dialog button:disabled{opacity:.5;cursor:not-allowed}.demo a{color:#e7c78a;margin-left:8px}
 
-.dish-photo-portrait{height:auto;aspect-ratio:3/4;object-fit:contain}
